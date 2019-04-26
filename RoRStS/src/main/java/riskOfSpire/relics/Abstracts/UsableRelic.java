@@ -259,6 +259,7 @@ public abstract class UsableRelic extends AbstractRelic {
     }
 
     public void onRelicGet(AbstractRelic r) {
+        updateDescriptionWhenNeeded();
     }
 
     private static float START_X = 64.0F * Settings.scale;
