@@ -26,6 +26,7 @@ import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Uncommon.Infusion;
+import riskOfSpire.relics.Uncommon.MonsterTooth;
 import riskOfSpire.relics.Usable.RadarScanner;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.TextureLoader;
@@ -42,7 +43,8 @@ public class RiskOfSpire implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         RelicGetSubscriber,
-        PostInitializeSubscriber {
+        PostInitializeSubscriber,
+        PostDungeonInitializeSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     private static String modID;
 
@@ -195,6 +197,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
         BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
+        BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
 
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
 
@@ -245,6 +248,11 @@ public class RiskOfSpire implements
                 BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
         }
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        //TODO: Remove allRoR relics from the normal pools and maybe add them to the special pools here (or do that earlier, idk)
     }
 
     public static String assetPath(String path)
