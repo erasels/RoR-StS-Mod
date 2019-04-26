@@ -11,7 +11,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class BundleOfFireworks extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BundleOfFireworks");
-    private static final int DAMAGE_PER = 3;
+    private static final int DAMAGE_PER = 1;
     private static final int DAMAGE_COUNT = 4;
 
     public BundleOfFireworks() {
@@ -21,6 +21,12 @@ public class BundleOfFireworks extends StackableRelic {
 
     @Override
     public void onChestOpen(boolean bossChest) {
+        this.flash();
+        this.counter += DAMAGE_COUNT * relicStack;
+    }
+
+    @Override
+    public void onRelicGet(AbstractRelic r){
         this.flash();
         this.counter += DAMAGE_COUNT * relicStack;
     }
@@ -45,7 +51,7 @@ public class BundleOfFireworks extends StackableRelic {
     public String getUpdatedDescription() {
         //Whenever you open a chest, deal 3 damage to a random enemy x times at the start of the next combat.
         //I think displaying final amount is good for this one.
-        return DESCRIPTIONS[0] + DAMAGE_PER + DESCRIPTIONS[1] + DAMAGE_COUNT * relicStack + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + DAMAGE_PER + DESCRIPTIONS[1] + DAMAGE_COUNT * relicStack + DESCRIPTIONS[2];
     }
 
     public AbstractRelic makeCopy() {
