@@ -24,11 +24,14 @@ import org.apache.logging.log4j.Logger;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.relics.Common.BundleOfFireworks;
+import riskOfSpire.relics.Common.BustlingFungus;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Uncommon.AtGMissileMk1;
+import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
 import riskOfSpire.relics.Uncommon.Infusion;
 import riskOfSpire.relics.Uncommon.MonsterTooth;
+import riskOfSpire.relics.Usable.DisposableMissileLauncher;
 import riskOfSpire.relics.Usable.EffigyOfGrief;
 import riskOfSpire.relics.Usable.RadarScanner;
 import riskOfSpire.util.IDCheckDontTouchPls;
@@ -203,10 +206,13 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
         BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
         BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
+        BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
+        BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
 
         //Useableds
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
+        BaseMod.addRelic(new DisposableMissileLauncher(), RelicType.SHARED);
 
         //Normals
 
