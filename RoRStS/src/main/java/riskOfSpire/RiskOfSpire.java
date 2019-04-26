@@ -289,10 +289,5 @@ public class RiskOfSpire implements
                 ((UsableRelic)r).onRelicGet(rel);
             }
         }
-
-        if (UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null)
-        {
-            UsableRelicSlot.usableRelic.get(AbstractDungeon.player).onRelicGet();
-        }
     }
 }
