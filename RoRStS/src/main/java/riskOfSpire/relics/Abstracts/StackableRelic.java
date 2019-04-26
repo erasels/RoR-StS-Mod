@@ -42,8 +42,6 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         outlineImg = outline;
     }
 
-    //TODO: Implement dynamic and easy description changing
-
     //TODO: Write own Patch taht prevents the getting of new relics (Will still trigger onEquip, kill me)
     public void onRelicGet(AbstractRelic r) {
         if(AbstractDungeon.player.hasRelic(r.relicId)) {
@@ -75,6 +73,10 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
     @Override
     public void onLoad(Integer integer) {
-        relicStack = integer;
+        if(integer != null) {
+            relicStack = integer;
+        } else {
+            relicStack = START_CHARGE;
+        }
     }
 }
