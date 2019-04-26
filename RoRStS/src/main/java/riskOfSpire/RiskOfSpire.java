@@ -22,9 +22,11 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
+import riskOfSpire.relics.Uncommon.AtGMissileMk1;
 import riskOfSpire.relics.Uncommon.Infusion;
 import riskOfSpire.relics.Uncommon.MonsterTooth;
 import riskOfSpire.relics.Usable.EffigyOfGrief;
@@ -194,14 +196,19 @@ public class RiskOfSpire implements
     public void receiveEditRelics() {
         logger.info("Adding relics");
 
+        //Stackables
         BaseMod.addRelic(new Infusion(), RelicType.SHARED);
         BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
         BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
         BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
+        BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
 
+        //Useableds
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
+
+        //Normals
 
         logger.info("Done adding relics!");
     }
@@ -271,6 +278,8 @@ public class RiskOfSpire implements
         for (AbstractRelic r : AbstractDungeon.player.relics) {
             if (r instanceof StackableRelic) {
                 ((StackableRelic)r).onRelicGet(rel);
+            } else if(r instanceof UsableRelic) {
+                ((UsableRelic)r).onRelicGet(rel);
             }
         }
     }
