@@ -31,6 +31,6 @@ public class MonsterTooth extends StackableRelic {
     }
 
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + HEAL + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + HEAL*2 + DESCRIPTIONS[1];
     }
 }

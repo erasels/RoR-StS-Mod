@@ -20,7 +20,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Whenever you kill a non-Minion enemy heal for ",
-      " HP per stack."
+      " HP."
     ]
   }
 }
