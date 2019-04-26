@@ -1,4 +1,11 @@
 {
+  "riskOfSpire:UsableRelic": {
+    "NAME": "Usable",
+    "FLAVOR": "N/A",
+    "DESCRIPTIONS": [
+      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the end of each turn. You may only have one usable relic at a time. Upon picking up a new usable relic, any previously held will be lost #rforever. "
+    ]
+  },
   "riskOfSpire:Infusion": {
     "NAME": "Infusion",
     "FLAVOR": "TODO",
@@ -13,6 +20,13 @@
     "DESCRIPTIONS": [
       "Every #b",
       " [REMOVE_SPACE]th #yAttack you play is played twice."
+    ]
+  },
+  "riskOfSpire:RadarScanner": {
+    "NAME": "Radar Scanner",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Put a card from your draw pile into your hand. NL Cooldown: 5 turns."
     ]
   },
   "riskOfSpire:BundleOfFireworks": {
