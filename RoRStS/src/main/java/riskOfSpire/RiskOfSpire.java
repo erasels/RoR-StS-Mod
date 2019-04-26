@@ -13,11 +13,14 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.TextureLoader;
 
@@ -32,6 +35,7 @@ public class RiskOfSpire implements
         EditRelicsSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
+        RelicGetSubscriber,
         PostInitializeSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     private static String modID;
@@ -233,7 +237,21 @@ public class RiskOfSpire implements
         }
     }
 
+    public static String assetPath(String path)
+    {
+        return getModID() + "Resources/" + path;
+    }
+
     public static String makeID(String idText) {
         return getModID() + ":" + idText;
+    }
+
+    @Override
+    public void receiveRelicGet(AbstractRelic rel) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic)r).onRelicGet(rel);
+            }
+        }
     }
 }
