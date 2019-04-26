@@ -58,7 +58,7 @@
     "NAME": "Monster Tooth",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you kill a non-Minion enemy heal for ",
+      "Whenever you kill a non-Minion enemy heal for #b",
       " HP."
     ]
   },
@@ -68,6 +68,14 @@
     "DESCRIPTIONS": [
       "Whenever you gain Dexterity, also gain ",
       " RoRStS:Blur."
+    ]
+  },
+  "riskOfSpire:AtGMissileMk1": {
+    "NAME": "AtG Missile Mk. 1",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you play a card, deal #b",
+      " damage to a random enemy."
     ]
   }
 }
