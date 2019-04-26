@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.SlowPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
-import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.UsableRelic;
@@ -20,6 +19,11 @@ public class EffigyOfGrief extends UsableRelic {
         super(ID, "RadarScanner.png", RelicTier.SPECIAL, LandingSound.FLAT);
 
         setCounter(-2);
+    }
+
+    @Override
+    public boolean isUsable() {
+        return false;
     }
 
     @Override

@@ -21,6 +21,11 @@ public class RadarScanner extends UsableRelic {
     }
 
     @Override
+    public boolean isUsable() {
+        return true;
+    }
+
+    @Override
     public int getBaseCooldown() {
         return COOLDOWN;
     }

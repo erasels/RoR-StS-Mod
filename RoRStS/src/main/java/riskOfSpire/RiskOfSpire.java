@@ -25,8 +25,10 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
+import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
 import riskOfSpire.relics.Uncommon.Infusion;
 import riskOfSpire.relics.Uncommon.MonsterTooth;
+import riskOfSpire.relics.Usable.DisposableMissileLauncher;
 import riskOfSpire.relics.Usable.EffigyOfGrief;
 import riskOfSpire.relics.Usable.RadarScanner;
 import riskOfSpire.util.IDCheckDontTouchPls;
@@ -199,9 +201,11 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
         BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
+        BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
 
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
+        BaseMod.addRelic(new DisposableMissileLauncher(), RelicType.SHARED);
 
         logger.info("Done adding relics!");
     }
