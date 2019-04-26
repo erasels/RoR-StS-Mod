@@ -151,7 +151,7 @@ public abstract class UsableRelic extends AbstractRelic {
             this.hb.clickStarted = false;
         }
 
-        if (this.counter == 0 && HitboxRightClick.rightClicked.get(this.hb))
+        if (HitboxRightClick.rightClicked.get(this.hb))
         {
             onRightClick();
             if (AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT)

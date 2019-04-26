@@ -27,10 +27,13 @@ public class RadarScanner extends UsableRelic {
 
     @Override
     public void onRightClickInCombat() {
-        this.flash();
-        AbstractDungeon.actionManager.addToBottom(new SeekAction(ADD));
-        this.activateCooldown();
-        this.stopPulse();
+        if (this.counter == 0)
+        {
+            this.flash();
+            AbstractDungeon.actionManager.addToBottom(new SeekAction(ADD));
+            this.activateCooldown();
+            this.stopPulse();
+        }
     }
 
     @Override
