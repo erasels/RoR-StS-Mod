@@ -19,6 +19,8 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RelicOffsetXPatch;
 
+import java.util.ArrayList;
+
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
     public int relicStack = START_CHARGE;
@@ -86,9 +88,13 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
     private void updateDescriptionOnStack() {
         this.description = this.getUpdatedDescription();
+        ArrayList<PowerTip> tmp = new ArrayList<>();
+        this.tips.forEach(pT -> {if(!pT.header.equals(this.name)) tmp.add(pT);});
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
+        this.tips.addAll(tmp);
         this.initializeTips();
+        flash();
     }
 
     public void onRelicGet(AbstractRelic r) { }
