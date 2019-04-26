@@ -22,6 +22,8 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.relics.Common.BundleOfFireworks;
+import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Uncommon.Infusion;
 import riskOfSpire.util.IDCheckDontTouchPls;
@@ -48,7 +50,7 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
 
     private static final String MODNAME = "Risk Of Spire";
-    private static final String AUTHOR = "erasels / Kio / Amethyst";
+    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
 
     public static final Color PLACEHOLDER_POTION_LIQUID = CardHelper.getColor(209.0f, 53.0f, 18.0f); // Orange-ish Red
@@ -189,6 +191,8 @@ public class RiskOfSpire implements
         logger.info("Adding relics");
         BaseMod.addRelic(new Infusion(), RelicType.SHARED);
         BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
+        BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
+        BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
 
         logger.info("Done adding relics!");
     }
