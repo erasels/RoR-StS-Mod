@@ -106,6 +106,11 @@ public abstract class UsableRelic extends AbstractRelic {
         setCounter(getFinalCooldown());
     }
 
+    public void onRelicGet()
+    {
+        updateDescriptionWhenNeeded();
+    }
+
     @Override
     public void setCounter(int counter) {
         super.setCounter(counter);
