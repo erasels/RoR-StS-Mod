@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DoubleTapPower;
 import com.megacrit.cardcrawl.powers.RegenPower;
@@ -23,6 +24,19 @@ public class SoldiersSyringe extends StackableRelic {
     }
 
     @Override
+    public String getUpdatedDescription() {
+        return DESCRIPTIONS[0] + (CARD_AMT - relicStack) + DESCRIPTIONS[1];
+    }
+
+    @Override
+    public void onStack() {
+        super.onStack();
+        this.tips.clear();
+        this.tips.add(new PowerTip(this.name, getUpdatedDescription()));
+        this.initializeTips();
+    }
+
+    @Override
     public void onUseCard(AbstractCard c, UseCardAction uac) {
         if (c.type == CardType.ATTACK) {
             flash();
@@ -37,11 +51,6 @@ public class SoldiersSyringe extends StackableRelic {
                 flash();
             }
         }
-    }
-
-    @Override
-    public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + (CARD_AMT - relicStack) + DESCRIPTIONS[1];
     }
 
     @Override
