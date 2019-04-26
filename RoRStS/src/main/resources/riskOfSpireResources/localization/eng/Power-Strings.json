@@ -1,10 +1,8 @@
 {
-"riskOfSpire:CommonPower": {
-        "NAME": "Placeholder Power",
-        "DESCRIPTIONS": ["You applied #b", " keyword.", " keywords."]
-},
-"riskOfSpire:RarePower": {
-        "NAME": "Placeholder Power",
-        "DESCRIPTIONS": ["At the start of your turn, TOUCH #b", " enemy." , " enemies."]
-}
+  "riskOfSpire:DoubleAttack": {
+    "NAME": "Double Attack",
+    "DESCRIPTIONS": [
+      "Your next #yAttack is played twice."
+    ]
+  }
 }

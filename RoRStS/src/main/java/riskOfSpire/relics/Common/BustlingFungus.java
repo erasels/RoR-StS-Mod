@@ -16,7 +16,7 @@ public class BustlingFungus extends StackableRelic {
     private boolean active = false;
 
     public BustlingFungus() {
-        super(ID, "EnergyDrink.png", RelicTier.COMMON, LandingSound.FLAT);
+        super(ID, "BustlingFungus.png", RelicTier.COMMON, LandingSound.FLAT);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class EffigyOfGrief extends UsableRelic {
     private static final int COOLDOWN = 0;
 
     public EffigyOfGrief() {
-        super(ID, "RadarScanner.png", RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, "EffigyOfGrief.png", RelicTier.SPECIAL, LandingSound.FLAT);
 
         setCounter(-2);
     }

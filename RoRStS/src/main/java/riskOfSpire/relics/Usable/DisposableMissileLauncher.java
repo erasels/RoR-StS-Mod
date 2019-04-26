@@ -18,7 +18,7 @@ public class DisposableMissileLauncher extends UsableRelic {
     private static final int COOLDOWN = 15;
 
     public DisposableMissileLauncher() {
-        super(ID, "RadarScanner.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
+        super(ID, "DisposableMissileLauncher.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DisposableMissileLauncher extends UsableRelic {
 
             for (int i = 0; i < MISSILE_COUNT; ++i)
             {
-                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true));
+                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true, true));
             }
 
             this.activateCooldown();
