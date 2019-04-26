@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
+import riskOfSpire.relics.Interfaces.ModifyCooldownRelic;
 
 public abstract class UsableRelic extends AbstractRelic {
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
@@ -52,6 +54,28 @@ public abstract class UsableRelic extends AbstractRelic {
 
         this.counter = 0; //cooldown.
         this.beginLongPulse();
+    }
+
+    public abstract int getBaseCooldown();
+
+    public int getFinalCooldown()
+    {
+        float cooldown = getBaseCooldown();
+        for (AbstractRelic r : AbstractDungeon.player.relics)
+        {
+            if (r instanceof ModifyCooldownRelic)
+            {
+                cooldown = ((ModifyCooldownRelic) r).modifyCooldown(cooldown);
+            }
+        }
+        if (cooldown < 1)
+            return 1;
+        return MathUtils.floor(cooldown);
+    }
+
+    public void activateCooldown()
+    {
+        setCounter(getFinalCooldown());
     }
 
     @Override

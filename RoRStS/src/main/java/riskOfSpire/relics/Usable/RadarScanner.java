@@ -9,6 +9,7 @@ import riskOfSpire.relics.Abstracts.UsableRelic;
 public class RadarScanner extends UsableRelic {
     public static final String ID = RiskOfSpire.makeID("RadarScanner");
     private static final int ADD = 1;
+    private static final int COOLDOWN = 5;
 
     public RadarScanner() {
         super(ID, "RadarScanner.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
@@ -16,14 +17,19 @@ public class RadarScanner extends UsableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0];
+        return DESCRIPTIONS[0] + getFinalCooldown() + DESCRIPTIONS[1];
+    }
+
+    @Override
+    public int getBaseCooldown() {
+        return COOLDOWN;
     }
 
     @Override
     public void onRightClickInCombat() {
         this.flash();
         AbstractDungeon.actionManager.addToBottom(new SeekAction(ADD));
-        this.counter = 5;
+        this.activateCooldown();
         this.stopPulse();
     }
 
