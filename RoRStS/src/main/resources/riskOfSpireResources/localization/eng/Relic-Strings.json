@@ -30,6 +30,13 @@
       " turns."
     ]
   },
+  "riskOfSpire:EffigyOfGrief": {
+    "NAME": "Effigy of Grief",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of your turn, apply #b1 #yVulnerable and #b1 #ySlow to yourself and ALL enemies. NL Toggleable."
+    ]
+  },
   "riskOfSpire:BundleOfFireworks": {
     "NAME": "Bundle of Fireworks",
     "FLAVOR": "TODO",
