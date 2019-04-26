@@ -19,7 +19,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "If you end your turn without playing any attacks, gain #b",
-      " #yTemporary #yHP."
+      " #yTemporary_HP."
     ]
   },
   "riskOfSpire:SoldiersSyringe": {
