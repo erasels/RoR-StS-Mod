@@ -18,7 +18,7 @@ import riskOfSpire.patches.RelicOffsetXPatch;
 
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
-    public int relicStack = 1;
+    public int relicStack = START_CHARGE;
 
     public StackableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -44,16 +44,11 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
     //TODO: Implement dynamic and easy description changing
 
+    //TODO: Write own Patch taht prevents the getting of new relics (Will still trigger onEquip, kill me)
     public void onRelicGet(AbstractRelic r) {
-    }
-
-    private void startingCharges()
-    {
-        setCounter(START_CHARGE);
-    }
-
-    private void manipCharge(int amt) {
-        setCounter(counter + amt);
+        if(AbstractDungeon.player.hasRelic(r.relicId)) {
+            ((StackableRelic)AbstractDungeon.player.getRelic(r.relicId)).relicStack++;
+        }
     }
 
     @Override
@@ -71,5 +66,15 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                 }
             }
         }
+    }
+
+    @Override
+    public Integer onSave() {
+        return relicStack;
+    }
+
+    @Override
+    public void onLoad(Integer integer) {
+        relicStack = integer;
     }
 }
