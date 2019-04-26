@@ -61,11 +61,14 @@ public abstract class UsableRelic extends AbstractRelic {
     public int getFinalCooldown()
     {
         float cooldown = getBaseCooldown();
-        for (AbstractRelic r : AbstractDungeon.player.relics)
+        if (AbstractDungeon.player != null)
         {
-            if (r instanceof ModifyCooldownRelic)
+            for (AbstractRelic r : AbstractDungeon.player.relics)
             {
-                cooldown = ((ModifyCooldownRelic) r).modifyCooldown(cooldown);
+                if (r instanceof ModifyCooldownRelic)
+                {
+                    cooldown = ((ModifyCooldownRelic) r).modifyCooldown(cooldown);
+                }
             }
         }
         if (cooldown < 1)
