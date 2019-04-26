@@ -42,7 +42,11 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
     //TODO: Implement dynamic and easy description changing
 
+    //TODO: Write own Patch taht prevents the getting of new relics
     public void onRelicGet(AbstractRelic r) {
+        if(AbstractDungeon.player.hasRelic(r.relicId)) {
+            ((StackableRelic)AbstractDungeon.player.getRelic(r.relicId)).relicStack++;
+        }
     }
 
     private void startingCharges()
@@ -54,12 +58,11 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         setCounter(counter + amt);
     }
 
-    public void renderRSCounter(SpriteBatch sb, boolean inTopPanel)
+    /*public void renderRSCounter(SpriteBatch sb, boolean inTopPanel)
     {
         if (this.relicStack > -1) {
             if (inTopPanel) {
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont,
-                        BaseMod.
                         Integer.toString(this.relicStack), offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
             } else {
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont,
@@ -67,5 +70,15 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                         Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
             }
         }
+    }*/
+
+    @Override
+    public Integer onSave() {
+        return relicStack;
+    }
+
+    @Override
+    public void onLoad(Integer integer) {
+        relicStack = integer;
     }
 }
