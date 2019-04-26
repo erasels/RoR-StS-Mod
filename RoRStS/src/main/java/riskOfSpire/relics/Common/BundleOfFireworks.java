@@ -11,7 +11,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class BundleOfFireworks extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BundleOfFireworks");
-    private static final int DAMAGE_PER = 1;
+    private static final int DAMAGE_PER = 2;
     private static final int DAMAGE_COUNT = 4;
 
     public BundleOfFireworks() {
