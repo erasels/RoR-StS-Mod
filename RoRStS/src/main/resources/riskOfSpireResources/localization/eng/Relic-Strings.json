@@ -14,5 +14,13 @@
       "Every #b",
       " [REMOVE_SPACE]th #yAttack you play is played twice."
     ]
+  },
+  "riskOfSpire:MonsterTooth": {
+    "NAME": "Monster Tooth",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you kill a non-Minion enemy heal for ",
+      " HP per stack."
+    ]
   }
 }
