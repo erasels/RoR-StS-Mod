@@ -50,8 +50,16 @@
     "NAME": "Monster Tooth",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you kill a non-Minion enemy heal #b",
-      " HP per stack."
-      ]
+      "Whenever you kill a non-Minion enemy heal for ",
+      " HP."
+    ]
+  },
+  "riskOfSpire:WaxQuail": {
+    "NAME": "Wax Quail",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you gain Dexterity, also gain ",
+      " RoRStS:Blur."
+    ]
   }
 }
