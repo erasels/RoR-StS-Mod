@@ -39,5 +39,13 @@
       "Whenever you kill a non-Minion enemy heal for ",
       " HP."
     ]
+  },
+  "riskOfSpire:WaxQuail": {
+    "NAME": "Wax Quail",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you gain Dexterity, also gain ",
+      " Blur[TODO: KEYWORD]."
+    ]
   }
 }
