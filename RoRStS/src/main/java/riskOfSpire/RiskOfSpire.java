@@ -26,6 +26,7 @@ import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Uncommon.Infusion;
+import riskOfSpire.relics.Usable.RadarScanner;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.TextureLoader;
 
@@ -189,10 +190,13 @@ public class RiskOfSpire implements
     @Override
     public void receiveEditRelics() {
         logger.info("Adding relics");
+
         BaseMod.addRelic(new Infusion(), RelicType.SHARED);
         BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
         BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
+
+        BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
 
         logger.info("Done adding relics!");
     }
