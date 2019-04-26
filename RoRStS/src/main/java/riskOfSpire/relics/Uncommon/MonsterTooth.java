@@ -13,7 +13,7 @@ public class MonsterTooth extends StackableRelic {
     private static final int HEAL = 3;
 
     public MonsterTooth() {
-        super(ID, "Infusion.png", RelicTier.UNCOMMON, LandingSound.MAGICAL);
+        super(ID, "MonsterTooth.png", RelicTier.UNCOMMON, LandingSound.CLINK);
     }
 
     @Override
