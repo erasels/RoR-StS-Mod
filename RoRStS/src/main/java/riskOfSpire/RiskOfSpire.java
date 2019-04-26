@@ -41,7 +41,8 @@ public class RiskOfSpire implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         RelicGetSubscriber,
-        PostInitializeSubscriber {
+        PostInitializeSubscriber,
+        PostDungeonInitializeSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     private static String modID;
 
@@ -241,6 +242,11 @@ public class RiskOfSpire implements
                 BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
         }
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        //TODO: Remove allRoR relics from the normal pools and maybe add them to the special pools here (or do that earlier, idk)
     }
 
     public static String assetPath(String path)
