@@ -219,6 +219,8 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(p, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+
+        onRelicGet(this);
     }
 
     @Override
@@ -238,6 +240,8 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+
+        onRelicGet(this);
     }
 
     @Override
@@ -250,6 +254,11 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+
+        onRelicGet(this);
+    }
+
+    public void onRelicGet(AbstractRelic r) {
     }
 
     private static float START_X = 64.0F * Settings.scale;
