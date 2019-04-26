@@ -10,9 +10,11 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.powers.RegenPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.patches.RelicOffsetXPatch;
 
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
@@ -58,19 +60,22 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         setCounter(counter + amt);
     }
 
-    /*public void renderRSCounter(SpriteBatch sb, boolean inTopPanel)
-    {
-        if (this.relicStack > -1) {
+    @Override
+    public void renderCounter(SpriteBatch sb, boolean inTopPanel) {
+        if (this.counter > -1) {
             if (inTopPanel) {
-                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont,
-                        Integer.toString(this.relicStack), offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
+                if (this.relicStack > 0) { //Could also do if >1 but ror always shows amount so whatever
+                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                }
             } else {
-                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont,
-
-                        Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
+                if (this.relicStack > 0) {
+                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                }
             }
         }
-    }*/
+    }
 
     @Override
     public Integer onSave() {
