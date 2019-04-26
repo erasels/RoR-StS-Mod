@@ -14,6 +14,14 @@
       " per stack."
     ]
   },
+  "riskOfSpire:BustlingFungus": {
+    "NAME": "Bustling Fungus",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "If you end your turn without playing any attacks, gain #b",
+      " #yTemporary #yHP."
+    ]
+  },
   "riskOfSpire:SoldiersSyringe": {
     "NAME": "Soldier's Syringe",
     "FLAVOR": "TODO",
@@ -37,11 +45,27 @@
       "At the start of your turn, apply #b1 #yVulnerable and #b1 #ySlow to yourself and ALL enemies. NL Toggleable."
     ]
   },
+  "riskOfSpire:GestureOfTheDrowned": {
+    "NAME": "Gesture of the Drowned",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The cooldown of usable relics is reduced by #b",
+      "% but they are used automatically."
+    ]
+  },
+  "riskOfSpire:DisposableMissileLauncher": {
+    "NAME": "Disposable Missile Launcher",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Damage random enemy a bunch. NL Cooldown: #b",
+      " turns."
+    ]
+  },
   "riskOfSpire:BundleOfFireworks": {
     "NAME": "Bundle of Fireworks",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you open a chest, deal #b",
+      "Whenever you open a chest or obtain a relic, deal #b",
       " damage to a random enemy #b",
       " times at the start of the next combat."
     ]

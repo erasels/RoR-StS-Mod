@@ -23,6 +23,9 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Interfaces.ModifyCooldownRelic;
+import riskOfSpire.relics.Interfaces.MultiplyCooldownRelic;
+
+import java.util.ArrayList;
 
 public abstract class UsableRelic extends AbstractRelic {
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
@@ -56,19 +59,41 @@ public abstract class UsableRelic extends AbstractRelic {
         this.beginLongPulse();
     }
 
-    public abstract int getBaseCooldown();
+    public abstract boolean isUsable(); //Whether or not it has an active effect, or just toggles.
+    public abstract int getBaseCooldown(); //Base cooldown, pre-modifiers.
+
+    public void updateDescriptionWhenNeeded() {
+        this.description = this.getUpdatedDescription();
+        ArrayList<PowerTip> tmp = new ArrayList<>();
+        this.tips.forEach(pT -> {
+            if (!pT.header.equals(this.name)) tmp.add(pT);
+        });
+        this.tips.clear();
+        this.tips.add(new PowerTip(this.name, this.description));
+        this.tips.addAll(tmp);
+        this.initializeTips();
+    }
 
     public int getFinalCooldown()
     {
         float cooldown = getBaseCooldown();
         if (AbstractDungeon.player != null)
         {
+            ArrayList<MultiplyCooldownRelic> multipliers = new ArrayList<>(); //to avoid iterating over ALL relics twice
             for (AbstractRelic r : AbstractDungeon.player.relics)
             {
                 if (r instanceof ModifyCooldownRelic)
                 {
                     cooldown = ((ModifyCooldownRelic) r).modifyCooldown(cooldown);
                 }
+                if (r instanceof MultiplyCooldownRelic)
+                {
+                    multipliers.add((MultiplyCooldownRelic)r);
+                }
+            }
+            for (MultiplyCooldownRelic r : multipliers)
+            {
+                cooldown = r.modifyCooldown(cooldown);
             }
         }
         if (cooldown < 1)

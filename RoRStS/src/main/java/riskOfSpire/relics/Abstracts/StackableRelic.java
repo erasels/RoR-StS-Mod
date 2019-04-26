@@ -54,6 +54,8 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             ((StackableRelic) p.getRelic(this.relicId)).onStack();
             this.isDone = true;
             this.isObtained = true;
+            if (AbstractDungeon.getCurrRoom() != null) //just in case.
+                AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.instantObtain(p, slot, callOnEquip);
             updateDescriptionOnStack();
@@ -66,6 +68,8 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             ((StackableRelic) AbstractDungeon.player.getRelic(this.relicId)).onStack();
             this.isDone = true;
             this.isObtained = true;
+            if (AbstractDungeon.getCurrRoom() != null) //just in case.
+                AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.instantObtain();
             updateDescriptionOnStack();
@@ -78,6 +82,8 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             ((StackableRelic) AbstractDungeon.player.getRelic(this.relicId)).onStack();
             this.isDone = true;
             this.isObtained = true;
+            if (AbstractDungeon.getCurrRoom() != null) //just in case.
+                AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.obtain();
             updateDescriptionOnStack();

@@ -33,18 +33,21 @@ public class BundleOfFireworks extends StackableRelic {
 
     @Override
     public void atBattleStart() {
-        this.flash();
-
-        DamageInfo info = new DamageInfo(AbstractDungeon.player, DAMAGE_PER, DamageInfo.DamageType.THORNS);
-
-        for (int i = 0; i < this.counter; ++i) //Hooray for not having to do recursive action.
+        if (this.counter > 0)
         {
-            //Maybe get really dumb and add an actual firework vfx for each firework, so it can look as dumb as it does in ror?
-            AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE));
-        }
-        AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            this.flash();
 
-        this.counter = 0;
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            DamageInfo info = new DamageInfo(AbstractDungeon.player, DAMAGE_PER, DamageInfo.DamageType.THORNS);
+
+            for (int i = 0; i < this.counter; ++i) //Hooray for not having to do recursive action.
+            {
+                //Maybe get really dumb and add an actual firework vfx for each firework, so it can look as dumb as it does in ror?
+                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true));
+            }
+
+            this.counter = 0;
+        }
     }
 
     @Override
