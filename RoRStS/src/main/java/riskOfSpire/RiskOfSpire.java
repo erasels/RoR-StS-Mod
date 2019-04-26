@@ -3,6 +3,7 @@ package riskOfSpire;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -21,6 +22,8 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.relics.Common.SoldiersSyringe;
+import riskOfSpire.relics.Uncommon.Infusion;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.TextureLoader;
 
@@ -184,9 +187,8 @@ public class RiskOfSpire implements
     @Override
     public void receiveEditRelics() {
         logger.info("Adding relics");
-
-
-
+        BaseMod.addRelic(new Infusion(), RelicType.SHARED);
+        BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
 
         logger.info("Done adding relics!");
     }

@@ -41,23 +41,22 @@ public class SoldiersSyringe extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + ATTACKS_TO_TRIGGER + DESCRIPTIONS[1] + REGEN_AMT + DESCRIPTIONS[2];
+        return DESCRIPTIONS[0] + (CARD_AMT - relicStack) + DESCRIPTIONS[1];
+    }
+
+    @Override
+    public void onVictory() {
+        stopPulse();
     }
 
     public void atBattleStart()
     {
-        if (this.counter == 9)
+        if (this.counter == 1)
         {
-            beginPulse();
-            this.pulse = true;
-            AbstractDungeon.player.hand.refreshHandLayout();
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PenNibPower(AbstractDungeon.player, 1), 1, true));
+            beginLongPulse();
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleTapPower(AbstractDungeon.player, 1), 1, true));
         }
-    }
-
-    public AbstractRelic makeCopy()
-    {
-        return new PenNib();
     }
 
     private void startingCharges() {
@@ -65,16 +64,7 @@ public class SoldiersSyringe extends StackableRelic {
     }
 
     private void manipCharge(int amt) {
-        if (counter < 0) {
-            counter = 0;
-        }
         setCounter(counter + amt);
-
-        if (counter >= CARD_AMT) {
-            flash();
-
-            counter -= CARD_AMT;
-        }
     }
 
     public AbstractRelic makeCopy() {
