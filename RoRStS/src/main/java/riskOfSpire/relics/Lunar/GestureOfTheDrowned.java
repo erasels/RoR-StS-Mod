@@ -11,6 +11,19 @@ public class GestureOfTheDrowned extends StackableRelic implements MultiplyCoold
     public static final String ID = RiskOfSpire.makeID("GestureOfTheDrowned");
     private static final float CD_PER = 0.5f;
 
+    @Override
+    public void onLoad(Integer integer) {
+        if (integer != null) {
+            relicStack = integer;
+            if (UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).isUsable())
+            {
+                UsableRelicSlot.usableRelic.get(AbstractDungeon.player).updateDescriptionWhenNeeded();
+            }
+        } else {
+            relicStack = 1;
+        }
+    }
+
     public GestureOfTheDrowned() {
         super(ID, "BundleOfFireworks.png", RelicTier.SPECIAL, LandingSound.MAGICAL);
     }
