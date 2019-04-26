@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -13,6 +14,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.powers.RegenPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RelicOffsetXPatch;
 
@@ -42,14 +44,45 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         outlineImg = outline;
     }
 
-    //TODO: Implement dynamic and easy description changing
-
     //TODO: Write own Patch taht prevents the getting of new relics (Will still trigger onEquip, kill me)
-    public void onRelicGet(AbstractRelic r) {
-        if(AbstractDungeon.player.hasRelic(r.relicId)) {
-            ((StackableRelic)AbstractDungeon.player.getRelic(r.relicId)).relicStack++;
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        if(p.hasRelic(this.relicId)) {
+            ((StackableRelic)p.getRelic(this.relicId)).onStack();
+            this.isDone = true;
+            this.isObtained = true;
+        } else {
+            super.instantObtain(p, slot, callOnEquip);
         }
     }
+
+    @Override
+    public void instantObtain() {
+        if(AbstractDungeon.player.hasRelic(this.relicId)) {
+            ((StackableRelic)AbstractDungeon.player.getRelic(this.relicId)).onStack();
+            this.isDone = true;
+            this.isObtained = true;
+        } else {
+            super.instantObtain();
+        }
+    }
+
+    @Override
+    public void obtain() {
+        if(AbstractDungeon.player.hasRelic(this.relicId)) {
+            ((StackableRelic)AbstractDungeon.player.getRelic(this.relicId)).onStack();
+            this.isDone = true;
+            this.isObtained = true;
+        } else {
+            super.obtain();
+        }
+    }
+
+    public void onStack() {
+        this.relicStack++;
+    }
+
+    public void onRelicGet(AbstractRelic r) { }
 
     @Override
     public void renderCounter(SpriteBatch sb, boolean inTopPanel) {
@@ -57,12 +90,12 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             if (inTopPanel) {
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
                 if (this.relicStack > 0) { //Could also do if >1 but ror always shows amount so whatever
-                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
                 }
             } else {
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
                 if (this.relicStack > 0) {
-                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 7.0F * Settings.scale, Color.WHITE);
+                    FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
                 }
             }
         }
@@ -75,6 +108,10 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
     @Override
     public void onLoad(Integer integer) {
-        relicStack = integer;
+        if (integer != null) {
+            relicStack = integer;
+        } else {
+            relicStack = START_CHARGE;
+        }
     }
 }
