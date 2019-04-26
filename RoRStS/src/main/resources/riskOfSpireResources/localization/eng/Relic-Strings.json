@@ -31,5 +31,13 @@
       "For the first #b",
       " turns of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:MonsterTooth": {
+    "NAME": "Monster Tooth",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you kill a non-Minion enemy heal #b",
+      " HP per stack."
+      ]
   }
 }
