@@ -14,6 +14,14 @@
       " per stack."
     ]
   },
+  "riskOfSpire:BustlingFungus": {
+    "NAME": "Bustling Fungus",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "If you end your turn without playing any attacks, gain #b",
+      " #yTemporary #yHP."
+    ]
+  },
   "riskOfSpire:SoldiersSyringe": {
     "NAME": "Soldier's Syringe",
     "FLAVOR": "TODO",

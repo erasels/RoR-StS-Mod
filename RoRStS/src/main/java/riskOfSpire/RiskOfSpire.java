@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Common.BundleOfFireworks;
+import riskOfSpire.relics.Common.BustlingFungus;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
@@ -202,6 +203,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
         BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
         BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
+        BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
 
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
