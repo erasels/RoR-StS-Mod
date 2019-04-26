@@ -20,7 +20,7 @@ public class SoldiersSyringe extends StackableRelic {
 
     public SoldiersSyringe() {
         super(ID, "SoldiersSyringe.png", RelicTier.COMMON, LandingSound.CLINK);
-        startingCharges();
+        setCounter(CARD_AMT);
     }
 
     @Override
@@ -31,9 +31,9 @@ public class SoldiersSyringe extends StackableRelic {
     @Override
     public void onStack() {
         super.onStack();
-        this.tips.clear();
-        this.tips.add(new PowerTip(this.name, getUpdatedDescription()));
-        this.initializeTips();
+        if(!(counter<= 1)) {
+            manipCharge(-1);
+        }
     }
 
     @Override
