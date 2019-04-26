@@ -26,6 +26,7 @@ import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.relics.Common.EnergyDrink;
 import riskOfSpire.relics.Common.SoldiersSyringe;
 import riskOfSpire.relics.Uncommon.Infusion;
+import riskOfSpire.relics.Uncommon.MonsterTooth;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.TextureLoader;
 
@@ -194,6 +195,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
         BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
         BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
+        BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
 
         logger.info("Done adding relics!");
     }
