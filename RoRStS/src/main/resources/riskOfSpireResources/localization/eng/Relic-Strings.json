@@ -26,7 +26,8 @@
     "NAME": "Radar Scanner",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Put a card from your draw pile into your hand. NL Cooldown: 5 turns."
+      "Put a card from your draw pile into your hand. NL Cooldown: #b",
+      " turns."
     ]
   },
   "riskOfSpire:BundleOfFireworks": {
