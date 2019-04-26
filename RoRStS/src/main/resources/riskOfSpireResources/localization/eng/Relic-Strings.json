@@ -1,4 +1,11 @@
 {
+  "riskOfSpire:UsableRelic": {
+    "NAME": "Usable",
+    "FLAVOR": "N/A",
+    "DESCRIPTIONS": [
+      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the end of each turn. You may only have one usable relic at a time. Upon picking up a new usable relic, any previously held will be lost #rforever. "
+    ]
+  },
   "riskOfSpire:Infusion": {
     "NAME": "Infusion",
     "FLAVOR": "TODO",
@@ -22,11 +29,29 @@
       "Put a card from your draw pile into your hand. NL Cooldown: 5 turns."
     ]
   },
-  "riskOfSpire:UsableRelic": {
-    "NAME": "Usable",
-    "FLAVOR": "N/A",
+  "riskOfSpire:BundleOfFireworks": {
+    "NAME": "Bundle of Fireworks",
+    "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the end of each turn. You may only have one usable relic at a time. Upon picking up a new usable relic, any previously held will be lost #rforever. "
+      "Whenever you open a chest, deal #b",
+      " damage to a random enemy #b",
+      " times at the start of the next combat."
     ]
+  },
+  "riskOfSpire:EnergyDrink": {
+    "NAME": "Energy Drink",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "For the first #b",
+      " turns of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:MonsterTooth": {
+    "NAME": "Monster Tooth",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you kill a non-Minion enemy heal #b",
+      " HP per stack."
+      ]
   }
 }
