@@ -93,7 +93,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
     public void onStack() {
         this.relicStack++;
         updateDescriptionOnStack();
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     private void updateDescriptionOnStack() {
@@ -110,6 +110,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
     }
 
     public void onRelicGet(AbstractRelic r) {
+    }
+
+    public void notifyRelicGet() {
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic)r).onRelicGet(this);
+            } else if(r instanceof UsableRelic) {
+                ((UsableRelic)r).onRelicGet(this);
+            }
+        }
     }
 
     @Override

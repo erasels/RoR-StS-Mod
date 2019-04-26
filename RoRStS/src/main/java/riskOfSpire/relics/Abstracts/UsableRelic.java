@@ -220,7 +220,7 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     @Override
@@ -241,7 +241,7 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     @Override
@@ -255,11 +255,21 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     public void onRelicGet(AbstractRelic r) {
         updateDescriptionWhenNeeded();
+    }
+
+    public void notifyRelicGet() {
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic)r).onRelicGet(this);
+            } else if(r instanceof UsableRelic) {
+                ((UsableRelic)r).onRelicGet(this);
+            }
+        }
     }
 
     private static float START_X = 64.0F * Settings.scale;
