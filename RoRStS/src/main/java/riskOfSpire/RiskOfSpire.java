@@ -62,12 +62,8 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
 
     private static final String MODNAME = "Risk Of Spire";
-    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst";
+    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
-
-    public static final Color PLACEHOLDER_POTION_LIQUID = CardHelper.getColor(209.0f, 53.0f, 18.0f); // Orange-ish Red
-    public static final Color PLACEHOLDER_POTION_HYBRID = CardHelper.getColor(255.0f, 230.0f, 230.0f); // Near White
-    public static final Color PLACEHOLDER_POTION_SPOTS = CardHelper.getColor(100.0f, 25.0f, 10.0f); // Super Dark Red/Brown
 
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(),Color.VIOLET.cpy()));
 
@@ -213,8 +209,9 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
         BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
         BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
+        
 
-        //Useableds
+        //Useables
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
         BaseMod.addRelic(new DisposableMissileLauncher(), RelicType.SHARED);
