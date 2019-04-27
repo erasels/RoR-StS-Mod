@@ -157,6 +157,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         } else {
             relicStack = START_CHARGE;
         }
+        updateDescriptionOnStack();
     }
 
     @Override

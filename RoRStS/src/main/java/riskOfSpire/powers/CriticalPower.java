@@ -50,6 +50,10 @@ public class CriticalPower extends RoRStSPower implements CloneablePowerInterfac
         this.description = DESCRIPTIONS[0];
     }
 
+    public static String getDesc() {
+        return DESCRIPTIONS[0];
+    }
+
     @Override
     public AbstractPower makeCopy() {
         return new CriticalPower(owner);

@@ -27,7 +27,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Every #b",
-      " [REMOVE_SPACE]th #yAttack you play is played twice."
+      " #yAttack you play is played twice."
     ]
   },
   "riskOfSpire:RadarScanner": {
@@ -108,6 +108,14 @@
     "DESCRIPTIONS": [
       "Reduce ALL damage taken by #b",
       "."
+    ]
+  },
+  "riskOfSpire:LensMakersGlasses": {
+    "NAME": "Lens-Maker's Glasses",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Every #b",
+      " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
     ]
   }
 }

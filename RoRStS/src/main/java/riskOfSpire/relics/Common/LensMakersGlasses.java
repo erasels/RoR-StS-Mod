@@ -6,10 +6,11 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.CriticalPower;
-import riskOfSpire.powers.DoubleAttackPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.util.StringManipulationUtilities;
 
 public class LensMakersGlasses extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("LensMakersGlasses");
@@ -22,7 +23,7 @@ public class LensMakersGlasses extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + ((CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1) + DESCRIPTIONS[1];
+        return (DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming((CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1) + DESCRIPTIONS[1]);
     }
 
     @Override
