@@ -13,6 +13,7 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
@@ -37,9 +38,11 @@ import riskOfSpire.util.TextureLoader;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Properties;
 
 @SpireInitializer
@@ -59,12 +62,8 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
 
     private static final String MODNAME = "Risk Of Spire";
-    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst";
+    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
-
-    public static final Color PLACEHOLDER_POTION_LIQUID = CardHelper.getColor(209.0f, 53.0f, 18.0f); // Orange-ish Red
-    public static final Color PLACEHOLDER_POTION_HYBRID = CardHelper.getColor(255.0f, 230.0f, 230.0f); // Near White
-    public static final Color PLACEHOLDER_POTION_SPOTS = CardHelper.getColor(100.0f, 25.0f, 10.0f); // Super Dark Red/Brown
 
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(),Color.VIOLET.cpy()));
 
@@ -211,8 +210,9 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
         BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
         BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
+        BaseMod.addRelic(new LensMakersGlasses(), RelicType.SHARED);
 
-        //Useableds
+        //Useables
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
         BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
         BaseMod.addRelic(new DisposableMissileLauncher(), RelicType.SHARED);
@@ -257,7 +257,7 @@ public class RiskOfSpire implements
 
     @Override
     public void receiveEditKeywords() {
-        Gson gson = new Gson();
+        /*Gson gson = new Gson();
         String json = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
         com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json, com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
         
@@ -265,7 +265,20 @@ public class RiskOfSpire implements
             for (Keyword keyword : keywords) {
                 BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
-        }
+        }*/
+
+        Gson gson = new Gson();
+        //String keywordStrings = Gdx.files.internal(assetPath("loc/" + languageSupport() + "/" +"aspiration-KeywordStrings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
+        String keywordStrings = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
+        Type typeToken = new TypeToken<Map<String, Keyword>>() {}.getType();
+
+        Map<String, Keyword> keywords = (Map)gson.fromJson(keywordStrings, typeToken);
+
+        keywords.forEach((k,v)->{
+            // Keyword word = (Keyword)v;
+            logger.info("Adding Keyword - " + v.NAMES[0]);
+            BaseMod.addKeyword((getModID().toLowerCase() + ":"), v.PROPER_NAME, v.NAMES, v.DESCRIPTION);
+        });
     }
 
     @Override

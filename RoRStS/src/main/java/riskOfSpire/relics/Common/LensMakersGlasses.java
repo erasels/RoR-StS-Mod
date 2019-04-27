@@ -5,23 +5,22 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.DoubleAttackPower;
+import riskOfSpire.powers.CriticalPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.StringManipulationUtilities;
 
-public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRelic {
-    public static final String ID = RiskOfSpire.makeID("SoldiersSyringe");
-    private static final int CARD_AMT = 20;
+public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardRelic {
+    public static final String ID = RiskOfSpire.makeID("LensMakersGlasses");
+    private static final int CARD_AMT = 10;
 
-    private boolean fullSpeed  = false;
+    private boolean fullCrit  = false;
 
-    public SoldiersSyringe() {
-        super(ID, "SoldiersSyringe.png", RelicTier.COMMON, LandingSound.CLINK);
+    public LensMakersGlasses() {
+        super(ID, "LensMakersGlasses.png", RelicTier.COMMON, LandingSound.CLINK);
         setCounter(CARD_AMT);
     }
 
@@ -36,23 +35,24 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
         if (!(counter <= 1)) {
             manipCharge(-1);
         } else {
-            if((CARD_AMT - (relicStack - 1)) < 2) {
-                fullSpeed = true;
+            if((CARD_AMT - (relicStack - 1)) <= 1) {
+                fullCrit = true;
             }
         }
     }
 
     @Override
     public void onAfterUseCard(AbstractCard c, UseCardAction uac) {
-        if (c.type == CardType.ATTACK) {
+        if (c.type == AbstractCard.CardType.ATTACK) {
             flash();
             manipCharge(-1);
             if (counter == 1) {
                 beginLongPulse();
                 AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
             } else if (counter <= 0) {
                 startingCharges();
+                stopPulse();
                 flash();
             }
         }
@@ -67,16 +67,17 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
         if (this.counter == 1) {
             beginLongPulse();
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
         }
     }
 
     private void startingCharges() {
-        if (CARD_AMT - (relicStack - 1) >= 1) {
+        if (CARD_AMT - (relicStack - 1) >= 2) {
             setCounter(CARD_AMT - (relicStack - 1));
         } else {
             setCounter(1);
             beginLongPulse();
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
         }
     }
 
@@ -85,6 +86,6 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
     }
 
     public AbstractRelic makeCopy() {
-        return new SoldiersSyringe();
+        return new LensMakersGlasses();
     }
 }

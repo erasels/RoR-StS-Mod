@@ -4,5 +4,11 @@
     "DESCRIPTIONS": [
       "Your next #yAttack is played twice."
     ]
+  },
+  "riskOfSpire:Critical": {
+    "NAME": "Critical",
+    "DESCRIPTIONS": [
+      "Your next #yAttack does double damage."
+    ]
   }
 }
