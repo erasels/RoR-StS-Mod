@@ -1,11 +1,11 @@
 package riskOfSpire.powers.abstracts;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.evacipated.cardcrawl.mod.stslib.powers.abstracts.TwoAmountPower;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 
-public abstract class RoRStSPower extends AbstractPower {
+public abstract class RoRStSTwoAmountPower extends TwoAmountPower {
     /**
      * @param bigImageName - is the name of the 84x84 image for your power.
      * @param smallImageName - is the name of the 32x32 image for your power.
