@@ -211,6 +211,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
         BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
         BaseMod.addRelic(new LensMakersGlasses(), RelicType.SHARED);
+        BaseMod.addRelic(new ArmorPiercingRounds(), RelicType.SHARED);
 
         //Useables
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
@@ -229,7 +230,6 @@ public class RiskOfSpire implements
     
     @Override
     public void receiveEditStrings() {
-        logger.info("You seeing this?");
         logger.info("Beginning to edit strings for mod with ID: " + getModID());
         
         // CardStrings

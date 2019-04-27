@@ -117,5 +117,13 @@
       "Every #b",
       " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:ArmorPiercingRounds": {
+    "NAME": "Armor Piercing Rounds",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "You deal #b",
+      " more attack damage to elites and bosses."
+    ]
   }
 }
