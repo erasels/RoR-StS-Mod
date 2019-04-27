@@ -26,6 +26,7 @@ import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.relics.Common.*;
+import riskOfSpire.relics.Rare.CeremonialDagger;
 import riskOfSpire.relics.Uncommon.AtGMissileMk1;
 import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
 import riskOfSpire.relics.Uncommon.Infusion;
@@ -212,6 +213,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
         BaseMod.addRelic(new LensMakersGlasses(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorPiercingRounds(), RelicType.SHARED);
+        BaseMod.addRelic(new CeremonialDagger(), RelicType.SHARED);
 
         //Useables
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);

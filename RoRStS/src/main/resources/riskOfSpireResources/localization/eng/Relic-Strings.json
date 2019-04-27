@@ -125,5 +125,13 @@
       "You deal #b",
       " more attack damage to elites and bosses."
     ]
+  },
+  "riskOfSpire:CeremonialDagger": {
+    "NAME": "Ceremonial Dagger",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you take unblocked attack damage, deal damage equal to half the damage received back #b",
+      " times."
+    ]
   }
 }
