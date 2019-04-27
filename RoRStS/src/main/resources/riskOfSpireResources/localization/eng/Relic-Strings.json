@@ -101,5 +101,13 @@
       "Whenever you play a card, deal #b",
       " damage to a random enemy."
     ]
+  },
+  "riskOfSpire:TougherTimes": {
+    "NAME": "Tougher Times",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Reduce ALL damage taken by #b",
+      "."
+    ]
   }
 }

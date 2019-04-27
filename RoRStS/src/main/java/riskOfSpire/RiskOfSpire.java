@@ -24,10 +24,7 @@ import org.apache.logging.log4j.Logger;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
-import riskOfSpire.relics.Common.BundleOfFireworks;
-import riskOfSpire.relics.Common.BustlingFungus;
-import riskOfSpire.relics.Common.EnergyDrink;
-import riskOfSpire.relics.Common.SoldiersSyringe;
+import riskOfSpire.relics.Common.*;
 import riskOfSpire.relics.Uncommon.AtGMissileMk1;
 import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
 import riskOfSpire.relics.Uncommon.Infusion;
@@ -213,6 +210,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
         BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
         BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
+        BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
 
         //Useableds
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
