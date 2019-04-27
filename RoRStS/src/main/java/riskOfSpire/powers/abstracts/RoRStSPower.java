@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 
-public class RoRStSPower extends AbstractPower {
+public abstract class RoRStSPower extends AbstractPower {
     /**
      * @param bigImageName - is the name of the 84x84 image for your power.
      * @param smallImageName - is the name of the 32x32 image for your power.
