@@ -11,21 +11,25 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
 
 public class CriticalPower extends RoRStSPower implements CloneablePowerInterface {
-    public static final String POWER_ID = "riskOfSpire:Critical";
+    public static final String POWER_ID = RiskOfSpire.makeID("Critical");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public CriticalPower(AbstractCreature owner) {
+    private boolean dontRemove;
+
+    public CriticalPower(AbstractCreature owner, boolean dontRemove) {
         name = NAME;
         ID = POWER_ID;
         this.owner = owner;
         isTurnBased = false;
         amount = -1;
         type = AbstractPower.PowerType.BUFF;
+        this.dontRemove = dontRemove;
         setImage("84_Critical.png", "32_Critical.png");
         updateDescription();
     }
@@ -41,7 +45,7 @@ public class CriticalPower extends RoRStSPower implements CloneablePowerInterfac
 
     @Override
     public void onAfterUseCard(AbstractCard card, UseCardAction action) {
-        if (card.type == AbstractCard.CardType.ATTACK && card.baseDamage > 0) {
+        if (card.type == AbstractCard.CardType.ATTACK && !dontRemove && card.damage > 0) {
             AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, this.ID));
         }
     }
@@ -50,12 +54,12 @@ public class CriticalPower extends RoRStSPower implements CloneablePowerInterfac
         this.description = DESCRIPTIONS[0];
     }
 
-    public static String getDesc() {
-        return DESCRIPTIONS[0];
+    @Override
+    public void stackPower(int i) {
     }
 
     @Override
     public AbstractPower makeCopy() {
-        return new CriticalPower(owner);
+        return new CriticalPower(owner, dontRemove);
     }
 }

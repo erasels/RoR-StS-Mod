@@ -1,5 +1,6 @@
 package riskOfSpire.relics.Common;
 
+import com.evacipated.cardcrawl.mod.stslib.relics.OnAfterUseCardRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -12,9 +13,11 @@ import riskOfSpire.powers.CriticalPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.StringManipulationUtilities;
 
-public class LensMakersGlasses extends StackableRelic {
+public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardRelic {
     public static final String ID = RiskOfSpire.makeID("LensMakersGlasses");
     private static final int CARD_AMT = 10;
+
+    private boolean fullCrit  = false;
 
     public LensMakersGlasses() {
         super(ID, "LensMakersGlasses.png", RelicTier.COMMON, LandingSound.CLINK);
@@ -31,18 +34,22 @@ public class LensMakersGlasses extends StackableRelic {
         super.onStack();
         if (!(counter <= 1)) {
             manipCharge(-1);
+        } else {
+            if((CARD_AMT - (relicStack - 1)) <= 1) {
+                fullCrit = true;
+            }
         }
     }
 
     @Override
-    public void onUseCard(AbstractCard c, UseCardAction uac) {
+    public void onAfterUseCard(AbstractCard c, UseCardAction uac) {
         if (c.type == AbstractCard.CardType.ATTACK) {
             flash();
             manipCharge(-1);
             if (counter == 1) {
                 beginLongPulse();
                 AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player)));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
             } else if (counter <= 0) {
                 startingCharges();
                 stopPulse();
@@ -60,18 +67,17 @@ public class LensMakersGlasses extends StackableRelic {
         if (this.counter == 1) {
             beginLongPulse();
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player)));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
         }
     }
 
     private void startingCharges() {
-        if (CARD_AMT - (relicStack - 1) >= 1) {
+        if (CARD_AMT - (relicStack - 1) >= 2) {
             setCounter(CARD_AMT - (relicStack - 1));
         } else {
             setCounter(1);
             beginLongPulse();
-            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player)));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
         }
     }
 
