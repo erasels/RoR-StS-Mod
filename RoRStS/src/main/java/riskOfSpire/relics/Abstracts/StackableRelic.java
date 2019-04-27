@@ -4,6 +4,7 @@ import basemod.BaseMod;
 import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -25,6 +26,9 @@ import java.util.ArrayList;
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
     public int relicStack = START_CHARGE;
+
+    public static final float STACK_FONT_SIZE = 20;
+    public static BitmapFont STACK_FONT;
 
     public StackableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -93,7 +97,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
     public void onStack() {
         this.relicStack++;
         updateDescriptionOnStack();
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     private void updateDescriptionOnStack() {
@@ -112,6 +116,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
     public void onRelicGet(AbstractRelic r) {
     }
 
+    public void notifyRelicGet() {
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic)r).onRelicGet(this);
+            } else if(r instanceof UsableRelic) {
+                ((UsableRelic)r).onRelicGet(this);
+            }
+        }
+    }
+
     @Override
     public void renderCounter(SpriteBatch sb, boolean inTopPanel) {
         if (inTopPanel) {
@@ -119,14 +133,14 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
             }
             if (this.relicStack > 0) { //Could also do if >1 but ror always shows amount so whatever
-                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
+                FontHelper.renderFontRightTopAligned(sb, STACK_FONT, "x" + this.relicStack, RelicOffsetXPatch.offsetX + this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
             }
         } else {
             if (counter > -1) {
                 FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.counter), this.currentX + 30.0F * Settings.scale, this.currentY - 7.0F * Settings.scale, Color.WHITE);
             }
             if (this.relicStack > 0) {
-                FontHelper.renderFontRightTopAligned(sb, FontHelper.topPanelInfoFont, Integer.toString(this.relicStack), this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
+                FontHelper.renderFontRightTopAligned(sb, STACK_FONT, "x" + this.relicStack, this.currentX + 30.0F * Settings.scale, this.currentY + 28.0F * Settings.scale, Color.WHITE);
             }
         }
     }

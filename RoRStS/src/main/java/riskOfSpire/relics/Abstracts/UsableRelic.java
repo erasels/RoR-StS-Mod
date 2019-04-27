@@ -60,6 +60,7 @@ public abstract class UsableRelic extends AbstractRelic {
     }
 
     public abstract boolean isUsable(); //Whether or not it has an active effect, or just toggles.
+
     public abstract int getBaseCooldown(); //Base cooldown, pre-modifiers.
 
     public void updateDescriptionWhenNeeded() {
@@ -74,25 +75,19 @@ public abstract class UsableRelic extends AbstractRelic {
         this.initializeTips();
     }
 
-    public int getFinalCooldown()
-    {
+    public int getFinalCooldown() {
         float cooldown = getBaseCooldown();
-        if (AbstractDungeon.player != null)
-        {
+        if (AbstractDungeon.player != null) {
             ArrayList<MultiplyCooldownRelic> multipliers = new ArrayList<>(); //to avoid iterating over ALL relics twice
-            for (AbstractRelic r : AbstractDungeon.player.relics)
-            {
-                if (r instanceof ModifyCooldownRelic)
-                {
+            for (AbstractRelic r : AbstractDungeon.player.relics) {
+                if (r instanceof ModifyCooldownRelic) {
                     cooldown = ((ModifyCooldownRelic) r).modifyCooldown(cooldown);
                 }
-                if (r instanceof MultiplyCooldownRelic)
-                {
-                    multipliers.add((MultiplyCooldownRelic)r);
+                if (r instanceof MultiplyCooldownRelic) {
+                    multipliers.add((MultiplyCooldownRelic) r);
                 }
             }
-            for (MultiplyCooldownRelic r : multipliers)
-            {
+            for (MultiplyCooldownRelic r : multipliers) {
                 cooldown = r.modifyCooldown(cooldown);
             }
         }
@@ -101,47 +96,39 @@ public abstract class UsableRelic extends AbstractRelic {
         return MathUtils.floor(cooldown);
     }
 
-    public void activateCooldown()
-    {
+    public void activateCooldown() {
         setCounter(getFinalCooldown());
     }
 
     @Override
     public void setCounter(int counter) {
         super.setCounter(counter);
-        if (this.counter == 0)
-        {
+        if (this.counter == 0) {
             this.beginLongPulse();
-        }
-        else
-        {
+        } else {
             this.stopPulse();
         }
     }
 
     public void updateCooldown() {
-        if (this.counter > 0)
-        {
+        if (this.counter > 0) {
             counter--;
-            if (this.counter == 0)
-            {
+            if (this.counter == 0) {
                 this.beginLongPulse();
             }
         }
     }
 
-    public void onRightClick()
-    {
-
-    }
-    public void onRightClickInCombat()
-    {
+    public void onRightClick() {
 
     }
 
+    public void onRightClickInCombat() {
 
-    public void normalUpdate()
-    {
+    }
+
+
+    public void normalUpdate() {
         if (this.flashTimer != 0.0F) {
             this.flashTimer -= Gdx.graphics.getDeltaTime();
             if (this.flashTimer < 0.0F) {
@@ -156,13 +143,11 @@ public abstract class UsableRelic extends AbstractRelic {
         this.hb.update();
 
         if (this.hb.hovered) {
-            if (AbstractDungeon.topPanel.potionUi.isHidden)
-            {
+            if (AbstractDungeon.topPanel.potionUi.isHidden) {
                 this.scale = Settings.scale * 1.25F;
                 CardCrawlGame.cursor.changeType(GameCursor.CursorType.INSPECT);
             }
-            if (InputHelper.justClickedLeft)
-            {
+            if (InputHelper.justClickedLeft) {
                 this.hb.clickStarted = true;
             }
         } else {
@@ -176,25 +161,23 @@ public abstract class UsableRelic extends AbstractRelic {
             this.hb.clickStarted = false;
         }
 
-        if (HitboxRightClick.rightClicked.get(this.hb))
-        {
+        if (HitboxRightClick.rightClicked.get(this.hb)) {
             onRightClick();
-            if (AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT)
-            {
+            if (AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
                 if (!AbstractDungeon.actionManager.turnHasEnded)
                     onRightClickInCombat();
             }
         }
     }
 
-    public void normalRender(SpriteBatch sb)
-    {
+    public void normalRender(SpriteBatch sb) {
         this.renderOutline(sb, false);
         if (this.hb.hovered) {
             this.renderTip(sb);
         }
 
         sb.setColor(Color.WHITE);
+        //TODO: Would be nice if this could be largeImg but it NPEs at switchTexture at texture.getWidth() if I just change the below to largeImg
         sb.draw(this.img, this.currentX - 64.0F, this.currentY - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, this.scale, this.scale, 0, 0, 0, 128, 128, false, false);
         this.renderCounter(sb, false);
 
@@ -220,7 +203,7 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     @Override
@@ -241,7 +224,7 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     @Override
@@ -255,11 +238,21 @@ public abstract class UsableRelic extends AbstractRelic {
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
-        onRelicGet(this);
+        notifyRelicGet();
     }
 
     public void onRelicGet(AbstractRelic r) {
         updateDescriptionWhenNeeded();
+    }
+
+    public void notifyRelicGet() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic) r).onRelicGet(this);
+            } else if (r instanceof UsableRelic) {
+                ((UsableRelic) r).onRelicGet(this);
+            }
+        }
     }
 
     private static float START_X = 64.0F * Settings.scale;

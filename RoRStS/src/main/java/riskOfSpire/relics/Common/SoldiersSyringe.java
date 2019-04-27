@@ -6,12 +6,9 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.PowerTip;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DoubleTapPower;
-import com.megacrit.cardcrawl.powers.RegenPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.powers.DoubleAttackPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class SoldiersSyringe extends StackableRelic {
@@ -25,7 +22,7 @@ public class SoldiersSyringe extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + (CARD_AMT - relicStack) + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + ((CARD_AMT - (relicStack-1))>0?(CARD_AMT - (relicStack-1)):1) + DESCRIPTIONS[1];
     }
 
     @Override
@@ -44,9 +41,9 @@ public class SoldiersSyringe extends StackableRelic {
             if(counter == 1) {
                 beginLongPulse();
                 AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleTapPower(AbstractDungeon.player, 1), 1, true));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player)));
             } else if(counter<=0) {
-                manipCharge(CARD_AMT-relicStack);
+                startingCharges();
                 stopPulse();
                 flash();
             }
@@ -64,12 +61,17 @@ public class SoldiersSyringe extends StackableRelic {
         {
             beginLongPulse();
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleTapPower(AbstractDungeon.player, 1), 1, true));
-        }
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player)));        }
     }
 
     private void startingCharges() {
-        setCounter(CARD_AMT - relicStack);
+        if(CARD_AMT - (relicStack-1) >= 1) {
+            setCounter(CARD_AMT - (relicStack-1));
+        } else {
+            setCounter(1);
+            beginLongPulse();
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player)));        }
     }
 
     private void manipCharge(int amt) {

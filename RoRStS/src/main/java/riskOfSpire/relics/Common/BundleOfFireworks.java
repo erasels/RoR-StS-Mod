@@ -11,8 +11,8 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class BundleOfFireworks extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BundleOfFireworks");
-    private static final int DAMAGE_PER = 1;
-    private static final int DAMAGE_COUNT = 4;
+    private static final int DAMAGE_PER = 2;
+    private static final int DAMAGE_COUNT = 3;
 
     public BundleOfFireworks() {
         super(ID, "BundleOfFireworks.png", RelicTier.COMMON, LandingSound.SOLID);
@@ -43,7 +43,8 @@ public class BundleOfFireworks extends StackableRelic {
             for (int i = 0; i < this.counter; ++i) //Hooray for not having to do recursive action.
             {
                 //Maybe get really dumb and add an actual firework vfx for each firework, so it can look as dumb as it does in ror?
-                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true));
+                //Already done ;) - Gk
+                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true, true));
             }
 
             this.counter = 0;

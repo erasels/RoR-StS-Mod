@@ -24,10 +24,7 @@ import org.apache.logging.log4j.Logger;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
-import riskOfSpire.relics.Common.BundleOfFireworks;
-import riskOfSpire.relics.Common.BustlingFungus;
-import riskOfSpire.relics.Common.EnergyDrink;
-import riskOfSpire.relics.Common.SoldiersSyringe;
+import riskOfSpire.relics.Common.*;
 import riskOfSpire.relics.Uncommon.AtGMissileMk1;
 import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
 import riskOfSpire.relics.Uncommon.Infusion;
@@ -41,6 +38,8 @@ import riskOfSpire.util.TextureLoader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 @SpireInitializer
@@ -66,6 +65,8 @@ public class RiskOfSpire implements
     public static final Color PLACEHOLDER_POTION_LIQUID = CardHelper.getColor(209.0f, 53.0f, 18.0f); // Orange-ish Red
     public static final Color PLACEHOLDER_POTION_HYBRID = CardHelper.getColor(255.0f, 230.0f, 230.0f); // Near White
     public static final Color PLACEHOLDER_POTION_SPOTS = CardHelper.getColor(100.0f, 25.0f, 10.0f); // Super Dark Red/Brown
+
+    public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(),Color.VIOLET.cpy()));
 
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     
@@ -209,6 +210,7 @@ public class RiskOfSpire implements
         BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
         BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
         BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
+        BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
 
         //Useableds
         BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
