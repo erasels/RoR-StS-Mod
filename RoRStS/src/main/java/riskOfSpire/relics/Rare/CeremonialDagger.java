@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.MissileStrikeAction;
 import riskOfSpire.actions.unique.WobblyMissileAction;
@@ -29,22 +30,25 @@ public class CeremonialDagger extends StackableRelic implements BetterOnLoseHpRe
         return DESCRIPTIONS[0] + KNIFE_AMT * relicStack + DESCRIPTIONS[1];
     }
 
-    //TODO: Maybe change effect, current one ranges from kinda meh to hilariously broken
+    //TODO: Maybe change effect, current one ranges from kinda meh to hilariously broken (AKA: BALANCE PLS)
     @Override
     public int betterOnLoseHp(DamageInfo damageInfo, int i) {
-        storedDamage+=i;
+        if(AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
+            storedDamage += i;
+            setCounter(storedDamage);
+        }
         return i;
     }
 
-    //Can target an enemy that dies during the knives, is far too long if you have more than 1 stack
     @Override
     public void atTurnStart() {
         if (storedDamage > 1) {
             int tmp = MathUtils.ceilPositive((storedDamage/2F)/(float)KNIFE_AMT);
             for (int j = 0; j < KNIFE_AMT; j++) {
-                AbstractDungeon.actionManager.addToTop(new WobblyMissileAction(AbstractDungeon.getCurrRoom().monsters.getRandomMonster(true), AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, tmp, DamageInfo.DamageType.THORNS), relicStack, 1, Color.BLACK.cpy(), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                AbstractDungeon.actionManager.addToTop(new WobblyMissileAction(AbstractDungeon.getCurrRoom().monsters.getRandomMonster(true), AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, tmp, DamageInfo.DamageType.THORNS), relicStack, 0.1f, Color.BLACK.cpy(), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
             }
         }
+        setCounter(-1);
         storedDamage = 0;
     }
 
