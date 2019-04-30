@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.Necronomicon;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.DumbApplyPowerAction;
 import riskOfSpire.powers.ArmorPiercingRoundsPower;
@@ -30,15 +31,23 @@ public class ArmorPiercingRounds extends StackableRelic implements OnMonsterSpaw
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped() && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
                 AbstractDungeon.actionManager.addToBottom(new DumbApplyPowerAction(m, AbstractDungeon.player, new ArmorPiercingRoundsPower(m), -1, true));
+                this.beginLongPulse();
+                break;
             }
         }
     }
 
     @Override
     public void onMonsterSpawn(AbstractMonster m) {
-        if ((m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
+        if (!pulse && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
             AbstractDungeon.actionManager.addToBottom(new DumbApplyPowerAction(m, AbstractDungeon.player, new ArmorPiercingRoundsPower(m), -1, true));
+            this.beginLongPulse();
         }
+    }
+
+    @Override
+    public void onVictory() {
+        this.stopPulse();
     }
 
     public AbstractRelic makeCopy() {

@@ -16,6 +16,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
@@ -76,6 +77,13 @@ public class RiskOfSpire implements
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
 
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(),Color.VIOLET.cpy()));
+
+    //No need to track shop, special, or boss relics.
+    public static ArrayList<String> rorCommonRelics = new ArrayList<>();
+    public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
+    public static ArrayList<String> rorRareRelics = new ArrayList<>();
+
+
 
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     
@@ -247,6 +255,9 @@ public class RiskOfSpire implements
         BaseMod.loadCustomStringsFile(EventStrings.class,
                 getModID() + "Resources/localization/eng/Event-Strings.json");
 
+        // UI Strings
+        BaseMod.loadCustomStringsFile(UIStrings.class,
+                getModID() + "Resources/localization/eng/UI-Strings.json");
         // OrbStrings
         BaseMod.loadCustomStringsFile(OrbStrings.class,
                 getModID() + "Resources/localization/eng/Orb-Strings.json");
@@ -283,6 +294,13 @@ public class RiskOfSpire implements
     @Override
     public void receivePostDungeonInitialize() {
         //TODO: Remove allRoR relics from the normal pools and maybe add them to the special pools here (or do that earlier, idk)
+        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
+        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
+        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        rorCommonRelics.sort(String::compareTo);
+        rorUncommonRelics.sort(String::compareTo);
+        rorRareRelics.sort(String::compareTo);
     }
 
     public static String assetPath(String path)
@@ -343,6 +361,18 @@ public class RiskOfSpire implements
             }
 
             AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
+            switch (r.tier)
+            {
+                case COMMON:
+                    rorCommonRelics.add(r.relicId);
+                    break;
+                case UNCOMMON:
+                    rorUncommonRelics.add(r.relicId);
+                    break;
+                case RARE:
+                    rorRareRelics.add(r.relicId);
+                    break;
+            }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
 
             BaseMod.addRelic(r, RelicType.SHARED);
