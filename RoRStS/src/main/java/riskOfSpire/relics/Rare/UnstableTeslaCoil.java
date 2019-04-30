@@ -15,7 +15,7 @@ public class UnstableTeslaCoil extends StackableRelic {
     private boolean active = false;
 
     public UnstableTeslaCoil() {
-        super(ID, "CeremonialDagger.png", RelicTier.RARE, LandingSound.HEAVY);
+        super(ID, "UnstableTeslacoil.png", RelicTier.RARE, LandingSound.HEAVY);
     }
 
     private int getVal()

@@ -19,36 +19,33 @@ import riskOfSpire.vfx.combat.MeteorRainEffect;
 
 import java.util.ArrayList;
 
-public class GlowingMeteorite extends StackableRelic
-{
+public class GlowingMeteorite extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("GlowingMeteorite");
     private static final int TURN_AMT = 3;
     private static final int DMG_AMT = 15;
 
-    //TODO: What to do about Shop relics, these don't spawn like normal. New merchant?
-    public GlowingMeteorite()
-    {
+    //TODO: What to do about Shop relics, these don't spawn like normal. New merchant? Or just readd them and make them scale really fast
+    public GlowingMeteorite() {
         super(ID, "GlowingMeteorite.png", RelicTier.SHOP, LandingSound.HEAVY);
     }
 
     @Override
-    public String getUpdatedDescription()
-    {
-        if(relicStack == 1) {
+    public String getUpdatedDescription() {
+        if (relicStack == 1) {
             return DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming(TURN_AMT) + DESCRIPTIONS[1] + DMG_AMT + DESCRIPTIONS[2] + relicStack + DESCRIPTIONS[3];
         } else {
-            return DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming(TURN_AMT) + DESCRIPTIONS[1] + DMG_AMT + DESCRIPTIONS[2] + relicStack + DESCRIPTIONS[4];
+            return DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming(TURN_AMT) + DESCRIPTIONS[1] + (DMG_AMT * relicStack) + DESCRIPTIONS[2] + relicStack + DESCRIPTIONS[4];
         }
     }
 
     @Override
     public void onPlayerEndTurn() {
         setCounter(GameActionManager.turn % TURN_AMT);
-        if(counter == 0) {
-            for(int i = 0; i<relicStack;i++) {
+        if (counter == 0) {
+            for (int i = 0; i < relicStack; i++) {
                 int entities = 1;
-                for(AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-                    if(!m.isDeadOrEscaped()) {
+                for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+                    if (!m.isDeadOrEscaped()) {
                         entities++;
                     }
                 }
@@ -60,17 +57,16 @@ public class GlowingMeteorite extends StackableRelic
                     AbstractDungeon.actionManager.addToBottom(new VFXAction(new MeteorRainEffect(relicStack, AbstractDungeon.getMonsters().shouldFlipVfx()), 1.0F));
                 }
 
-                if(AbstractDungeon.cardRandomRng.random(entities) == 0) {
-                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, DMG_AMT, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.FIRE, true));
+                if (AbstractDungeon.cardRandomRng.random(entities) == 0) {
+                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, DMG_AMT * relicStack, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.FIRE, true));
                 } else {
-                    AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(AbstractDungeon.player, DMG_AMT, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE, true));
+                    AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(AbstractDungeon.player, DMG_AMT * relicStack, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE, true));
                 }
             }
         }
-}
+    }
 
-    public AbstractRelic makeCopy()
-    {
+    public AbstractRelic makeCopy() {
         return new GlowingMeteorite();
     }
 }
