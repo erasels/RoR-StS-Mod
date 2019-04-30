@@ -1,5 +1,6 @@
 package riskOfSpire.relics.Uncommon;
 
+import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.relics.OnReceivePowerRelic;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -15,6 +16,7 @@ import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.MissileStrikeAction;
+import riskOfSpire.actions.unique.TargetedMissileAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.vfx.combat.MissileStrikeEffect;
 
@@ -34,7 +36,7 @@ public class AtGMissileMk1 extends StackableRelic {
     @Override
     public void onUseCard(AbstractCard c, UseCardAction uac) {
         if(!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
-            AbstractDungeon.actionManager.addToBottom(new MissileStrikeAction(new DamageInfo(AbstractDungeon.player, BASE_DMG*relicStack, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.FIRE));
+            AbstractDungeon.actionManager.addToBottom(new TargetedMissileAction(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, Color.ORANGE.cpy(), 1, new DamageInfo(AbstractDungeon.player, BASE_DMG*relicStack, DamageInfo.DamageType.THORNS)));
         }
     }
 

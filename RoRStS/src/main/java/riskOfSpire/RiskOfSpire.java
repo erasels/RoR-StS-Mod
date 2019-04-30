@@ -10,18 +10,25 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
+import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import javassist.CannotCompileException;
+import javassist.CtClass;
+import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.clapper.util.classutil.*;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
@@ -35,16 +42,18 @@ import riskOfSpire.relics.Usable.DisposableMissileLauncher;
 import riskOfSpire.relics.Usable.EffigyOfGrief;
 import riskOfSpire.relics.Usable.RadarScanner;
 import riskOfSpire.util.IDCheckDontTouchPls;
+import riskOfSpire.util.RelicFilter;
 import riskOfSpire.util.TextureLoader;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 @SpireInitializer
 public class RiskOfSpire implements
@@ -201,26 +210,14 @@ public class RiskOfSpire implements
     public void receiveEditRelics() {
         logger.info("Adding relics");
 
-        //Stackables
-        BaseMod.addRelic(new Infusion(), RelicType.SHARED);
-        BaseMod.addRelic(new SoldiersSyringe(), RelicType.SHARED);
-        BaseMod.addRelic(new BundleOfFireworks(), RelicType.SHARED);
-        BaseMod.addRelic(new EnergyDrink(), RelicType.SHARED);
-        BaseMod.addRelic(new MonsterTooth(), RelicType.SHARED);
-        BaseMod.addRelic(new AtGMissileMk1(), RelicType.SHARED);
-        BaseMod.addRelic(new GestureOfTheDrowned(), RelicType.SHARED);
-        BaseMod.addRelic(new BustlingFungus(), RelicType.SHARED);
-        BaseMod.addRelic(new TougherTimes(), RelicType.SHARED);
-        BaseMod.addRelic(new LensMakersGlasses(), RelicType.SHARED);
-        BaseMod.addRelic(new ArmorPiercingRounds(), RelicType.SHARED);
-        BaseMod.addRelic(new CeremonialDagger(), RelicType.SHARED);
-
-        //Useables
-        BaseMod.addRelic(new RadarScanner(), RelicType.SHARED);
-        BaseMod.addRelic(new EffigyOfGrief(), RelicType.SHARED);
-        BaseMod.addRelic(new DisposableMissileLauncher(), RelicType.SHARED);
-
-        //Normals
+        //All relics are Shared relics, not character specific, so I can just do this.
+        try {
+            autoAddRelics();
+        }
+        catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | CannotCompileException e)
+        {
+            e.printStackTrace();
+        }
 
         logger.info("Done adding relics!");
     }
@@ -305,6 +302,50 @@ public class RiskOfSpire implements
             } else if(r instanceof UsableRelic) {
                 ((UsableRelic)r).onRelicGet(rel);
             }
+        }
+    }
+
+
+
+    private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException
+    {
+        ClassFinder finder = new ClassFinder();
+        URL url = RiskOfSpire.class.getProtectionDomain().getCodeSource().getLocation();
+        finder.add(new File(url.toURI()));
+
+        ClassFilter filter =
+                new AndClassFilter(
+                        new NotClassFilter(new InterfaceOnlyClassFilter()),
+                        new NotClassFilter(new AbstractClassFilter()),
+                        new ClassModifiersClassFilter(Modifier.PUBLIC),
+                        new RelicFilter()
+                );
+        Collection<ClassInfo> foundClasses = new ArrayList<>();
+        finder.findClasses(foundClasses, filter);
+
+        for (ClassInfo classInfo : foundClasses) {
+            CtClass cls = Loader.getClassPool().get(classInfo.getClassName());
+
+            boolean isRelic = false;
+            CtClass superCls = cls;
+            while (superCls != null) {
+                superCls = superCls.getSuperclass();
+                if (superCls == null) {
+                    break;
+                }
+                if (superCls.getName().equals(AbstractRelic.class.getName())) {
+                    isRelic = true;
+                    break;
+                }
+            }
+            if (!isRelic) {
+                continue;
+            }
+
+            AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
+            logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
+
+            BaseMod.addRelic(r, RelicType.SHARED);
         }
     }
 }

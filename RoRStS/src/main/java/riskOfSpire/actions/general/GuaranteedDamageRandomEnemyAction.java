@@ -8,16 +8,15 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.vfx.combat.MissileStrikeEffect;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
     private DamageInfo info;
     private boolean fast;
     private boolean rainbowFirework;
+    private Color missileColor = null;
 
     public GuaranteedDamageRandomEnemyAction(AbstractCreature source, int damage, DamageInfo.DamageType damageType, AttackEffect effect, boolean fast) {
         this.source = source;
@@ -35,6 +34,15 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
         this.attackEffect = effect;
         this.fast = fast;
         this.rainbowFirework = rainbowFirework;
+    }
+
+    public GuaranteedDamageRandomEnemyAction(DamageInfo info, AttackEffect effect, boolean fast, Color missileColor) {
+        this.source = info.owner;
+        this.info = info;
+        this.attackEffect = effect;
+        this.fast = fast;
+        this.rainbowFirework = false;
+        this.missileColor = missileColor;
     }
 
     public GuaranteedDamageRandomEnemyAction(DamageInfo info, AttackEffect effect, boolean fast) {
@@ -57,10 +65,16 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
                 if(rainbowFirework) {
                     AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, RiskOfSpire.COLORS.get(MathUtils.random(RiskOfSpire.COLORS.size()-1))));
                 }
+                else if (missileColor != null) {
+                    AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
+                }
                 AbstractDungeon.actionManager.addToTop(new DamageAction(target, damageInfo, this.attackEffect, fast));
             } else {
                 if(rainbowFirework) {
                     AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, RiskOfSpire.COLORS.get(MathUtils.random(RiskOfSpire.COLORS.size()-1))));
+                }
+                else if (missileColor != null) {
+                    AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
                 }
                 AbstractDungeon.actionManager.addToTop(new DamageAction(target, info, this.attackEffect, fast));
             }

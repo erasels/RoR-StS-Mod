@@ -16,6 +16,7 @@ public class MissileStrikeEffect extends AbstractGameEffect {
     private float x;
     private float y;
     private float destY;
+    private float initY;
     private static final float DUR = 0.4F;
     private TextureAtlas.AtlasRegion img;
     private boolean playedSound = false;
@@ -26,7 +27,8 @@ public class MissileStrikeEffect extends AbstractGameEffect {
         this.img = ImageMaster.DAGGER_STREAK;
         this.x = (x - MathUtils.random(320.0F, 360.0F) - this.img.packedWidth / 2.0F);
         this.destY = y;
-        this.y = (this.destY + MathUtils.random(-25.0F, 25.0F) * Settings.scale - this.img.packedHeight / 2.0F);
+        this.initY = Settings.HEIGHT + MathUtils.random(10.0f, 200.0f) * Settings.scale;
+        this.y = initY;//(this.destY + MathUtils.random(-25.0F, 25.0F) * Settings.scale - this.img.packedHeight / 2.0F);
         this.startingDuration = DUR;
         this.duration = DUR;
         this.scale = Settings.scale;
@@ -39,7 +41,8 @@ public class MissileStrikeEffect extends AbstractGameEffect {
         this.img = ImageMaster.DAGGER_STREAK;
         this.x = (x - MathUtils.random(320.0F, 360.0F) - this.img.packedWidth / 2.0F);
         this.destY = y;
-        this.y = (this.destY + MathUtils.random(-25.0F, 25.0F) * Settings.scale - this.img.packedHeight / 2.0F);
+        this.initY = Settings.HEIGHT + MathUtils.random(10.0f, 200.0f) * Settings.scale;
+        this.y = initY;//(this.destY + MathUtils.random(-25.0F, 25.0F) * Settings.scale - this.img.packedHeight / 2.0F);
         this.startingDuration = DUR;
         this.duration = DUR;
         this.scale = Settings.scale;
@@ -64,7 +67,8 @@ public class MissileStrikeEffect extends AbstractGameEffect {
         } else {
             this.color.a = Interpolation.fade.apply(0.0F, 1.0F, this.duration * 5.0F);
         }
-        this.scale = Interpolation.bounceIn.apply(Settings.scale * 0.5F, Settings.scale * 1.5F, this.duration / 0.4F);
+        this.scale = Interpolation.bounceIn.apply(Settings.scale * 0.5F, Settings.scale * 1.5F, this.duration / DUR);
+        this.y = Interpolation.circleIn.apply(initY, destY, this.duration / DUR);
     }
 
     public void render(SpriteBatch sb)

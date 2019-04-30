@@ -62,7 +62,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                 AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.instantObtain(p, slot, callOnEquip);
-            updateDescriptionOnStack();
+            updateDescriptionOnStack(false);
         }
     }
 
@@ -76,7 +76,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                 AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.instantObtain();
-            updateDescriptionOnStack();
+            updateDescriptionOnStack(false);
         }
     }
 
@@ -90,17 +90,17 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
                 AbstractDungeon.getCurrRoom().relics.remove(this);
         } else {
             super.obtain();
-            updateDescriptionOnStack();
+            updateDescriptionOnStack(false);
         }
     }
 
     public void onStack() {
         this.relicStack++;
-        updateDescriptionOnStack();
+        updateDescriptionOnStack(true);
         notifyRelicGet();
     }
 
-    private void updateDescriptionOnStack() {
+    protected void updateDescriptionOnStack(boolean flash) {
         this.description = this.getUpdatedDescription();
         ArrayList<PowerTip> tmp = new ArrayList<>();
         this.tips.forEach(pT -> {
@@ -110,7 +110,9 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         this.tips.add(new PowerTip(this.name, this.description));
         this.tips.addAll(tmp);
         this.initializeTips();
-        flash();
+
+        if (flash)
+            flash();
     }
 
     public void onRelicGet(AbstractRelic r) {
@@ -157,7 +159,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         } else {
             relicStack = START_CHARGE;
         }
-        updateDescriptionOnStack();
+        updateDescriptionOnStack(false);
     }
 
     @Override
