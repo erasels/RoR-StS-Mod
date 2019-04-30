@@ -144,5 +144,16 @@
       "Whenever you take unblocked attack damage, deal damage equal to half the damage received back #b",
       " times."
     ]
+  },
+  "riskOfSpire:GlowingMeteorite": {
+    "NAME": "Glowing Meteorite",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the end of every #b",
+      " turn, deal #b",
+      " damage to a random enemy or yourself #b",
+      " time.",
+      " times."
+    ]
   }
 }
