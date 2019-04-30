@@ -8,23 +8,23 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.actions.general.SpawnTolerantDamageAllEnemiesAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class BrilliantBehemoth extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BrilliantBehemoth");
     public static final double MTPL = 0.3;
+
     public BrilliantBehemoth() {
-        super(ID, "BundleOfFireworks.png", RelicTier.BOSS, LandingSound.HEAVY);
+        super(ID, "BrilliantBehemoth.png", RelicTier.BOSS, LandingSound.HEAVY);
     }
 
     @Override
-    public void onUseCard(AbstractCard card, UseCardAction action)
-    {
-        if(card.type == AbstractCard.CardType.ATTACK)
-        {
-            double FinalMtpl = Math.pow((1.0 + MTPL), ((double)relicStack));
-            int FinalDmg = (int)Math.floor(card.damage * FinalMtpl);
-            AbstractDungeon.actionManager.addToBottom(new DamageAllEnemiesAction(null, DamageInfo.createDamageMatrix(FinalDmg, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE));
+    public void onUseCard(AbstractCard card, UseCardAction action) {
+        if (card.type == AbstractCard.CardType.ATTACK) {
+            double FinalMtpl = Math.pow((1.0 + MTPL), ((double) relicStack));
+            int FinalDmg = (int) Math.floor(card.damage * FinalMtpl);
+            AbstractDungeon.actionManager.addToBottom(new SpawnTolerantDamageAllEnemiesAction(AbstractDungeon.player, FinalDmg, true, false, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE, true));
         }
     }
 
@@ -34,7 +34,7 @@ public class BrilliantBehemoth extends StackableRelic {
     }
 
     public String getUpdatedDescription() {
-        double FinalMtpl = Math.pow((1.0 + MTPL), ((double)relicStack));
-        return DESCRIPTIONS[0] + ((100*FinalMtpl) -100) + DESCRIPTIONS[1];
+        double FinalMtpl = Math.pow((1.0 + MTPL), ((double) relicStack));
+        return DESCRIPTIONS[0] + ((100 * FinalMtpl) - 100) + DESCRIPTIONS[1];
     }
 }
