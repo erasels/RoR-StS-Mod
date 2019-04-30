@@ -1,7 +1,6 @@
 package riskOfSpire.util;
 
 import basemod.ReflectionHacks;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.random.Random;
@@ -9,6 +8,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.LinkedRewardItem;
 
 import java.util.ArrayList;
@@ -18,8 +18,14 @@ public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
 
-    public static String getRandomRelic(boolean rare, boolean changeCounter)
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter)
     {
+        return getRandomRelic(rare, changeCounter, 1.0f);
+    }
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier)
+    {
+        rateModifier *= getFinalRateModifier();
+        String id = "";
         if (rare)
         {
             if (!changeCounter)
@@ -28,7 +34,7 @@ public class RiskOfRainRelicHelper {
                 incrementLater += 1;
             }
 
-            return RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
+            id = RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
         }
         else
         {
@@ -39,19 +45,21 @@ public class RiskOfRainRelicHelper {
             }
             int pool = RiskOfRainRelicRng.random(100);
 
-            if (pool >= 95)
+            if (pool >= 95 * rateModifier)
             {
-                return RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
+                id = RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
             }
-            else if (pool > 75)
+            else if (pool > 75 * rateModifier)
             {
-                return RiskOfSpire.rorUncommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorUncommonRelics.size() - 1));
+                id = RiskOfSpire.rorUncommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorUncommonRelics.size() - 1));
             }
             else
             {
-                return RiskOfSpire.rorCommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorCommonRelics.size() - 1));
+                id = RiskOfSpire.rorCommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorCommonRelics.size() - 1));
             }
         }
+
+        return RelicLibrary.getRelic(id).makeCopy();
     }
 
     public static void modifyCombatRewards(CombatRewardScreen __instance)
@@ -64,7 +72,7 @@ public class RiskOfRainRelicHelper {
         }
 
         for (RewardItem reward : cardRewards) {
-            AbstractRelic rorRelic = RelicLibrary.getRelic(getRandomRelic((boolean) ReflectionHacks.getPrivate(reward, RewardItem.class, "isBoss"), false)).makeCopy();
+            AbstractRelic rorRelic = getRandomRelic((boolean) ReflectionHacks.getPrivate(reward, RewardItem.class, "isBoss"), false);
 
             if (rorRelic != null) {
                 LinkedRewardItem replaceReward = new LinkedRewardItem(reward);
@@ -83,5 +91,18 @@ public class RiskOfRainRelicHelper {
     {
         RiskOfRainRelicRng.counter += incrementLater;
         incrementLater = 0;
+    }
+
+    private static float getFinalRateModifier()
+    {
+        float mod = 1.0f;
+        for (AbstractRelic r : AbstractDungeon.player.relics)
+        {
+            if (r instanceof ModifyRarityRateRelic)
+            {
+                mod = ((ModifyRarityRateRelic) r).modifyRarity(mod);
+            }
+        }
+        return mod;
     }
 }

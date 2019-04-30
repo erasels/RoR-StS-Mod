@@ -20,7 +20,7 @@ public class OnMonsterSpawnHook {
             for(AbstractRelic r : AbstractDungeon.player.relics) {
                 if (r instanceof OnMonsterSpawn) {
                     //Could use FieldAccessMatch on this.used = true; and use localvars but whatever
-                    AbstractMonster m = (AbstractMonster)ReflectionHacks.getPrivate(__instance, AbstractMonster.class, "m");
+                    AbstractMonster m = (AbstractMonster)ReflectionHacks.getPrivate(__instance, SpawnMonsterAction.class, "m");
                     ((OnMonsterSpawn)r).onMonsterSpawn(m);
                 }
             }

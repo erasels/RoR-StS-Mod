@@ -112,6 +112,14 @@
       "."
     ]
   },
+  "riskOfSpire:RustyKey": {
+    "NAME": "Rusty Key",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Non-Boss chests contain an additional #pRisk #pof #pRain based relic reward. You are #b",
+      "% more likely to find treasure in #y? rooms."
+    ]
+  },
   "riskOfSpire:LensMakersGlasses": {
     "NAME": "Lens-Maker's Glasses",
     "FLAVOR": "TODO",
