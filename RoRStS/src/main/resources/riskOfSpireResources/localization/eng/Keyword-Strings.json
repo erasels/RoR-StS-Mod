@@ -1,28 +1,10 @@
-[
-  {
+{
+  "CRITICAL": {
+    "PROPER_NAME": "Critical",
     "NAMES": [
-      "keyword",
-      "keywords"
+      "critical",
+      "crit"
     ],
-    "DESCRIPTION": "Whenever you play a card, gain 1 dexterity this turn only."
-  },
-  {
-    "PROPER_NAME": "Multiword Keyword",
-    "NAMES": [
-      "Multiword Keyword",
-      "multiword_keyword",
-      "multiword_keywords",
-      "multikey",
-      "multikeyword"
-    ],
-    "DESCRIPTION": "Make sure the first element in the NAMES is the same as your PROPER_NAME. The rest is to match keywords like the single word keyword."
-  },
-  {
-    "PROPER_NAME": "Blur",
-    "NAMES":
-    [
-      "blur"
-    ],
-    "DESCRIPTION": "Keep your Block until the next turn and reduce Blur by #b1."
+    "DESCRIPTION": "A Critical #yAttack deals double damage."
   }
-]
+}

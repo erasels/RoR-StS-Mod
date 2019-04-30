@@ -14,21 +14,25 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
 
 public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInterface {
-    public static final String POWER_ID = "riskOfSpire:DoubleAttack";
+    public static final String POWER_ID = RiskOfSpire.makeID("DoubleAttack");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public DoubleAttackPower(AbstractCreature owner) {
+    private boolean dontRemove;
+
+    public DoubleAttackPower(AbstractCreature owner, boolean dontRemove) {
         name = NAME;
         ID = POWER_ID;
         this.owner = owner;
         isTurnBased = false;
         amount = -1;
         type = AbstractPower.PowerType.BUFF;
+        this.dontRemove = dontRemove;
         setImage("84_DoubleAttack.png", "32_DoubleAttack.png");
         updateDescription();
     }
@@ -58,7 +62,9 @@ public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInte
             }
             tmp.purgeOnUse = true;
             AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(tmp, m, card.energyOnUse));
-            AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(owner, owner, POWER_ID));
+            if(dontRemove) {
+                AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, POWER_ID));
+            }
         }
     }
 
@@ -68,6 +74,6 @@ public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInte
 
     @Override
     public AbstractPower makeCopy() {
-        return new DoubleAttackPower(owner);
+        return new DoubleAttackPower(owner, dontRemove);
     }
 }
