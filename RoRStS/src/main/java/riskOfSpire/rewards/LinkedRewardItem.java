@@ -80,11 +80,8 @@ public class LinkedRewardItem extends RewardItem
     @Override
     public boolean claimReward()
     {
-        boolean ret;
-
-        ret = super.claimReward();
-
-        if (ret || this.type == RewardType.CARD) {
+        if (!this.ignoreReward)
+        {
             for (RewardItem link : linkedRewards) {
                 link.isDone = true;
                 link.ignoreReward = true;
@@ -95,7 +92,7 @@ public class LinkedRewardItem extends RewardItem
                 }
             }
         }
-        return ret;
+        return super.claimReward();
     }
 
     @Override
