@@ -15,7 +15,7 @@ public class RustyKey extends StackableRelic {
     private static final float CHEST_RATE_BOOST = 0.05f;
 
     public RustyKey() {
-        super(ID, "BundleOfFireworks.png", RelicTier.COMMON, LandingSound.CLINK);
+        super(ID, "RustedKey.png", RelicTier.COMMON, LandingSound.CLINK);
     }
 
     public void onEquip() {
