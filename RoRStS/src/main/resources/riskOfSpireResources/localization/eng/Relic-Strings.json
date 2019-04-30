@@ -160,8 +160,8 @@
     "NAME": "Brilliant Behemoth",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "An additional ",
-      " % of your attack damage is dealt to ALL enemies after playing an attack."
+      "An additional #b",
+      " [REMOVE_SPACE]% of your attack damage is dealt to ALL enemies after playing an attack."
     ]
   }
 }
