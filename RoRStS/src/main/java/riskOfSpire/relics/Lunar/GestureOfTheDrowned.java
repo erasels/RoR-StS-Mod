@@ -13,14 +13,11 @@ public class GestureOfTheDrowned extends StackableRelic implements MultiplyCoold
 
     @Override
     public void onLoad(Integer integer) {
-        if (integer != null) {
-            relicStack = integer;
-            if (UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).isUsable())
-            {
-                UsableRelicSlot.usableRelic.get(AbstractDungeon.player).updateDescriptionWhenNeeded();
-            }
-        } else {
-            relicStack = 1;
+        super.onLoad(integer);
+
+        if (UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).isUsable())
+        {
+            UsableRelicSlot.usableRelic.get(AbstractDungeon.player).updateDescriptionWhenNeeded();
         }
     }
 

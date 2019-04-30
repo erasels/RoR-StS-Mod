@@ -49,7 +49,7 @@
     "NAME": "Gesture of the Drowned",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "The cooldown of usable relics is reduced by #b",
+      "The cooldowns of usable relics are reduced by #b",
       "% but they are used automatically."
     ]
   },
@@ -57,7 +57,9 @@
     "NAME": "Disposable Missile Launcher",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Damage random enemy a bunch. NL Cooldown: #b",
+      "Deal #b",
+      " damage to a random enemy #b",
+      " times. NL Cooldown: #b",
       " turns."
     ]
   },
@@ -116,6 +118,15 @@
     "DESCRIPTIONS": [
       "Every #b",
       " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:UnstableTeslaCoil": {
+    "NAME": "Unstable Tesla Coil",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Every other turn, deal #b",
+      " damage to a random enemy #b",
+      " times."
     ]
   },
   "riskOfSpire:ArmorPiercingRounds": {
