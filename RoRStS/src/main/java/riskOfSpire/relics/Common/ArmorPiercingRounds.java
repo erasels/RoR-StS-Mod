@@ -31,17 +31,18 @@ public class ArmorPiercingRounds extends StackableRelic implements OnMonsterSpaw
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped() && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
                 AbstractDungeon.actionManager.addToBottom(new DumbApplyPowerAction(m, AbstractDungeon.player, new ArmorPiercingRoundsPower(m), -1, true));
-                this.beginLongPulse();
-                break;
+                if (!pulse)
+                    this.beginLongPulse();
             }
         }
     }
 
     @Override
     public void onMonsterSpawn(AbstractMonster m) {
-        if (!pulse && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
+        if ((m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
             AbstractDungeon.actionManager.addToBottom(new DumbApplyPowerAction(m, AbstractDungeon.player, new ArmorPiercingRoundsPower(m), -1, true));
-            this.beginLongPulse();
+            if (!pulse)
+                this.beginLongPulse();
         }
     }
 
