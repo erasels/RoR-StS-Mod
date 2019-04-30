@@ -1,18 +1,18 @@
 package riskOfSpire.relics.Usable;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.general.GuaranteedDamageRandomEnemyAction;
+import riskOfSpire.actions.unique.TargetedMissileAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 public class DisposableMissileLauncher extends UsableRelic {
     public static final String ID = RiskOfSpire.makeID("DisposableMissileLauncher");
 
-    private static final int DAMAGE_PER = 5;
+    private static final int DAMAGE_PER = 4;
     private static final int MISSILE_COUNT = 10;
 
     private static final int COOLDOWN = 15;
@@ -23,7 +23,7 @@ public class DisposableMissileLauncher extends UsableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + getFinalCooldown() + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + DAMAGE_PER + DESCRIPTIONS[1] + MISSILE_COUNT + DESCRIPTIONS[2] + getFinalCooldown() + DESCRIPTIONS[3];
     }
 
     @Override
@@ -45,10 +45,12 @@ public class DisposableMissileLauncher extends UsableRelic {
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             DamageInfo info = new DamageInfo(AbstractDungeon.player, DAMAGE_PER, DamageInfo.DamageType.THORNS);
 
-            for (int i = 0; i < MISSILE_COUNT; ++i)
+            AbstractDungeon.actionManager.addToBottom(new TargetedMissileAction(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, Color.ORANGE.cpy(), MISSILE_COUNT, info));
+
+            /*for (int i = 0; i < MISSILE_COUNT; ++i)
             {
                 AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.FIRE, true, true));
-            }
+            }*/
 
             this.activateCooldown();
             this.stopPulse();
