@@ -40,6 +40,8 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgName));
             outlineImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relics/outline/" + imgName));
         }
+
+        updateDescriptionOnStack(false); //Description is constructed in super before stack value is set to 1, so values will be incorrect if this is not done.
     }
 
     //For mods that use CustomRelics
@@ -50,6 +52,8 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         this.img = img;
         largeImg = img;
         outlineImg = outline;
+
+        updateDescriptionOnStack(false); //Description is constructed in super before stack value is set to 1, so values will be incorrect if this is not done.
     }
 
     @Override

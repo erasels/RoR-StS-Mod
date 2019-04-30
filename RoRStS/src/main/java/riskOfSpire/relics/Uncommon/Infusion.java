@@ -26,8 +26,8 @@ public class Infusion extends StackableRelic {
                 if (AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
                     AbstractDungeon.player.increaseMaxHp(1, true);
                 } else {
-                    AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(m, this));
-                    AbstractDungeon.actionManager.addToBottom(new RaisePlayerMaxHPAction(1, true));
+                    AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(m, this));
+                    AbstractDungeon.actionManager.addToTop(new RaisePlayerMaxHPAction(1, true));
                     //Add a little red ball that flies from monster to player? Since that's the visual effect in RoR.
                 }
             }
