@@ -49,8 +49,11 @@ public class AlienHead extends StackableRelic {
             }
         }
         else {
+            this.flash();
             counter = getCardAmt();
-            AbstractDungeon.actionManager.addToBottom(new SetCostForTurnAction(drawnCard, 0));
+            drawnCard.setCostForTurn(0);
+            if (counter > 1)
+                stopPulse();
         }
     }
 
