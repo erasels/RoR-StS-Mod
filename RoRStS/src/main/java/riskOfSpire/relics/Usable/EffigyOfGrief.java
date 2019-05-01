@@ -52,6 +52,11 @@ public class EffigyOfGrief extends UsableRelic {
     }
 
     @Override
+    public char getColorChar() {
+        return 'b';
+    }
+
+    @Override
     public String getUpdatedDescription() {
         return DESCRIPTIONS[0];
     }

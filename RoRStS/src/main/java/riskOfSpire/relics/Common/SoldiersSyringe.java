@@ -27,7 +27,12 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
 
     @Override
     public String getUpdatedDescription() {
-        return (DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming((CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1) + DESCRIPTIONS[1]);
+        int val = (CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1;
+        if (val > 1)
+        {
+            return (DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming(val) + DESCRIPTIONS[1]);
+        }
+        return DESCRIPTIONS[2];
     }
 
     @Override
@@ -53,6 +58,11 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
             } else if (counter <= 0) {
                 startingCharges();
+                if (!AbstractDungeon.player.hasPower(DoubleAttackPower.POWER_ID))
+                {
+                    AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                    AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
+                }
                 flash();
             }
         }
