@@ -1,4 +1,4 @@
-package riskOfSpire.relics.Common;
+package riskOfSpire.relics.Uncommon;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -12,7 +12,7 @@ public class TougherTimes extends StackableRelic
 
     public TougherTimes()
     {
-        super(ID, "TougherTimes.png", RelicTier.COMMON, LandingSound.FLAT);
+        super(ID, "TougherTimes.png", RelicTier.UNCOMMON, LandingSound.FLAT);
     }
 
     @Override
