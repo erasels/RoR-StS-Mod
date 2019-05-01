@@ -9,7 +9,7 @@ import riskOfSpire.relics.Abstracts.UsableRelic;
 public class RadarScanner extends UsableRelic {
     public static final String ID = RiskOfSpire.makeID("RadarScanner");
     private static final int ADD = 1;
-    private static final int COOLDOWN = 5;
+    private static final int COOLDOWN = 8;
 
     public RadarScanner() {
         super(ID, "RadarScanner.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
