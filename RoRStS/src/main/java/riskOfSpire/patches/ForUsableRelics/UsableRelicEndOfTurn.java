@@ -9,13 +9,13 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
         clz = AbstractRoom.class,
         method = "applyEndOfTurnRelics"
 )
-public class UsableRelicCooldown {
+public class UsableRelicEndOfTurn {
     @SpirePostfixPatch
-    public static void updateCooldown(AbstractRoom __instance)
+    public static void onTurnEnd(AbstractRoom __instance)
     {
         if (UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null)
         {
-            UsableRelicSlot.usableRelic.get(AbstractDungeon.player).updateCooldown();
+            UsableRelicSlot.usableRelic.get(AbstractDungeon.player).onPlayerEndTurn();
         }
     }
 }

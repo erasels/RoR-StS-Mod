@@ -66,6 +66,11 @@ public class GlowingMeteorite extends StackableRelic {
         }
     }
 
+    @Override
+    public char getColorChar() {
+        return 'b';
+    }
+
     public AbstractRelic makeCopy() {
         return new GlowingMeteorite();
     }

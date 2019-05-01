@@ -58,6 +58,7 @@ public class TargetedMissileEffect extends AbstractGameEffect {
         this.aY = vY * MathUtils.random(0.2f, 0.8f);
 
         freeDuration = FREE_TIME / mult;
+        duration = freeDuration;
         lockedOn = false;
         finalApproach = false;
 
@@ -73,10 +74,31 @@ public class TargetedMissileEffect extends AbstractGameEffect {
     public void update() {
         if (target.isDeadOrEscaped())
         {
-            AbstractDungeon.effectsQueue.add(new FlashAtkImgEffect(x, y, AbstractGameAction.AttackEffect.FIRE, false));
+            if (!AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead() && duration > 0.0f)
+                target = AbstractDungeon.getRandomMonster();
+            else
+                target = null;
 
-            this.isDone = true;
-            return;
+            if (target == null)
+            {
+                AbstractDungeon.effectsQueue.add(new FlashAtkImgEffect(x, y, AbstractGameAction.AttackEffect.FIRE, false));
+
+                this.isDone = true;
+                return;
+            }
+            else //new target.
+            {
+                if (lockedOn)
+                {
+                    this.sX = this.x;
+                    this.sY = this.y;
+                    this.tX = target.hb.cX;
+                    this.tY = this.y + Math.abs(tX - sX) * MathUtils.random(0.4f, 0.5f);
+
+                    this.startingDuration = this.duration;
+                    finalApproach = false;
+                }
+            }
         }
 
         if (lockedOn)

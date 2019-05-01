@@ -67,12 +67,26 @@ public abstract class UsableRelic extends AbstractRelic {
         this.description = this.getUpdatedDescription();
         ArrayList<PowerTip> tmp = new ArrayList<>();
         this.tips.forEach(pT -> {
-            if (!pT.header.equals(this.name)) tmp.add(pT);
+            if (!pT.header.equals(this.name) && !pT.header.startsWith(RiskOfSpire.makeID("@RECOLOR@"))) tmp.add(pT);
         });
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
         this.tips.addAll(tmp);
         this.initializeTips();
+    }
+
+    @Override
+    protected void initializeTips() {
+        super.initializeTips();
+
+        if (tips.size() > 0 && tips.get(0).header.toLowerCase().equals(name.toLowerCase())) {
+            tips.get(0).header = RiskOfSpire.makeID("@RECOLOR@") + getColorChar() + tips.get(0).header;
+        }
+    }
+
+    public char getColorChar()
+    {
+        return 'o';
     }
 
     public int getFinalCooldown() {
