@@ -15,7 +15,7 @@ public class DisposableMissileLauncher extends UsableRelic {
     private static final int DAMAGE_PER = 4;
     private static final int MISSILE_COUNT = 10;
 
-    private static final int COOLDOWN = 15;
+    private static final int COOLDOWN = 12;
 
     public DisposableMissileLauncher() {
         super(ID, "DisposableMissileLauncher.png", RelicTier.UNCOMMON, LandingSound.HEAVY);

@@ -113,6 +113,14 @@
       "."
     ]
   },
+  "riskOfSpire:FuelCell": {
+    "NAME": "Fuel Cell",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The cooldown of usable relics is reduced by #b",
+      " turns."
+    ]
+  },
   "riskOfSpire:RustyKey": {
     "NAME": "Rusty Key",
     "FLAVOR": "TODO",
@@ -126,7 +134,8 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Every #b",
-      " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
+      " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE].",
+      "Every #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
     ]
   },
   "riskOfSpire:UnstableTeslaCoil": {

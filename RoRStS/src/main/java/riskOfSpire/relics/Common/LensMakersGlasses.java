@@ -15,7 +15,7 @@ import riskOfSpire.util.StringManipulationUtilities;
 
 public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardRelic {
     public static final String ID = RiskOfSpire.makeID("LensMakersGlasses");
-    private static final int CARD_AMT = 10;
+    private static final int CARD_AMT = 20;
 
     private boolean fullCrit  = false;
 
@@ -26,7 +26,12 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
 
     @Override
     public String getUpdatedDescription() {
-        return (DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming((CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1) + DESCRIPTIONS[1]);
+        int val = (CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1;
+        if (val > 1)
+        {
+            return (DESCRIPTIONS[0] + StringManipulationUtilities.ordinalNaming(val) + DESCRIPTIONS[1]);
+        }
+        return DESCRIPTIONS[2];
     }
 
     @Override
