@@ -113,6 +113,15 @@
       "."
     ]
   },
+  "riskOfSpire:AlienHead": {
+    "NAME": "Alien Head",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Reduce the cost of every #b",
+      " card you draw to 0 until the end of the turn.",
+      "Reduce the cost of every card you draw to 0 until the end of the turn."
+    ]
+  },
   "riskOfSpire:FuelCell": {
     "NAME": "Fuel Cell",
     "FLAVOR": "TODO",
