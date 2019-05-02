@@ -10,7 +10,7 @@ public class FuelCell extends StackableRelic implements ModifyCooldownRelic {
     private static final int CD_PER = 1;
 
     public FuelCell() {
-        super(ID, "Infusion.png", RelicTier.UNCOMMON, LandingSound.CLINK);
+        super(ID, "FuelCell.png", RelicTier.UNCOMMON, LandingSound.CLINK);
     }
 
     @Override
