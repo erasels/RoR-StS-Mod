@@ -62,7 +62,7 @@ public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInte
             }
             tmp.purgeOnUse = true;
             AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(tmp, m, card.energyOnUse));
-            if(dontRemove) {
+            if (!dontRemove) {
                 AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, POWER_ID));
             }
         }

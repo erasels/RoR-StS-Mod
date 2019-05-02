@@ -68,7 +68,7 @@ public class TargetedMissileAction extends AbstractGameAction {
         else
         {
             missileEffects.removeIf((e)->{
-                if (e.isDone)
+                if (e.isDone && e.target != null)
                 {
                     e.target.damage(e.dmg);
                 }

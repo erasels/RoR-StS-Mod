@@ -108,7 +108,7 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         this.description = this.getUpdatedDescription();
         ArrayList<PowerTip> tmp = new ArrayList<>();
         this.tips.forEach(pT -> {
-            if (!pT.header.equals(this.name)) tmp.add(pT);
+            if (!pT.header.equals(this.name) && !pT.header.startsWith(RiskOfSpire.makeID("@RECOLOR@"))) tmp.add(pT);
         });
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
@@ -117,6 +117,33 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
 
         if (flash)
             flash();
+    }
+
+    @Override
+    protected void initializeTips() {
+        super.initializeTips();
+
+        if (tips.size() > 0 && tips.get(0).header.toLowerCase().equals(name.toLowerCase())) {
+            tips.get(0).header = RiskOfSpire.makeID("@RECOLOR@") + getColorChar() + tips.get(0).header;
+        }
+    }
+
+    public char getColorChar()
+    {
+        switch (this.tier)
+        {
+            case COMMON:
+                return 'w';
+            case RARE:
+            case BOSS:
+                return 'r';
+            case SPECIAL:
+                return 'b';
+            case UNCOMMON:
+                return 'g';
+            default:
+                return 'y';
+        }
     }
 
     public void onRelicGet(AbstractRelic r) {

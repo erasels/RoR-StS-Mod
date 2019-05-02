@@ -3,7 +3,7 @@
     "NAME": "Usable",
     "FLAVOR": "N/A",
     "DESCRIPTIONS": [
-      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the end of each turn. You may only have one usable relic at a time. Upon picking up a new usable relic, any previously held will be lost #rforever. "
+      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the start of each turn. Obtaining a new usable relic will replace the old one."
     ]
   },
   "riskOfSpire:Infusion": {
@@ -27,7 +27,8 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Every #b",
-      " #yAttack you play is played twice."
+      " #yAttack you play is played twice.",
+      "Every #yAttack you play is played twice."
     ]
   },
   "riskOfSpire:RadarScanner": {
@@ -112,6 +113,23 @@
       "."
     ]
   },
+  "riskOfSpire:AlienHead": {
+    "NAME": "Alien Head",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Reduce the cost of every #b",
+      " card you draw to 0 until the end of the turn.",
+      "Reduce the cost of every card you draw to 0 until the end of the turn."
+    ]
+  },
+  "riskOfSpire:FuelCell": {
+    "NAME": "Fuel Cell",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The cooldown of usable relics is reduced by #b",
+      " turns."
+    ]
+  },
   "riskOfSpire:RustyKey": {
     "NAME": "Rusty Key",
     "FLAVOR": "TODO",
@@ -125,14 +143,15 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Every #b",
-      " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
+      " #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE].",
+      "Every #yAttack you play is #yriskofspire:Critical [REMOVE_SPACE]."
     ]
   },
   "riskOfSpire:UnstableTeslaCoil": {
     "NAME": "Unstable Tesla Coil",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Every other turn, deal #b",
+      "At the end of every other turn, deal #b",
       " damage to a random enemy #b",
       " times."
     ]
