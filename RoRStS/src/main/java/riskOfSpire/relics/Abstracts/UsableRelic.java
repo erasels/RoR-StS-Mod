@@ -28,7 +28,7 @@ import riskOfSpire.relics.Interfaces.MultiplyCooldownRelic;
 import java.util.ArrayList;
 
 public abstract class UsableRelic extends AbstractRelic {
-    private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
+    private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
 
     public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -41,7 +41,7 @@ public abstract class UsableRelic extends AbstractRelic {
             outlineImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relics/outline/" + imgName));
         }
 
-        this.tips.add(new PowerTip(relicStrings.NAME, relicStrings.DESCRIPTIONS[0]));
+        this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
 
         this.counter = 0; //cooldown.
         this.beginLongPulse();
@@ -57,6 +57,11 @@ public abstract class UsableRelic extends AbstractRelic {
 
         this.counter = 0; //cooldown.
         this.beginLongPulse();
+    }
+
+    public String getCooldownString()
+    {
+        return usableRelicStrings.DESCRIPTIONS[1] + getFinalCooldown() + (getFinalCooldown() == 1 ? usableRelicStrings.DESCRIPTIONS[2] : usableRelicStrings.DESCRIPTIONS[3]);
     }
 
     public abstract boolean isUsable(); //Whether or not it has an active effect, or just toggles.

@@ -1,17 +1,14 @@
 package riskOfSpire.relics.Common;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AfterImagePower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.general.GuaranteedDamageRandomEnemyAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class EnergyDrink extends StackableRelic {
@@ -26,7 +23,7 @@ public class EnergyDrink extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + relicStack + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + relicStack + (relicStack == 1 ? DESCRIPTIONS[1] : DESCRIPTIONS[2]);
     }
 
     @Override

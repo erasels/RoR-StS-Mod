@@ -17,7 +17,7 @@ public class RadarScanner extends UsableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + getFinalCooldown() + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + getCooldownString();
     }
 
     @Override

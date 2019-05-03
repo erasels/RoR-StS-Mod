@@ -3,7 +3,10 @@
     "NAME": "Usable",
     "FLAVOR": "N/A",
     "DESCRIPTIONS": [
-      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the start of each turn. Obtaining a new usable relic will replace the old one."
+      "Right click a usable relic to use it. The cooldown of a usable relic decreases at the start of each turn. Obtaining a new usable relic will replace the old one.",
+      "Cooldown: #b",
+      " turn.",
+      " turns."
     ]
   },
   "riskOfSpire:Infusion": {
@@ -11,7 +14,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Upon killing an enemy, gain #b1 Max HP, up to #b",
-      " per stack."
+      "."
     ]
   },
   "riskOfSpire:BustlingFungus": {
@@ -35,8 +38,7 @@
     "NAME": "Radar Scanner",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Put a card from your draw pile into your hand. NL Cooldown: #b",
-      " turns."
+      "Put a card from your draw pile into your hand. NL "
     ]
   },
   "riskOfSpire:EffigyOfGrief": {
@@ -60,8 +62,7 @@
     "DESCRIPTIONS": [
       "Deal #b",
       " damage to a random enemy #b",
-      " times. NL Cooldown: #b",
-      " turns."
+      " times. NL "
     ]
   },
   "riskOfSpire:BundleOfFireworks": {
@@ -78,6 +79,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "For the first #b",
+      " turn of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE].",
       " turns of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE]."
     ]
   },
@@ -118,8 +120,8 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Reduce the cost of every #b",
-      " card you draw to 0 until the end of the turn.",
-      "Reduce the cost of every card you draw to 0 until the end of the turn."
+      " card you draw to #b0 until the end of the turn.",
+      "Reduce the cost of every card you draw to #b0 until the end of the turn."
     ]
   },
   "riskOfSpire:FuelCell": {
@@ -127,6 +129,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "The cooldown of usable relics is reduced by #b",
+      " turn.",
       " turns."
     ]
   },

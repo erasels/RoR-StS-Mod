@@ -36,9 +36,8 @@ public class Infusion extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        //Upon killing an enemy, gain 1 Max HP, up to x per stack.
-        //Should it display the final amount on this? Currently gained amount? It will be shown as counter, so is it needed?
-        return DESCRIPTIONS[0] + HP_PER + DESCRIPTIONS[1];
+        //Upon killing an enemy, gain 1 Max HP, up to x.
+        return DESCRIPTIONS[0] + HP_PER * relicStack + DESCRIPTIONS[1] ;
     }
 
     public AbstractRelic makeCopy() {
