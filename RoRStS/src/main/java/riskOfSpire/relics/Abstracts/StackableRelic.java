@@ -1,22 +1,17 @@
 package riskOfSpire.relics.Abstracts;
 
-import basemod.BaseMod;
 import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.PowerTip;
-import com.megacrit.cardcrawl.powers.RegenPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RelicOffsetXPatch;
 
@@ -147,6 +142,23 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
     }
 
     public void onRelicGet(AbstractRelic r) {
+    }
+
+    @Override
+    public int getPrice() {
+        switch(this.tier) {
+            case COMMON:
+                return 50;
+            case RARE:
+            case SHOP:
+                return 200;
+            case SPECIAL:
+                return 400;
+            case BOSS:
+                return 999;
+            default:
+                return 100;
+        }
     }
 
     public void notifyRelicGet() {

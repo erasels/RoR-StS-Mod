@@ -2,7 +2,6 @@ package riskOfSpire.powers;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -13,8 +12,6 @@ import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.DumbApplyPowerAction;
 import riskOfSpire.powers.abstracts.RoRStSPower;
 import riskOfSpire.relics.Common.ArmorPiercingRounds;
-
-import static riskOfSpire.relics.Common.ArmorPiercingRounds.BASE_ADD_DMG;
 
 public class ArmorPiercingRoundsPower extends RoRStSPower implements CloneablePowerInterface, InvisiblePower {
     public static final String POWER_ID = RiskOfSpire.makeID("ArmorPiercingRounds");
@@ -37,7 +34,7 @@ public class ArmorPiercingRoundsPower extends RoRStSPower implements CloneablePo
     public float atDamageFinalReceive(float damageAmount, DamageInfo.DamageType info) {
         ArmorPiercingRounds arp = (ArmorPiercingRounds) AbstractDungeon.player.getRelic(ArmorPiercingRounds.ID);
         if(arp != null && info == DamageInfo.DamageType.NORMAL) {
-            return damageAmount + arp.relicStack+BASE_ADD_DMG;
+            return damageAmount + arp.relicStack;
         }
 
         return damageAmount;

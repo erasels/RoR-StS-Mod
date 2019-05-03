@@ -18,6 +18,9 @@ import riskOfSpire.RiskOfSpire;
 public class ColoredRarityTips {
     private static final float TEXT_OFFSET_X;
     private static final float HEADER_OFFSET_Y;
+    private static final float BODY_TEXT_WIDTH;
+    private static final float TIP_DESC_LINE_SPACING;
+
     private static final Color BASE_COLOR = new Color(1.0F, 0.9725F, 0.8745F, 1.0F);
 
     private static Color recolor;
@@ -68,7 +71,8 @@ public class ColoredRarityTips {
     {
         if (enabled)
         {
-            FontHelper.renderFontLeftTopAligned(sb, FontHelper.tipHeaderFont, title[0], x + TEXT_OFFSET_X, y + HEADER_OFFSET_Y, recolor);
+            //FontHelper.renderFontLeftTopAligned(sb, FontHelper.tipHeaderFont, title[0], x + TEXT_OFFSET_X, y + HEADER_OFFSET_Y, recolor);
+            FontHelper.renderSmartText(sb, FontHelper.tipHeaderFont, title[0], x + TEXT_OFFSET_X, y + HEADER_OFFSET_Y, BODY_TEXT_WIDTH, TIP_DESC_LINE_SPACING, recolor);
             title[0] = ""; //Clear title so it isn't re-rendered in base method.
         }
         return SpireReturn.Continue();
@@ -88,5 +92,7 @@ public class ColoredRarityTips {
     {
         TEXT_OFFSET_X = 22.0F * Settings.scale;
         HEADER_OFFSET_Y = 12.0F * Settings.scale;
+        BODY_TEXT_WIDTH = 280.0F * Settings.scale;
+        TIP_DESC_LINE_SPACING = 26.0F * Settings.scale;
     }
 }

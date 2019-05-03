@@ -110,6 +110,23 @@ public abstract class UsableRelic extends AbstractRelic {
         return MathUtils.floor(cooldown);
     }
 
+    @Override
+    public int getPrice() {
+        switch(this.tier) {
+            case COMMON:
+                return 75;
+            case RARE:
+            case SHOP:
+                return 150;
+            case SPECIAL:
+                return 300;
+            case BOSS:
+                return 999;
+            default:
+                return 100;
+        }
+    }
+
     public void activateCooldown() {
         setCounter(getFinalCooldown());
     }

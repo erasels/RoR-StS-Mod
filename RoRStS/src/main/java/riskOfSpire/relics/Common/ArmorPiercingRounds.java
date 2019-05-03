@@ -1,12 +1,8 @@
 package riskOfSpire.relics.Common;
 
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.Necronomicon;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.DumbApplyPowerAction;
 import riskOfSpire.powers.ArmorPiercingRoundsPower;
@@ -15,7 +11,6 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class ArmorPiercingRounds extends StackableRelic implements OnMonsterSpawn {
     public static final String ID = RiskOfSpire.makeID("ArmorPiercingRounds");
-    public static final int BASE_ADD_DMG = 1; //Will always be atleast 2 because of relicstack satrting at 1
 
     public ArmorPiercingRounds() {
         super(ID, "ArmorPiercingRounds.png", RelicTier.COMMON, LandingSound.FLAT);
@@ -23,7 +18,7 @@ public class ArmorPiercingRounds extends StackableRelic implements OnMonsterSpaw
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + (BASE_ADD_DMG + relicStack) + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + relicStack + DESCRIPTIONS[1];
     }
 
     @Override
