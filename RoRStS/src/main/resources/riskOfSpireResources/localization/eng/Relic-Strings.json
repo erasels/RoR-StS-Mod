@@ -190,5 +190,13 @@
       "An additional #b",
       " [REMOVE_SPACE]% of your attack damage is dealt to ALL enemies after playing an attack."
     ]
+  },
+  "riskOfSpire:PaulsHoof": {
+    "NAME": "Paul's Hoof",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you gain #yBlock [REMOVE_SPACE], gain #b",
+      " #yBlock at the start of the next turn."
+    ]
   }
 }
