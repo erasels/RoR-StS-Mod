@@ -58,12 +58,6 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
             } else if (counter <= 0) {
                 startingCharges();
-                if (!AbstractDungeon.player.hasPower(DoubleAttackPower.POWER_ID))
-                {
-                    AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                    AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
-                }
-                flash();
             }
         }
     }
@@ -84,6 +78,7 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
     private void startingCharges() {
         if (CARD_AMT - (relicStack - 1) >= 1) {
             setCounter(CARD_AMT - (relicStack - 1));
+            stopPulse();
         } else {
             setCounter(1);
             beginLongPulse();

@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Circlet;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 
 import java.lang.reflect.Field;
@@ -27,6 +26,8 @@ public class LinkedRewardItem extends RewardItem
     public static UIStrings linkedUIStrings = CardCrawlGame.languagePack.getUIString(RiskOfSpire.makeID("LinkedRewardItem"));
 
     public List<RewardItem> linkedRewards = new ArrayList<>();
+
+    public boolean claimed = false;
 
     public LinkedRewardItem(RewardItem original)
     {
@@ -71,7 +72,7 @@ public class LinkedRewardItem extends RewardItem
         int thisIndexOf = AbstractDungeon.combatRewardScreen.rewards.indexOf(this);
         for (RewardItem link : linkedRewards) {
             if (AbstractDungeon.combatRewardScreen.rewards.indexOf(link) < thisIndexOf) {
-                return false;
+                return claimed;
             }
         }
         return true;
@@ -80,19 +81,23 @@ public class LinkedRewardItem extends RewardItem
     @Override
     public boolean claimReward()
     {
-        if (!this.ignoreReward)
+        this.claimed = super.claimReward() || this.type == RewardType.CARD; //When you click on reward, if it's card or claimed successfully, remove others.
+        if (this.claimed)
         {
-            for (RewardItem link : linkedRewards) {
-                link.isDone = true;
-                link.ignoreReward = true;
-                if (link.type == RewardType.CARD) //Card rewards aren't removed properly, so it's a relic now. IT'S A RELIC, OK.
-                {
-                    link.type = RewardType.RELIC;
-                    link.relic = new Circlet();
+            if (!this.ignoreReward)
+            {
+                for (RewardItem link : linkedRewards) {
+                    link.isDone = true;
+                    link.ignoreReward = true;
+                    if (link.type == RewardType.CARD) //Card rewards aren't removed properly, so it's a relic now. IT'S A RELIC, OK.
+                    {
+                        link.type = RewardType.RELIC;
+                        link.relic = new Circlet();
+                    }
                 }
             }
         }
-        return super.claimReward();
+        return claimed;
     }
 
     @Override
