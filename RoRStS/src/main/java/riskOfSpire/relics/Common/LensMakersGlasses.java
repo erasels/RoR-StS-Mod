@@ -58,7 +58,6 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
             } else if (counter <= 0) {
                 startingCharges();
                 stopPulse();
-                flash();
             }
         }
     }

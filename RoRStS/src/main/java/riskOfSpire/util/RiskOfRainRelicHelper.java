@@ -9,6 +9,8 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
+import riskOfSpire.relics.Usable.DisposableMissileLauncher;
+import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
 
 import java.util.ArrayList;
@@ -25,41 +27,75 @@ public class RiskOfRainRelicHelper {
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier)
     {
         rateModifier *= getFinalRateModifier();
-        String id = "";
-        if (rare)
-        {
+        ArrayList<AbstractRelic> validPool = new ArrayList<>();
+        AbstractRelic toCopy;
+
+        if (rare) {
+            for (String s : RiskOfSpire.rorRareRelics) {
+                AbstractRelic r = RelicLibrary.getRelic(s);
+                if (r != null && r.canSpawn())
+                    validPool.add(r);
+            }
+
+            if (validPool.isEmpty()) { //no circlets.
+                toCopy = RelicLibrary.getRelic(RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1)));
+            }
+            else
+            {
+                toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+            }
+
+
             if (!changeCounter)
             {
                 RiskOfRainRelicRng.counter -= 1;
                 incrementLater += 1;
             }
 
-            id = RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
         }
         else
         {
+            int pool = RiskOfRainRelicRng.random(100);
+            ArrayList<AbstractRelic> failurePool = new ArrayList<>();
+            ArrayList<String> sourceList;
+
+            if (pool >= 95 * rateModifier) {
+                sourceList = RiskOfSpire.rorRareRelics;
+            }
+            else if (pool > 75 * rateModifier) {
+                sourceList = RiskOfSpire.rorUncommonRelics;
+            }
+            else {
+                sourceList = RiskOfSpire.rorCommonRelics;
+            }
+
+            for (String s : sourceList)
+            {
+                AbstractRelic r = RelicLibrary.getRelic(s);
+                if (r != null) {
+                    failurePool.add(r);
+                    if (r.canSpawn())
+                        validPool.add(r);
+                }
+            }
+
+            if (validPool.isEmpty()) { //no circlets.
+                toCopy = failurePool.get(RiskOfRainRelicRng.random(failurePool.size() - 1));
+            }
+            else
+            {
+                toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+            }
+
+
             if (!changeCounter)
             {
                 RiskOfRainRelicRng.counter -= 2;
                 incrementLater += 2;
             }
-            int pool = RiskOfRainRelicRng.random(100);
-
-            if (pool >= 95 * rateModifier)
-            {
-                id = RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1));
-            }
-            else if (pool > 75 * rateModifier)
-            {
-                id = RiskOfSpire.rorUncommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorUncommonRelics.size() - 1));
-            }
-            else
-            {
-                id = RiskOfSpire.rorCommonRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorCommonRelics.size() - 1));
-            }
         }
 
-        return RelicLibrary.getRelic(id).makeCopy();
+        return toCopy.makeCopy();
     }
 
     public static void modifyCombatRewards(CombatRewardScreen __instance)
@@ -76,7 +112,10 @@ public class RiskOfRainRelicHelper {
 
             if (rorRelic != null) {
                 LinkedRewardItem replaceReward = new LinkedRewardItem(reward);
-                LinkedRewardItem newReward = new LinkedRewardItem(replaceReward, rorRelic);
+                LinkedRewardItem newReward = new ExpensiveLinkedReward(replaceReward, rorRelic);
+                RiskOfRainRelicRng.counter--; //ExpensiveLinkedReward gets one random value.
+                incrementLater++;
+
 
                 int indexOf = __instance.rewards.indexOf(reward);
                 // Insert after existing reward
