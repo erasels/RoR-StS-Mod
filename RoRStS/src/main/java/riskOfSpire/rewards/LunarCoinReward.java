@@ -26,8 +26,7 @@ public class LunarCoinReward extends CustomReward {
 
     @Override
     public boolean claimReward() {
-        CardCrawlGame.sound.play("RELIC_DROP_MAGICAL");
-        RiskOfSpire.lunarCoinAmount += amountOfCoins;
+        RiskOfSpire.manipLunarCoins(amountOfCoins, true);
         return true;
     }
 }
