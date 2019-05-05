@@ -78,8 +78,8 @@
     "NAME": "Energy Drink",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
+      "For the first turn of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE].",
       "For the first #b",
-      " turn of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE].",
       " turns of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE]."
     ]
   },
