@@ -67,7 +67,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Whenever you smith a card, gain #b",
-      " #yStrength at the start of the next combat."
+      " #yStrength and #yDexterity at the start of the next combat."
     ]
   },
   "riskOfSpire:EffigyOfGrief": {
