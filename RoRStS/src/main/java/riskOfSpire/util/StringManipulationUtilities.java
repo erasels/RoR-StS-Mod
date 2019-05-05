@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.ui.panels.TopPanel;
 public class StringManipulationUtilities {
     public static String ordinalNaming(int num) {
         if(Settings.language == Settings.GameLanguage.ENG) {
-            return num + " [REMOVE_SPACE]" + TopPanel.getOrdinalNaming(num);
+            return num + TopPanel.getOrdinalNaming(num);
         }
         return Integer.toString(num);
     }
