@@ -41,6 +41,35 @@
       "Put a card from your draw pile into your hand. NL "
     ]
   },
+  "riskOfSpire:HardlightAfterburner": {
+    "NAME": "Hardlight Afterburner",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Upon pickup, choose a #ySkill. Whenever you draw this card, add #b",
+      " copy of it with #yEthereal and #yExhaust that costs #b1 less to your hand.",
+      "Choose a card for ",
+      "Whenever you draw ",
+      ", add #b",
+      " copy of it with #yEthereal and #yExhaust that costs #b1 less to your hand.",
+      " copies of it with #yEthereal and #yExhaust that costs #b1 less to your hand."
+    ]
+  },
+  "riskOfSpire:PreonAccumulator": {
+    "NAME": "Preon Accumulator",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "You cannot gain #yBlock for #b3 turns. At the end of #b3 turns, deal #b",
+      " damage to ALL enemies. NL "
+    ]
+  },
+  "riskOfSpire:WarBanner": {
+    "NAME": "War Banner",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you smith a card, gain #b",
+      " #yStrength and #yDexterity at the start of the next combat."
+    ]
+  },
   "riskOfSpire:EffigyOfGrief": {
     "NAME": "Effigy of Grief",
     "FLAVOR": "TODO",
