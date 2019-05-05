@@ -1,7 +1,6 @@
 package riskOfSpire;
 
 import basemod.BaseMod;
-import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
@@ -15,38 +14,27 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardHelper;
-import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import com.megacrit.cardcrawl.rewards.RewardSave;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
-import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
+import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
-import riskOfSpire.relics.Common.*;
-import riskOfSpire.relics.Rare.CeremonialDagger;
-import riskOfSpire.relics.Uncommon.AtGMissileMk1;
-import riskOfSpire.relics.Lunar.GestureOfTheDrowned;
-import riskOfSpire.relics.Uncommon.Infusion;
-import riskOfSpire.relics.Uncommon.MonsterTooth;
-import riskOfSpire.relics.Usable.DisposableMissileLauncher;
-import riskOfSpire.relics.Usable.EffigyOfGrief;
-import riskOfSpire.relics.Usable.RadarScanner;
+import riskOfSpire.rewards.LunarCoinReward;
+import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
 import riskOfSpire.util.TextureLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
@@ -73,53 +61,54 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
 
     private static final String MODNAME = "Risk Of Spire";
-    private static final String AUTHOR = "erasels / Alchyr / Kio / Amethyst / Lobbien";
+    private static final String AUTHOR = "erasels / Alchyr / Kio / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
 
-    public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(),Color.VIOLET.cpy()));
+    public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(), Color.VIOLET.cpy()));
 
     //No need to track shop, special, or boss relics.
     public static ArrayList<String> rorCommonRelics = new ArrayList<>();
     public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
     public static ArrayList<String> rorRareRelics = new ArrayList<>();
 
+    public static int lunarCoinAmount = 0;
 
 
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
-    
+
     public static String makeCardPath(String resourcePath) {
         return getModID() + "Resources/images/cards/" + resourcePath;
     }
-    
+
     public static String makeRelicPath(String resourcePath) {
         return getModID() + "Resources/images/relics/" + resourcePath;
     }
-    
+
     public static String makeRelicOutlinePath(String resourcePath) {
         return getModID() + "Resources/images/relics/outline/" + resourcePath;
     }
-    
+
     public static String makeOrbPath(String resourcePath) {
         return getModID() + "Resources/orbs/" + resourcePath;
     }
-    
+
     public static String makePowerPath(String resourcePath) {
         return getModID() + "Resources/images/powers/" + resourcePath;
     }
-    
+
     public static String makeEventPath(String resourcePath) {
         return getModID() + "Resources/images/events/" + resourcePath;
     }
-    
+
     public RiskOfSpire() {
         logger.info("Subscribe to BaseMod hooks");
-        
+
         BaseMod.subscribe(this);
-      
+
         setModID("riskOfSpire");
-        
+
         logger.info("Done subscribing");
-        
+
         logger.info("Adding mod settings");
         ModSettings.setProperty(ENABLE_PLACEHOLDER_SETTINGS, "FALSE"); // This is the default setting. It's actually set...
         try {
@@ -131,7 +120,7 @@ public class RiskOfSpire implements
             e.printStackTrace();
         }
         logger.info("Done adding mod settings");
-        
+
     }
 
     public static void setModID(String ID) { // DON'T EDIT
@@ -149,11 +138,11 @@ public class RiskOfSpire implements
         } // NO
         logger.info("Success! ID is " + modID); // WHY WOULD U WANT IT NOT TO LOG?? DON'T EDIT THIS.
     } // NO
-    
+
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
-    
+
     private static void pathCheck() { // ALSO NO
         Gson coolG = new Gson(); // NNOPE DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i still hate u btw Gdx.files
@@ -170,50 +159,40 @@ public class RiskOfSpire implements
             }// NO
         }// NO
     }// NO
-    
-    
+
+
     @SuppressWarnings("unused")
     public static void initialize() {
         RiskOfSpire riskOfSpire = new RiskOfSpire();
     }
-    
+
     @Override
     public void receivePostInitialize() {
         logger.info("Loading badge image and mod options");
-        
+
         // Load the Mod Badge
         Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE);
-        
+
         // Create the Mod Menu
         ModPanel settingsPanel = new ModPanel();
-        
-        // Create the on/off button:
-        ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton("This is the text which goes next to the checkbox.",
-                350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont, // Position (trial and error it), color, font
-                enablePlaceholder, // Boolean it uses
-                settingsPanel, // The mod panel in which this button will be in
-                (label) -> {}, // thing??????? idk
-                (button) -> { // The actual button:
-            
-            enablePlaceholder = button.enabled; // The boolean true/false will be whether the button is enabled or not
-            try {
-                // And based on that boolean, set the settings and save them
-                SpireConfig config = new SpireConfig("riskOfSpire", "theDefaultConfig", ModSettings);
-                config.setBool(ENABLE_PLACEHOLDER_SETTINGS, enablePlaceholder);
-                config.save();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        
-        settingsPanel.addUIElement(enableNormalsButton); // Add the button to the settings panel. Button is a go.
-        
+
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
+
+        //Lunar Coins
+        loadData();
+
+        BaseMod.registerCustomReward(
+                RewardItemTypeEnumPatch.LUNAR_COIN,
+                (rewardSave) -> new LunarCoinReward(rewardSave.amount),
+                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCoinReward) customReward).amountOfCoins, 0)
+        );
+
+        BaseMod.addTopPanelItem(new LunarCoinDisplay());
 
 
         logger.info("Done loading badge Image and mod options");
     }
-    
+
     @Override
     public void receiveEditRelics() {
         logger.info("Adding relics");
@@ -221,36 +200,34 @@ public class RiskOfSpire implements
         //All relics are Shared relics, not character specific, so I can just do this.
         try {
             autoAddRelics();
-        }
-        catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | CannotCompileException e)
-        {
+        } catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | CannotCompileException e) {
             e.printStackTrace();
         }
 
         logger.info("Done adding relics!");
     }
-    
+
     @Override
-    public void receiveEditCards() { 
+    public void receiveEditCards() {
     }
 
-    
+
     @Override
     public void receiveEditStrings() {
         logger.info("Beginning to edit strings for mod with ID: " + getModID());
-        
+
         // CardStrings
         BaseMod.loadCustomStringsFile(CardStrings.class,
                 getModID() + "Resources/localization/eng/Card-Strings.json");
-        
+
         // PowerStrings
         BaseMod.loadCustomStringsFile(PowerStrings.class,
                 getModID() + "Resources/localization/eng/Power-Strings.json");
-        
+
         // RelicStrings
         BaseMod.loadCustomStringsFile(RelicStrings.class,
                 getModID() + "Resources/localization/eng/Relic-Strings.json");
-        
+
         // Event Strings
         BaseMod.loadCustomStringsFile(EventStrings.class,
                 getModID() + "Resources/localization/eng/Event-Strings.json");
@@ -261,30 +238,21 @@ public class RiskOfSpire implements
         // OrbStrings
         BaseMod.loadCustomStringsFile(OrbStrings.class,
                 getModID() + "Resources/localization/eng/Orb-Strings.json");
-        
+
         logger.info("Done editing strings");
     }
 
     @Override
     public void receiveEditKeywords() {
-        /*Gson gson = new Gson();
-        String json = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json, com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
-        
-        if (keywords != null) {
-            for (Keyword keyword : keywords) {
-                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
-            }
-        }*/
-
         Gson gson = new Gson();
         //String keywordStrings = Gdx.files.internal(assetPath("loc/" + languageSupport() + "/" +"aspiration-KeywordStrings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
         String keywordStrings = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        Type typeToken = new TypeToken<Map<String, Keyword>>() {}.getType();
+        Type typeToken = new TypeToken<Map<String, Keyword>>() {
+        }.getType();
 
-        Map<String, Keyword> keywords = (Map)gson.fromJson(keywordStrings, typeToken);
+        Map<String, Keyword> keywords = (Map) gson.fromJson(keywordStrings, typeToken);
 
-        keywords.forEach((k,v)->{
+        keywords.forEach((k, v) -> {
             // Keyword word = (Keyword)v;
             logger.info("Adding Keyword - " + v.NAMES[0]);
             BaseMod.addKeyword((getModID().toLowerCase() + ":"), v.PROPER_NAME, v.NAMES, v.DESCRIPTION);
@@ -293,7 +261,6 @@ public class RiskOfSpire implements
 
     @Override
     public void receivePostDungeonInitialize() {
-        //TODO: Remove allRoR relics from the normal pools and maybe add them to the special pools here (or do that earlier, idk)
         AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
         AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
         AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
@@ -303,8 +270,7 @@ public class RiskOfSpire implements
         rorRareRelics.sort(String::compareTo);
     }
 
-    public static String assetPath(String path)
-    {
+    public static String assetPath(String path) {
         return getModID() + "Resources/" + path;
     }
 
@@ -316,17 +282,48 @@ public class RiskOfSpire implements
     public void receiveRelicGet(AbstractRelic rel) {
         for (AbstractRelic r : AbstractDungeon.player.relics) {
             if (r instanceof StackableRelic) {
-                ((StackableRelic)r).onRelicGet(rel);
-            } else if(r instanceof UsableRelic) {
-                ((UsableRelic)r).onRelicGet(rel);
+                ((StackableRelic) r).onRelicGet(rel);
+            } else if (r instanceof UsableRelic) {
+                ((UsableRelic) r).onRelicGet(rel);
             }
         }
     }
 
+    public static void saveData() {
+        logger.info("Risk of Spire | Saving Data...");
+        try {
+            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig");
 
+            config.setInt("lunarCoinAmt", lunarCoinAmount);
+            config.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException
-    {
+    public static void clearData() {
+        logger.info("Risk of Spire | Clearing Saved Data...");
+        saveData();
+    }
+
+    public static void loadData() {
+        logger.info("Risk of Spire | Loading Data...");
+        try {
+            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig");
+            config.load();
+            if (config.has("lunarCoinAmt")) {
+                lunarCoinAmount = config.getInt("lunarCoinAmt");
+            } else {
+                lunarCoinAmount = 0;
+            }
+        } catch (IOException | NumberFormatException e) {
+            logger.error("Failed to load Risk of Spire data!");
+            e.printStackTrace();
+            clearData();
+        }
+    }
+
+    private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException {
         ClassFinder finder = new ClassFinder();
         URL url = RiskOfSpire.class.getProtectionDomain().getCodeSource().getLocation();
         finder.add(new File(url.toURI()));
@@ -361,8 +358,7 @@ public class RiskOfSpire implements
             }
 
             AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
-            switch (r.tier)
-            {
+            switch (r.tier) {
                 case COMMON:
                     rorCommonRelics.add(r.relicId);
                     break;

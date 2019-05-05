@@ -1,24 +1,14 @@
 package riskOfSpire.relics.Uncommon;
 
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.relics.OnReceivePowerRelic;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.BlurPower;
-import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.MissileStrikeAction;
 import riskOfSpire.actions.unique.TargetedMissileAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
-import riskOfSpire.vfx.combat.MissileStrikeEffect;
 
 public class AtGMissileMk1 extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("AtGMissileMk1");

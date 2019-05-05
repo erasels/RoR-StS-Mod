@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.CriticalPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
