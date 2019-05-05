@@ -14,7 +14,7 @@ public class AlienHead extends StackableRelic {
     private static final int CARD_AMT = 11;
 
     public AlienHead() {
-        super(ID, "SoldiersSyringe.png", RelicTier.RARE, LandingSound.MAGICAL);
+        super(ID, "AlienHead.png", RelicTier.RARE, LandingSound.MAGICAL);
         setCounter(CARD_AMT);
     }
 
