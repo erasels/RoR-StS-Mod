@@ -5,6 +5,7 @@ import basemod.abstracts.CustomSavable;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -23,6 +24,10 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
 
     public HardlightAfterburner() {
         super(ID, "UnstableTeslacoil.png", RelicTier.RARE, LandingSound.HEAVY);
+        if (AbstractDungeon.player != null && !AbstractDungeon.player.hasRelic(ID))
+        {
+            card = null;
+        }
     }
 
     @Override
@@ -48,24 +53,51 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
     }
 
     @Override
-    public Integer onSave() {
-        if (card != null) {
-            return AbstractDungeon.player.masterDeck.group.indexOf(card);
-        } else {
-            return -1;
+    public void onEnterRoom(AbstractRoom room) {
+        updateCounter();
+    }
+
+    @Override
+    public void onVictory() {
+        updateCounter();
+    }
+
+    @Override
+    public void onObtainCard(AbstractCard c) {
+        updateCounter();
+    }
+
+    private void updateCounter()
+    {
+        if (card != null)
+        {
+            this.counter = AbstractDungeon.player.masterDeck.group.indexOf(card);
+            if (this.counter >= 0)
+            {
+                this.counter *= -1; //from 0 to -infinity
+                this.counter -= 2; //from -2 to -infinity
+            }
         }
     }
+
     @Override
-    public void onLoad(Integer index) {
-        if (index != null && index >= 0 && index < AbstractDungeon.player.masterDeck.group.size()) {
-            card = AbstractDungeon.player.masterDeck.group.get(index);
-            this.updateDescriptionOnStack(false);
+    public void setCounter(int counter) { //setCounter is used when loading.
+        super.setCounter(counter);
+        if (counter != -1)
+        {
+            int index = counter + 2;
+            index *= -1;
+            if (index >= 0 && index < AbstractDungeon.player.masterDeck.group.size()) {
+                card = AbstractDungeon.player.masterDeck.group.get(index);
+                this.updateDescriptionOnStack(false);
+            }
         }
     }
 
     @Override
     public void onEquip() {
         cardSelected = false;
+        card = null;
         CardGroup group = CardGroup.getGroupWithoutBottledCards(AbstractDungeon.player.masterDeck);
         group.group.removeIf((c)->c.type!= AbstractCard.CardType.SKILL);
         if (group.size() > 0) //what the heck, shouldn't be able to obtain this without any skills.
@@ -113,7 +145,7 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
 
     @Override
     public String getUpdatedDescription() {
-        if (cardSelected && card != null)
+        if (AbstractDungeon.player != null && cardSelected && card != null)
         {
             return DESCRIPTIONS[3] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[4] + relicStack + (relicStack == 1 ? DESCRIPTIONS[5] : DESCRIPTIONS[6]);
         }
