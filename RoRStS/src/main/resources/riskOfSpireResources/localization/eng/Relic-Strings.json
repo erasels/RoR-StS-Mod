@@ -62,6 +62,14 @@
       " damage to ALL enemies. NL "
     ]
   },
+  "riskOfSpire:WarBanner": {
+    "NAME": "War Banner",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you smith a card, gain #b",
+      " #yStrength at the start of the next combat."
+    ]
+  },
   "riskOfSpire:EffigyOfGrief": {
     "NAME": "Effigy of Grief",
     "FLAVOR": "TODO",
