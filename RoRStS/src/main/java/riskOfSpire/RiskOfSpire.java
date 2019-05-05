@@ -14,6 +14,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -320,6 +321,16 @@ public class RiskOfSpire implements
             logger.error("Failed to load Risk of Spire data!");
             e.printStackTrace();
             clearData();
+        }
+    }
+
+    public static void manipLunarCoins(int amt, boolean playSound) {
+        if(playSound) {
+            CardCrawlGame.sound.play("RELIC_DROP_MAGICAL");
+        }
+        lunarCoinAmount+=amt;
+        if(lunarCoinAmount < 0) {
+            lunarCoinAmount = 0;
         }
     }
 

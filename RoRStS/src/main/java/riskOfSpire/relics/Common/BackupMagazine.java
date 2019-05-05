@@ -16,7 +16,7 @@ public class BackupMagazine extends StackableRelic {
     private boolean enabled;
 
     public BackupMagazine() {
-        super(ID, "RustedKey.png", RelicTier.COMMON, LandingSound.FLAT);
+        super(ID, "BackupMagazine.png", RelicTier.COMMON, LandingSound.FLAT);
     }
 
     @Override

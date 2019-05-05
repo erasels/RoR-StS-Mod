@@ -24,10 +24,10 @@ public class SpawnRelicRewards {
 
         if(CardCrawlGame.isInARun()){
             if(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss) {
-                AbstractDungeon.combatRewardScreen.rewards.add(new LunarCoinReward(AbstractDungeon.miscRng.random(3) + 2));
+                AbstractDungeon.combatRewardScreen.rewards.add(new LunarCoinReward(AbstractDungeon.miscRng.random(2) + 2));
             }
             else if(AbstractDungeon.miscRng.randomBoolean(0.07f)) {
-                AbstractDungeon.combatRewardScreen.rewards.add(new LunarCoinReward(AbstractDungeon.miscRng.random(2) + 1));
+                AbstractDungeon.combatRewardScreen.rewards.add(new LunarCoinReward(AbstractDungeon.miscRng.random(1) + 1));
             }
         }
 
