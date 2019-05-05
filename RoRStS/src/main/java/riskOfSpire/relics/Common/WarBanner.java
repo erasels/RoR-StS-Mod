@@ -16,7 +16,7 @@ public class WarBanner extends StackableRelic implements BetterOnSmithRelic {
     private static final int BONUS_PER = 1;
 
     public WarBanner() {
-        super(ID, "BundleOfFireworks.png", RelicTier.COMMON, LandingSound.FLAT);
+        super(ID, "Warbanner.png", RelicTier.COMMON, LandingSound.FLAT);
         this.counter = 0;
     }
 
