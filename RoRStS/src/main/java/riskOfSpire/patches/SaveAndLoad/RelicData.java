@@ -12,7 +12,6 @@ import javassist.CtBehavior;
 import riskOfSpire.util.RiskOfRainRelicHelper;
 import riskOfSpire.util.RiskOfSpireSavedata;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static riskOfSpire.RiskOfSpire.logger;
