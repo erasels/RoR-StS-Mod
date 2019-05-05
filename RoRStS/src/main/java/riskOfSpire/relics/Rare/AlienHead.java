@@ -1,10 +1,8 @@
 package riskOfSpire.relics.Rare;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.general.SetCostForTurnAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.StringManipulationUtilities;
 

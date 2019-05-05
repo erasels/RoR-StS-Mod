@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
-import riskOfSpire.relics.Usable.DisposableMissileLauncher;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
 
