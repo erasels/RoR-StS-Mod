@@ -22,7 +22,7 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
     public static AbstractCard card = null;
 
     public HardlightAfterburner() {
-        super(ID, "UnstableTeslacoil.png", RelicTier.RARE, LandingSound.HEAVY);
+        super(ID, "HardlightAfterburner.png", RelicTier.RARE, LandingSound.HEAVY);
     }
 
     @Override

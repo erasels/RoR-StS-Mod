@@ -20,14 +20,13 @@ public class LunarCoinReward extends CustomReward {
     }
 
     public LunarCoinReward(int amount) {
-        super(ICON, amount + UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
+        super(ICON, amount + amount == 1 ? UIStrings.TEXT[1]:UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
         this.amountOfCoins = amount;
     }
 
     @Override
     public boolean claimReward() {
-        CardCrawlGame.sound.play("RELIC_DROP_CLINK");
-        RiskOfSpire.lunarCoinAmount += amountOfCoins;
+        RiskOfSpire.manipLunarCoins(amountOfCoins, true);
         return true;
     }
 }
