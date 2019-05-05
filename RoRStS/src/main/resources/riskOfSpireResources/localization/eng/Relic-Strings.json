@@ -13,7 +13,7 @@
     "NAME": "Infusion",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Upon killing an enemy, gain #b1 Max HP, up to #b",
+      "Whenever an enemy dies, gain #b1 Max HP, up to #b",
       "."
     ]
   },
@@ -83,11 +83,20 @@
       " turns of combat, whenever you play a card, gain #b1 #yBlock [REMOVE_SPACE]."
     ]
   },
+  "riskOfSpire:Bandolier": {
+    "NAME": "Bandolier",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, reduce the cost of #b",
+      " random card in your hand by #b1 this combat.",
+      " random cards in your hand by #b1 this combat."
+    ]
+  },
   "riskOfSpire:MonsterTooth": {
     "NAME": "Monster Tooth",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you kill a non-Minion enemy heal for #b",
+      "Whenever a non-Minion enemy dies, heal #b",
       " HP."
     ]
   },
@@ -199,8 +208,8 @@
     "NAME": "Brilliant Behemoth",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "An additional #b",
-      " [REMOVE_SPACE]% of your attack damage is dealt to ALL enemies after playing an attack."
+      "Whenever you play an Attack, deal damage to ALL enemies equal to #b",
+      "% of the Attack's damage."
     ]
   },
   "riskOfSpire:PaulsHoof": {

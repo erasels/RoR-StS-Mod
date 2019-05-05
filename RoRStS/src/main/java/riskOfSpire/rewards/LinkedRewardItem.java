@@ -81,7 +81,8 @@ public class LinkedRewardItem extends RewardItem
     @Override
     public boolean claimReward()
     {
-        this.claimed = super.claimReward() || this.type == RewardType.CARD; //When you click on reward, if it's card or claimed successfully, remove others.
+        boolean claimedReward = super.claimReward();
+        this.claimed = claimedReward || this.type == RewardType.CARD; //When you click on reward, if it's card or claimed successfully, remove others.
         if (this.claimed)
         {
             if (!this.ignoreReward)
@@ -93,11 +94,12 @@ public class LinkedRewardItem extends RewardItem
                     {
                         link.type = RewardType.RELIC;
                         link.relic = new Circlet();
+                        link.move(-1000.0f); //poof, it's gone.
                     }
                 }
             }
         }
-        return claimed;
+        return claimedReward;
     }
 
     @Override
