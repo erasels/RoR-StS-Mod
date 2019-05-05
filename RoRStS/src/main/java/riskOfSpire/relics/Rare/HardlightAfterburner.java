@@ -99,6 +99,19 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
     }
 
     @Override
+    public boolean canSpawn() {
+        if (AbstractDungeon.player != null)
+        {
+            for (AbstractCard c : CardGroup.getGroupWithoutBottledCards(AbstractDungeon.player.masterDeck).group)
+            {
+                if (c.type == AbstractCard.CardType.SKILL && c.rarity != AbstractCard.CardRarity.BASIC)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public String getUpdatedDescription() {
         if (cardSelected && card != null)
         {
