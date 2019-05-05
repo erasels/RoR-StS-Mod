@@ -23,7 +23,7 @@ public class DisposableMissileLauncher extends UsableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + DAMAGE_PER + DESCRIPTIONS[1] + MISSILE_COUNT + DESCRIPTIONS[2] + getFinalCooldown() + DESCRIPTIONS[3];
+        return DESCRIPTIONS[0] + DAMAGE_PER + DESCRIPTIONS[1] + MISSILE_COUNT + DESCRIPTIONS[2] + getCooldownString();
     }
 
     @Override

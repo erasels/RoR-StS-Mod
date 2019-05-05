@@ -23,7 +23,7 @@ public class EnergyDrink extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + relicStack + DESCRIPTIONS[1];
+        return relicStack == 1 ? DESCRIPTIONS[0] : DESCRIPTIONS[1] + relicStack + DESCRIPTIONS[2];
     }
 
     @Override
