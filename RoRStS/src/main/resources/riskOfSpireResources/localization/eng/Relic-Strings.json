@@ -107,6 +107,15 @@
       " damage to a random enemy."
     ]
   },
+  "riskOfSpire:BackupMagazine": {
+    "NAME": "Backup Magazine",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The first time you play an Attack each combat, add #b",
+      " copy of it to your hand.",
+      " copies of it to your hand."
+    ]
+  },
   "riskOfSpire:TougherTimes": {
     "NAME": "Tougher Times",
     "FLAVOR": "TODO",
