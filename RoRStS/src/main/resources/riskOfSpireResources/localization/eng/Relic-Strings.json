@@ -41,6 +41,15 @@
       "Put a card from your draw pile into your hand. NL "
     ]
   },
+  "riskOfSpire:Corpsebloom": {
+    "NAME": "Corpsebloom",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Healing is #b",
+      "% more effective, but is applied over time as up to #b",
+      "% of your max HP whenever you enter a room."
+    ]
+  },
   "riskOfSpire:HardlightAfterburner": {
     "NAME": "Hardlight Afterburner",
     "FLAVOR": "TODO",
