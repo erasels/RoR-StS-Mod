@@ -2,8 +2,10 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
+import basemod.TopPanelGroup;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import basemod.patches.com.megacrit.cardcrawl.helpers.TopPanel.TopPanelHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +21,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardSave;
+import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import javassist.NotFoundException;
@@ -73,6 +76,7 @@ public class RiskOfSpire implements
     public static ArrayList<String> rorRareRelics = new ArrayList<>();
 
     public static int lunarCoinAmount = 0;
+    private static LunarCoinDisplay lCD;
 
 
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
@@ -188,7 +192,10 @@ public class RiskOfSpire implements
                 (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCoinReward) customReward).amountOfCoins, 0)
         );
 
-        BaseMod.addTopPanelItem(new LunarCoinDisplay());
+        if(lCD==null) {
+            lCD = new LunarCoinDisplay();
+        }
+        BaseMod.addTopPanelItem(lCD);
 
 
         logger.info("Done loading badge Image and mod options");
@@ -332,6 +339,7 @@ public class RiskOfSpire implements
         if(lunarCoinAmount < 0) {
             lunarCoinAmount = 0;
         }
+        lCD.flash();
     }
 
     private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException {
