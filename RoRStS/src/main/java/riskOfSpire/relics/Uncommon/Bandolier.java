@@ -14,7 +14,7 @@ public class Bandolier extends StackableRelic {
     private static final int REDUCTION = 1;
 
     public Bandolier() {
-        super(ID, "Infusion.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
+        super(ID, "Bandolier.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
     }
 
     @Override
