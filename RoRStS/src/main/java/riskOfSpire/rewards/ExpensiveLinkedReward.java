@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.util.RiskOfRainRelicHelper;
 
 public class ExpensiveLinkedReward extends LinkedRewardItem {
@@ -21,7 +22,7 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
     public ExpensiveLinkedReward(LinkedRewardItem setLink, AbstractRelic reward)
     {
         super(setLink, reward);
-        this.goldAmt = MathUtils.round(((float)relic.getPrice() * RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.95F, 1.05F)/2F));
+        this.goldAmt = MathUtils.round(((float) relic.getPrice() * RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.95F, 1.05F) / 2F + (RiskOfSpire.DifficultyMeter.getDifficulty() * relic.getPrice() / 100)));
     }
 
     @Override

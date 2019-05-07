@@ -2,10 +2,8 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
-import basemod.TopPanelGroup;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
-import basemod.patches.com.megacrit.cardcrawl.helpers.TopPanel.TopPanelHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -21,7 +19,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardSave;
-import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import javassist.NotFoundException;
@@ -32,6 +29,7 @@ import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.rewards.LunarCoinReward;
+import riskOfSpire.ui.DifficultyMeter;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
@@ -59,11 +57,10 @@ public class RiskOfSpire implements
         PostDungeonInitializeSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     private static String modID;
-
     public static Properties ModSettings = new Properties();
     public static final String ENABLE_PLACEHOLDER_SETTINGS = "enablePlaceholder";
     public static boolean enablePlaceholder = true;
-
+    public static DifficultyMeter DifficultyMeter;
     private static final String MODNAME = "Risk Of Spire";
     private static final String AUTHOR = "erasels / Alchyr / Kio / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
@@ -196,8 +193,7 @@ public class RiskOfSpire implements
             lCD = new LunarCoinDisplay();
         }
         BaseMod.addTopPanelItem(lCD);
-
-
+        DifficultyMeter = new DifficultyMeter();
         logger.info("Done loading badge Image and mod options");
     }
 
@@ -258,7 +254,7 @@ public class RiskOfSpire implements
         Type typeToken = new TypeToken<Map<String, Keyword>>() {
         }.getType();
 
-        Map<String, Keyword> keywords = (Map) gson.fromJson(keywordStrings, typeToken);
+        Map<String, Keyword> keywords = gson.fromJson(keywordStrings, typeToken);
 
         keywords.forEach((k, v) -> {
             // Keyword word = (Keyword)v;
