@@ -13,7 +13,6 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.util.LunarCoinHelper;
-import riskOfSpire.util.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
 
 public class LunarCacheReward extends CustomReward {
@@ -31,7 +30,7 @@ public class LunarCacheReward extends CustomReward {
 
     public LunarCacheReward(int lunarCoinCostModifier) {
         super(CACHE_ICON, UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_CACHE);
-        this.goldAmt = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(LunarCoinHelper.MIN_COST, LunarCoinHelper.MAX_COST)+lunarCoinCostModifier;
+        this.goldAmt = LunarCoinHelper.LUNAR_CACHE_BASE_COST+lunarCoinCostModifier;
         if(goldAmt<0) {
             goldAmt=0;
         }
