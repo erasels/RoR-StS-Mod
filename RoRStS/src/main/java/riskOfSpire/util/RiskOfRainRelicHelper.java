@@ -19,12 +19,11 @@ public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
 
-    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter)
-    {
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
     }
-    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier)
-    {
+
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier) {
         rateModifier *= getFinalRateModifier();
         ArrayList<AbstractRelic> validPool = new ArrayList<>();
         AbstractRelic toCopy;
@@ -38,38 +37,30 @@ public class RiskOfRainRelicHelper {
 
             if (validPool.isEmpty()) { //no circlets.
                 toCopy = RelicLibrary.getRelic(RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1)));
-            }
-            else
-            {
+            } else {
                 toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
             }
 
 
-            if (!changeCounter)
-            {
+            if (!changeCounter) {
                 RiskOfRainRelicRng.counter -= 1;
                 incrementLater += 1;
             }
 
-        }
-        else
-        {
+        } else {
             int pool = RiskOfRainRelicRng.random(100);
             ArrayList<AbstractRelic> failurePool = new ArrayList<>();
             ArrayList<String> sourceList;
 
             if (pool >= 95 * rateModifier) {
                 sourceList = RiskOfSpire.rorRareRelics;
-            }
-            else if (pool > 75 * rateModifier) {
+            } else if (pool > 75 * rateModifier) {
                 sourceList = RiskOfSpire.rorUncommonRelics;
-            }
-            else {
+            } else {
                 sourceList = RiskOfSpire.rorCommonRelics;
             }
 
-            for (String s : sourceList)
-            {
+            for (String s : sourceList) {
                 AbstractRelic r = RelicLibrary.getRelic(s);
                 if (r != null) {
                     failurePool.add(r);
@@ -80,15 +71,12 @@ public class RiskOfRainRelicHelper {
 
             if (validPool.isEmpty()) { //no circlets.
                 toCopy = failurePool.get(RiskOfRainRelicRng.random(failurePool.size() - 1));
-            }
-            else
-            {
+            } else {
                 toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
             }
 
 
-            if (!changeCounter)
-            {
+            if (!changeCounter) {
                 RiskOfRainRelicRng.counter -= 2;
                 incrementLater += 2;
             }
@@ -97,8 +85,34 @@ public class RiskOfRainRelicHelper {
         return toCopy.makeCopy();
     }
 
-    public static void modifyCombatRewards(CombatRewardScreen __instance)
-    {
+    public static AbstractRelic getRandomLunarRelic() {
+        ArrayList<AbstractRelic> validPool = new ArrayList<>();
+        AbstractRelic toCopy;
+        ArrayList<AbstractRelic> failurePool = new ArrayList<>();
+        ArrayList<String> sourceList = RiskOfSpire.rorLunarRelics;
+
+        for (String s : sourceList) {
+            AbstractRelic r = RelicLibrary.getRelic(s);
+            if (r != null) {
+                failurePool.add(r);
+                if (r.canSpawn())
+                    validPool.add(r);
+            }
+        }
+
+        if (validPool.isEmpty()) { //no circlets.
+            toCopy = failurePool.get(RiskOfRainRelicRng.random(failurePool.size() - 1));
+        } else {
+            toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+        }
+
+        RiskOfRainRelicRng.counter -= 1;
+        incrementLater += 1;
+
+        return toCopy.makeCopy();
+    }
+
+    public static void modifyCombatRewards(CombatRewardScreen __instance) {
         List<RewardItem> cardRewards = new ArrayList<>();
         for (RewardItem reward : __instance.rewards) {
             if (reward.type == RewardItem.RewardType.CARD) {
@@ -125,19 +139,15 @@ public class RiskOfRainRelicHelper {
         }
     }
 
-    public static void updateCounter()
-    {
+    public static void updateCounter() {
         RiskOfRainRelicRng.counter += incrementLater;
         incrementLater = 0;
     }
 
-    private static float getFinalRateModifier()
-    {
+    private static float getFinalRateModifier() {
         float mod = 1.0f;
-        for (AbstractRelic r : AbstractDungeon.player.relics)
-        {
-            if (r instanceof ModifyRarityRateRelic)
-            {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof ModifyRarityRateRelic) {
                 mod = ((ModifyRarityRateRelic) r).modifyRarity(mod);
             }
         }
