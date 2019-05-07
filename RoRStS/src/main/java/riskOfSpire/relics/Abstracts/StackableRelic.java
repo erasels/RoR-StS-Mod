@@ -149,15 +149,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         switch(this.tier) {
             case COMMON:
                 return 50;
+            case UNCOMMON:
+                return 100;
             case RARE:
             case SHOP:
                 return 200;
             case SPECIAL:
                 return 400;
             case BOSS:
-                return 999;
             default:
-                return 100;
+                return 999;
         }
     }
 

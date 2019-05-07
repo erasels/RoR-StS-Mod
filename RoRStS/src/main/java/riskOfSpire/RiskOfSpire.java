@@ -2,10 +2,8 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
-import basemod.TopPanelGroup;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
-import basemod.patches.com.megacrit.cardcrawl.helpers.TopPanel.TopPanelHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -16,12 +14,11 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
-import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import javassist.NotFoundException;
@@ -31,10 +28,12 @@ import org.clapper.util.classutil.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
+import riskOfSpire.util.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
 
 import java.io.File;
@@ -56,7 +55,8 @@ public class RiskOfSpire implements
         EditKeywordsSubscriber,
         RelicGetSubscriber,
         PostInitializeSubscriber,
-        PostDungeonInitializeSubscriber {
+        PostDungeonInitializeSubscriber,
+        PostUpdateSubscriber{
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     private static String modID;
 
@@ -65,18 +65,19 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
 
     private static final String MODNAME = "Risk Of Spire";
-    private static final String AUTHOR = "erasels / Alchyr / Kio / Lobbien";
+    private static final String AUTHOR = "erasels / Alchyr / Kiooeht / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
 
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(), Color.VIOLET.cpy()));
 
-    //No need to track shop, special, or boss relics.
+    //No need to track shop or boss relics.
     public static ArrayList<String> rorCommonRelics = new ArrayList<>();
     public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
     public static ArrayList<String> rorRareRelics = new ArrayList<>();
+    public static ArrayList<String> rorLunarRelics = new ArrayList<>();
 
     public static int lunarCoinAmount = 0;
-    private static LunarCoinDisplay lCD;
+    public static LunarCoinDisplay lCD;
 
 
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
@@ -192,6 +193,12 @@ public class RiskOfSpire implements
                 (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCoinReward) customReward).amountOfCoins, 0)
         );
 
+        BaseMod.registerCustomReward(
+                RewardItemTypeEnumPatch.LUNAR_CACHE,
+                (rewardSave) -> new LunarCacheReward(rewardSave.amount),
+                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCacheReward) customReward).goldAmt, 0)
+        );
+
         if(lCD==null) {
             lCD = new LunarCoinDisplay();
         }
@@ -276,6 +283,7 @@ public class RiskOfSpire implements
         rorCommonRelics.sort(String::compareTo);
         rorUncommonRelics.sort(String::compareTo);
         rorRareRelics.sort(String::compareTo);
+        rorLunarRelics.sort(String::compareTo);
     }
 
     public static String assetPath(String path) {
@@ -293,6 +301,20 @@ public class RiskOfSpire implements
                 ((StackableRelic) r).onRelicGet(rel);
             } else if (r instanceof UsableRelic) {
                 ((UsableRelic) r).onRelicGet(rel);
+            }
+        }
+    }
+
+    public static boolean lCacheTrigger = false;
+    @Override
+    public void receivePostUpdate() {
+        if (AbstractDungeon.player == null) return;
+        if(AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
+            if(lCacheTrigger) {
+                lCacheTrigger = false;
+                AbstractDungeon.combatRewardScreen.hasTakenAll = false;
+                AbstractDungeon.combatRewardScreen.rewards.add(new RewardItem(RiskOfRainRelicHelper.getRandomLunarRelic()));
+                AbstractDungeon.combatRewardScreen.positionRewards();
             }
         }
     }
@@ -331,16 +353,7 @@ public class RiskOfSpire implements
         }
     }
 
-    public static void manipLunarCoins(int amt, boolean playSound) {
-        if(playSound) {
-            CardCrawlGame.sound.play("RELIC_DROP_MAGICAL");
-        }
-        lunarCoinAmount+=amt;
-        if(lunarCoinAmount < 0) {
-            lunarCoinAmount = 0;
-        }
-        lCD.flash();
-    }
+
 
     private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException {
         ClassFinder finder = new ClassFinder();
@@ -386,6 +399,9 @@ public class RiskOfSpire implements
                     break;
                 case RARE:
                     rorRareRelics.add(r.relicId);
+                    break;
+                case SPECIAL:
+                    rorLunarRelics.add(r.relicId);
                     break;
             }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);

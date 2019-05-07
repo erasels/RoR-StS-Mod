@@ -6,4 +6,6 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 public class RewardItemTypeEnumPatch {
     @SpireEnum
     public static RewardItem.RewardType LUNAR_COIN;
+    @SpireEnum
+    public static RewardItem.RewardType LUNAR_CACHE;
 }

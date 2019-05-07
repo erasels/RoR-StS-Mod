@@ -21,7 +21,7 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
     public ExpensiveLinkedReward(LinkedRewardItem setLink, AbstractRelic reward)
     {
         super(setLink, reward);
-        this.goldAmt = MathUtils.round(((float)relic.getPrice() * RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.95F, 1.05F)/2F));
+        this.goldAmt = MathUtils.round(((float)relic.getPrice() * RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F)/2F));
     }
 
     @Override
