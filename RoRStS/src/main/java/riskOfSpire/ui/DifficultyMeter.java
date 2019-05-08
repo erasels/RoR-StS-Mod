@@ -54,7 +54,7 @@ public class DifficultyMeter {
         sb.setColor(Color.WHITE);
         sb.draw(DifficultyMeter, 32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
         if (Difficulty <= 356) {
-            sb.draw(DifficultyFrame, (30 + Difficulty) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
+            sb.draw(DifficultyFrame, (30 + Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
         } else {
             sb.draw(DifficultyFrame, (30 + 356) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
         }
