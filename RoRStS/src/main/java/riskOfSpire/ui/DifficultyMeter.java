@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -22,7 +23,9 @@ public class DifficultyMeter {
     private static final TutorialStrings tutorialStrings = CardCrawlGame.languagePack.getTutorialString("Difficulty");
     public static final String[] MSG = tutorialStrings.TEXT;
     public static final String[] LABEL = tutorialStrings.LABEL;
-    private Hitbox hb = new Hitbox(32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
+    private float XPosition = 32 * Settings.scale;
+    private float YPosition = 700 * Settings.scale;
+    private Hitbox hb = new Hitbox(XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
     private int Difficulty = 0;
     private int DifficultyIndex;
     private float TimePassed = 0.0F;
@@ -52,19 +55,30 @@ public class DifficultyMeter {
 
     public void render(SpriteBatch sb) {
         sb.setColor(Color.WHITE);
-        sb.draw(DifficultyMeter, 32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
+        sb.draw(DifficultyMeter, XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
         if (Difficulty <= 356) {
-            sb.draw(DifficultyFrame, (30 + Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
+            sb.draw(DifficultyFrame, XPosition - 2 * Settings.scale + (Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
         } else {
-            sb.draw(DifficultyFrame, (30 + 356) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
+            sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
         }
-        FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], 232 * Settings.scale, 660 * Settings.scale, Color.WHITE.cpy());
+        FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
     }
 
     public void updatePositions() {
         this.hb.update();
         if ((this.hb.hovered) && (AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) && (!AbstractDungeon.isScreenUp)) {
-            TipHelper.renderGenericTip(32 * Settings.scale, 660 * Settings.scale, LABEL[0] + " (" + MSG[DifficultyIndex] + ")", MSG[0]);
+            TipHelper.renderGenericTip(XPosition, YPosition, LABEL[0] + " (" + MSG[DifficultyIndex] + ")", MSG[0]);
+        }
+        if (this.hb.hovered && (!AbstractDungeon.isScreenUp)) {
+            if (InputHelper.justClickedLeft) {
+                this.hb.clickStarted = true;
+            }
+        }
+        if (this.hb.clickStarted) {
+            XPosition = InputHelper.mX - 200 * Settings.scale;
+            YPosition = InputHelper.mY;
+            hb.update(XPosition, YPosition);
+            this.hb.clicked = false;
         }
     }
     public void onBattleStart(AbstractMonster m) {
