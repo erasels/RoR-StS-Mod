@@ -4,15 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import riskOfSpire.util.TextureLoader;
 
 public class DifficultyMeter {
 
     public static Texture DifficultyMeter = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyMeter.png");
     public static Texture DifficultyFrame = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyFrame.png");
+    private static final TutorialStrings tutorialStrings = CardCrawlGame.languagePack.getTutorialString("Difficulty");
+    public static final String[] MSG = tutorialStrings.TEXT;
+    public static final String[] LABEL = tutorialStrings.LABEL;
+    private Hitbox hb = new Hitbox(32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
     private int Difficulty = 0;
     private float TimePassed = 0.0F;
     private boolean HasDifficultyChanged = false;
@@ -23,7 +32,7 @@ public class DifficultyMeter {
         {
             TimePassed = 0;
             Difficulty++;
-            HasDifficultyChanged = false;
+            HasDifficultyChanged = true;
         }
     }
 
@@ -40,18 +49,19 @@ public class DifficultyMeter {
     public void render(SpriteBatch sb) {
         sb.setColor(Color.WHITE);
         sb.draw(DifficultyMeter, 32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
-        if (HasDifficultyChanged) {
-            HasDifficultyChanged = false;
+        if (Difficulty <= 356) {
+            sb.draw(DifficultyFrame, (30 + Difficulty) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
         } else {
-            if (Difficulty <= 356) {
-                sb.draw(DifficultyFrame, (30 + Difficulty) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
-            } else {
-                sb.draw(DifficultyFrame, (30 + 356) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
-            }
+            sb.draw(DifficultyFrame, (30 + 356) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
         }
     }
 
-
+    public void updatePositions() {
+        this.hb.update();
+        if ((this.hb.hovered) && (AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) && (!AbstractDungeon.isScreenUp)) {
+            TipHelper.renderGenericTip(32 * Settings.scale, 660 * Settings.scale, LABEL[0] + " (" + Difficulty + ")", MSG[0]);
+        }
+    }
     public void onBattleStart(AbstractMonster m) {
         m.increaseMaxHp(m.maxHealth * this.Difficulty / 200 * (int) Math.floor(AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
     }

@@ -1,0 +1,10 @@
+{
+  "Difficulty": {
+    "TEXT": [
+      "This bar shows the current difficulty. Difficulty increases over time, so better hurry up!"
+    ],
+    "LABEL": [
+      "Current Difficulty"
+    ]
+  }
+}

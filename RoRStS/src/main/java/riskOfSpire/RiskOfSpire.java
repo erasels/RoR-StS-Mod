@@ -219,7 +219,9 @@ public class RiskOfSpire implements
         // OrbStrings
         BaseMod.loadCustomStringsFile(OrbStrings.class,
                 getModID() + "Resources/localization/eng/Orb-Strings.json");
-
+        //TutorialStrings
+        BaseMod.loadCustomStringsFile(TutorialStrings.class,
+                getModID() + "Resources/localization/eng/Tutorial-Strings.json");
         logger.info("Done editing strings");
     }
 
