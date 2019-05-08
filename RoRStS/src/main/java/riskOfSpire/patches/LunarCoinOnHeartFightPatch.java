@@ -3,7 +3,7 @@ package riskOfSpire.patches;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.monsters.ending.CorruptHeart;
-import riskOfSpire.RiskOfSpire;
+import riskOfSpire.util.LunarCoinHelper;
 
 @SpirePatch(
         clz = CorruptHeart.class,
@@ -12,6 +12,6 @@ import riskOfSpire.RiskOfSpire;
 public class LunarCoinOnHeartFightPatch {
     @SpirePostfixPatch
     public static void Postfix(CorruptHeart __instance) {
-        RiskOfSpire.manipLunarCoins(4, true);
+        LunarCoinHelper.manipLunarCoins(LunarCoinHelper.HEART_ENTER_COIN_AMT, true);
     }
 }
