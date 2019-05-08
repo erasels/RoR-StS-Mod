@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
@@ -57,6 +58,7 @@ public class DifficultyMeter {
         } else {
             sb.draw(DifficultyFrame, (30 + 356) * Settings.scale, 700 * Settings.scale, 44 * Settings.scale, 44 * Settings.scale);
         }
+        FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], 232 * Settings.scale, 660 * Settings.scale, Color.WHITE.cpy());
     }
 
     public void updatePositions() {
