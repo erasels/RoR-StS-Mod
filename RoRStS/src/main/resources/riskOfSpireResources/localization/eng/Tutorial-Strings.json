@@ -1,7 +1,16 @@
 {
   "Difficulty": {
     "TEXT": [
-      "This bar shows the current difficulty. Difficulty increases over time, so better hurry up!"
+      "This bar shows the current difficulty. Difficulty increases over time, so better hurry up!",
+      "Easy",
+      "Medium",
+      "Hard",
+      "Very Hard",
+      "Insane",
+      "Impossible",
+      "I SEE YOU!",
+      "I AM COMING FOR YOU!",
+      "...HAHAHAHAHAHA..."
     ],
     "LABEL": [
       "Current Difficulty"

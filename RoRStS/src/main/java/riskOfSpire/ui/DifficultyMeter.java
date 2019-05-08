@@ -23,6 +23,7 @@ public class DifficultyMeter {
     public static final String[] LABEL = tutorialStrings.LABEL;
     private Hitbox hb = new Hitbox(32 * Settings.scale, 700 * Settings.scale, 400 * Settings.scale, 44 * Settings.scale);
     private int Difficulty = 0;
+    private int DifficultyIndex;
     private float TimePassed = 0.0F;
     private boolean HasDifficultyChanged = false;
 
@@ -32,10 +33,12 @@ public class DifficultyMeter {
         {
             TimePassed = 0;
             Difficulty++;
-            HasDifficultyChanged = true;
+        }
+        DifficultyIndex = (int) Math.ceil(Difficulty / 40 + 1);
+        if (DifficultyIndex > 9) {
+            DifficultyIndex = 9;
         }
     }
-
     public int getDifficulty() {
         //TODO: Save/Reset Difficulty
         return Difficulty;
@@ -59,7 +62,7 @@ public class DifficultyMeter {
     public void updatePositions() {
         this.hb.update();
         if ((this.hb.hovered) && (AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) && (!AbstractDungeon.isScreenUp)) {
-            TipHelper.renderGenericTip(32 * Settings.scale, 660 * Settings.scale, LABEL[0] + " (" + Difficulty + ")", MSG[0]);
+            TipHelper.renderGenericTip(32 * Settings.scale, 660 * Settings.scale, LABEL[0] + " (" + MSG[DifficultyIndex] + ")", MSG[0]);
         }
     }
     public void onBattleStart(AbstractMonster m) {
