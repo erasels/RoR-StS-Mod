@@ -257,5 +257,17 @@
       "Whenever you gain #yBlock [REMOVE_SPACE], gain #b",
       " #yBlock at the start of the next turn."
     ]
+  },
+  "riskOfSpire:ImpOverlordsTentacle": {
+    "NAME": "Imp Overlord's Tentacle",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of your turn, draw #b1 card less, and add #b1 #yImp #yGuardian to your hand.",
+      "At the start of your turn, draw #b",
+      " cards less, and add #b",
+      " #yImp #yGuardian to your hand.",
+      "Imp Guardian",
+      "Imp Guardians are 0-cost cards that exhaust and are ethereal. There are #b2 Attacks, #b2 Skills and #b1 Power [REMOVE_SPACE]."
+    ]
   }
 }

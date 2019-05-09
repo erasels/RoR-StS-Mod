@@ -25,6 +25,7 @@ import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
+import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
@@ -224,6 +225,11 @@ public class RiskOfSpire implements
 
     @Override
     public void receiveEditCards() {
+        BaseMod.addCard(new ImpAetu());
+        BaseMod.addCard(new ImpBava());
+        BaseMod.addCard(new ImpYggo());
+        BaseMod.addCard(new ImpUgorn());
+        BaseMod.addCard(new ImpChir());
     }
 
 

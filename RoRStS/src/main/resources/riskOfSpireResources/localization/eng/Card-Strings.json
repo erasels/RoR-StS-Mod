@@ -1,6 +1,26 @@
 {
-  "riskOfSpire:DefaultCommonAttack": {
-    "NAME": "Strike",
-    "DESCRIPTION": "Deal !D! Damage. NL [#0000ff]This[] [#ff0000]Is[] [#ffff00]How[] [#88888]color[] [#ff00ff]works.[]"
+  "riskOfSpire:ImpAetu": {
+    "NAME": "Aetu",
+    "DESCRIPTION": "Gain !B! Block and gain an additional 1 Block for every !M! Gold you have. NL Exhaust. NL Ethereal."
+  },
+  "riskOfSpire:ImpBava": {
+    "NAME": "Bava",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL Exhaust. NL Ethereal."
+  },
+  "riskOfSpire:ImpYggo": {
+    "NAME": "Yggo",
+    "DESCRIPTION": "Gain !M! Dexterity. NL Ethereal."
+  },
+  "riskOfSpire:ImpUgorn": {
+    "NAME": "Ugorn",
+    "DESCRIPTION": "Deal !D! damage. NL Apply !M! Vulnerable. NL Exhaust. NL Ethereal."
+  },
+  "riskOfSpire:ImpChir": {
+    "NAME": "Chir",
+    "DESCRIPTION": "Remove !M! cards from your draw pile and add them to your hand at the start of your next turn. NL Exhaust. NL Ethereal.",
+    "UPGRADE_DESCRIPTION": "Remove !M! cards from your draw pile and add them to your hand at the start of your next turn. NL Retain. NL Exhaust.",
+    "EXTENDED_DESCRIPTION": [
+      "Pick the cards to put into your hand at the start of your next turn."
+    ]
   }
 }

@@ -114,6 +114,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             flash();
     }
 
+    public void onUnstack() {
+        this.relicStack--;
+        if(relicStack <= 1) {
+            AbstractDungeon.player.loseRelic(this.relicId);
+        } else {
+            this.relicStack--;
+        }
+        updateDescriptionOnStack(true);
+    }
+
     @Override
     protected void initializeTips() {
         super.initializeTips();
