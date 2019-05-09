@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.DumbApplyPowerAction;
 import riskOfSpire.powers.ArmorPiercingRoundsPower;
-import riskOfSpire.relics.Abstracts.OnMonsterSpawn;
+import riskOfSpire.relics.Interfaces.OnMonsterSpawn;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class ArmorPiercingRounds extends StackableRelic implements OnMonsterSpawn {

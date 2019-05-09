@@ -16,5 +16,11 @@
     "DESCRIPTIONS": [
       "Increases damage taken by elites and bosses."
     ]
+  },
+  "riskOfSpire:Chir": {
+    "NAME": "Chir",
+    "DESCRIPTIONS": [
+      "At the start of your next turn, add the stored cards to your hand. NL Currently stored: "
+    ]
   }
 }
