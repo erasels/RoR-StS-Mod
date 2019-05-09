@@ -29,7 +29,6 @@ public class DifficultyMeter {
     private int Difficulty = 0;
     private int DifficultyIndex;
     private float TimePassed = 0.0F;
-    private boolean HasDifficultyChanged = false;
 
     public void tick() {
         TimePassed += Gdx.graphics.getDeltaTime();
@@ -44,12 +43,10 @@ public class DifficultyMeter {
         }
     }
     public int getDifficulty() {
-        //TODO: Save/Reset Difficulty
         return Difficulty;
     }
 
     public void setDifficulty(int D) {
-        //TODO: Save/Reset Difficulty
         Difficulty = D;
     }
 
