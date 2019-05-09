@@ -33,13 +33,14 @@ public class ChirPower extends RoRStSPower implements CloneablePowerInterface {
         isTurnBased = false;
         amount = -1;
         type = AbstractPower.PowerType.BUFF;
-        this.storedCards = storedCards;
-        loadRegion("corruption");
+        this.storedCards = new ArrayList<>(storedCards);
+        setImage("84_Chir.png", "32_Chir.png");
         updateDescription();
     }
 
     @Override
     public void atStartOfTurn() {
+        flash();
         storedCards.forEach(c->AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(c)));
         naturalTrigger = true;
         AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(owner, owner, this));

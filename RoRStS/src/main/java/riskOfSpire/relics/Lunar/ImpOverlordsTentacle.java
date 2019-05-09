@@ -52,6 +52,7 @@ public class ImpOverlordsTentacle extends StackableRelic {
             }
             AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(c, false));
         }
+        flash();
         AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
     }
 

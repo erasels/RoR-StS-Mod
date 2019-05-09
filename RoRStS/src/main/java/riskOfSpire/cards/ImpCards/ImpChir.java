@@ -20,7 +20,7 @@ public class ImpChir extends AbstractImpCard{
     private static final CardType TYPE = CardType.SKILL;
     public static final CardColor COLOR = CardColor.COLORLESS;
     private static final CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
-    public static final String UPG_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
+    private static final String UPG_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
 
     private static final int COST = 0;
 
@@ -45,7 +45,7 @@ public class ImpChir extends AbstractImpCard{
             isEthereal = false;
             retain = true;
             rawDescription = UPG_DESCRIPTION;
-            initializeDescription(); //NPE
+            initializeDescription();
         }
     }
 }

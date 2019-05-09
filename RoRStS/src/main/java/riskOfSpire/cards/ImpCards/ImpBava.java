@@ -1,9 +1,12 @@
 package riskOfSpire.cards.ImpCards;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.combat.ExplosionSmallEffect;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.general.SpawnTolerantDamageAllEnemiesAction;
 
@@ -33,6 +36,12 @@ public class ImpBava extends AbstractImpCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        for (AbstractMonster mon : AbstractDungeon.getMonsters().monsters) {
+            if (!mon.isDeadOrEscaped()) {
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ExplosionSmallEffect(mon.hb.cX, mon.hb.cY), 0.1F));
+            }
+        }
+        AbstractDungeon.actionManager.addToBottom(new WaitAction(0.25F));
         AbstractDungeon.actionManager.addToBottom(new SpawnTolerantDamageAllEnemiesAction(p, damage, false, false, damageTypeForTurn, AbstractGameAction.AttackEffect.FIRE, false));
     }
 

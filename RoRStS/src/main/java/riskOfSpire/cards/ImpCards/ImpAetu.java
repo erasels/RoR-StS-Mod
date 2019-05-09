@@ -1,11 +1,14 @@
 package riskOfSpire.cards.ImpCards;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.vfx.combat.BubbleEffect;
 
 import static riskOfSpire.RiskOfSpire.makeCardPath;
 
@@ -35,6 +38,7 @@ public class ImpAetu extends AbstractImpCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(new BubbleEffect(Color.GOLD, "GOLD_JINGLE")));
         int tmp = MathUtils.floor((float)AbstractDungeon.player.gold/(float)magicNumber);
         AbstractDungeon.actionManager.addToBottom(new GainBlockAction(p, p, block+tmp));
     }
