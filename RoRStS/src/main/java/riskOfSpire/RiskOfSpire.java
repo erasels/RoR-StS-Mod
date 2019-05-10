@@ -2,6 +2,7 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
+import basemod.abstracts.CustomSavable;
 import basemod.abstracts.CustomSavableRaw;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
@@ -16,6 +17,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -32,6 +34,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
+import riskOfSpire.ui.DifficultyButton;
 import riskOfSpire.ui.DifficultyMeter;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
@@ -71,7 +74,6 @@ public class RiskOfSpire implements
     public static boolean enablePlaceholder = true;
     public static DifficultyMeter DifficultyMeter;
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(), Color.VIOLET.cpy()));
-
     //No need to track shop or boss relics.
     public static ArrayList<String> rorCommonRelics = new ArrayList<>();
     public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
@@ -396,6 +398,25 @@ public class RiskOfSpire implements
                 }
             }
         });
+        BaseMod.addSaveField("RoRDifficultyMod", new CustomSavable<Float>() {
+            @Override
+            public Float onSave() {
+                return DifficultyMeter.getDifficultyMod();
+            }
+
+            @Override
+            public void onLoad(Float Float) {
+                DifficultyMeter.setDifficultyMod(Float);
+            }
+        });
+        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", 175.0F, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
+        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", 235.0F, 300.0F, 0.75F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
+        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", 295.0F, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
+        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", 355.0F, 300.0F, 0.75F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        DifficultyButton.Buttons.add(B);
+        DifficultyButton.Buttons.add(C);
+        DifficultyButton.Buttons.add(D);
+        DifficultyButton.Buttons.add(E);
         logger.info("Done loading badge Image and mod options");
     }
 

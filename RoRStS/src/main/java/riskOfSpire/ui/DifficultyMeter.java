@@ -20,7 +20,7 @@ public class DifficultyMeter {
 
     public static Texture DifficultyMeter = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyMeter.png");
     public static Texture DifficultyFrame = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyFrame.png");
-    private static final TutorialStrings tutorialStrings = CardCrawlGame.languagePack.getTutorialString("Difficulty");
+    private static final TutorialStrings tutorialStrings = CardCrawlGame.languagePack.getTutorialString("DifficultyMeter");
     public static final String[] MSG = tutorialStrings.TEXT;
     public static final String[] LABEL = tutorialStrings.LABEL;
     private float XPosition = 32 * Settings.scale;
@@ -28,11 +28,12 @@ public class DifficultyMeter {
     private Hitbox hb = new Hitbox(XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
     private int Difficulty = 0;
     private int DifficultyIndex;
+    private float DifficultyMod = 1;
     private float TimePassed = 0.0F;
 
     public void tick() {
         TimePassed += Gdx.graphics.getDeltaTime();
-        if (TimePassed >= 1.0F) // <- Will be a lot slower when finished, just that fast for debugging purposes
+        if (TimePassed * DifficultyMod >= 6.0F) // <- Will be a lot slower when finished, just that fast for debugging purposes
         {
             TimePassed = 0;
             Difficulty++;
@@ -48,6 +49,14 @@ public class DifficultyMeter {
 
     public void setDifficulty(int D) {
         Difficulty = D;
+    }
+
+    public float getDifficultyMod() {
+        return DifficultyMod;
+    }
+
+    public void setDifficultyMod(float D) {
+        DifficultyMod = D;
     }
 
     public void render(SpriteBatch sb) {
