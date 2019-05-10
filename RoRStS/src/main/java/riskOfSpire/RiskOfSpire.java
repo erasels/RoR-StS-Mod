@@ -416,9 +416,9 @@ public class RiskOfSpire implements
             }
         });
         DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", 175.0F, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
-        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", 235.0F, 300.0F, 0.75F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
+        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", 235.0F, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
         DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", 295.0F, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
-        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", 355.0F, 300.0F, 0.75F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", 355.0F, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
         DifficultyButton.Buttons.add(B);
         DifficultyButton.Buttons.add(C);
         DifficultyButton.Buttons.add(D);
@@ -436,6 +436,12 @@ public class RiskOfSpire implements
         rorUncommonRelics.sort(String::compareTo);
         rorRareRelics.sort(String::compareTo);
         rorLunarRelics.sort(String::compareTo);
+
+        if(DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
     }
 
     @Override

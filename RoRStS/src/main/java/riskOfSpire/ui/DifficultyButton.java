@@ -18,7 +18,7 @@ public class DifficultyButton {
     public static ArrayList<DifficultyButton> Buttons = new ArrayList<>();
     private static TutorialStrings ButtonStrings = CardCrawlGame.languagePack.getTutorialString("DifficultyButton");
     private static String[] LABEL = ButtonStrings.LABEL;
-    public Texture texture = TextureLoader.getTexture("riskOfSpireResources/images/ui/ButtonGlow.png");
+    public Texture texture;
     private float x;
     private float y;
     private float DifficultyMod;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -31,6 +32,8 @@ public class DifficultyMeter {
     private float DifficultyMod = 1;
     private float TimePassed = 0.0F;
 
+    private final static int DIFFICULTY_THRESHOLD = 40;
+
     public void tick() {
         TimePassed += Gdx.graphics.getDeltaTime();
         if (TimePassed * DifficultyMod >= 6.0F) // <- Will be a lot slower when finished, just that fast for debugging purposes
@@ -38,11 +41,12 @@ public class DifficultyMeter {
             TimePassed = 0;
             Difficulty++;
         }
-        DifficultyIndex = (int) Math.ceil(Difficulty / 40 + 1);
+        DifficultyIndex = MathUtils.ceil(Difficulty / DIFFICULTY_THRESHOLD + 1);
         if (DifficultyIndex > 9) {
             DifficultyIndex = 9;
         }
     }
+
     public int getDifficulty() {
         return Difficulty;
     }
@@ -60,14 +64,16 @@ public class DifficultyMeter {
     }
 
     public void render(SpriteBatch sb) {
-        sb.setColor(Color.WHITE);
-        sb.draw(DifficultyMeter, XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
-        if (Difficulty <= 356) {
-            sb.draw(DifficultyFrame, XPosition - 2 * Settings.scale + (Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
-        } else {
-            sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
+        if (!(getDifficultyMod() == 0.0f)) {
+            sb.setColor(Color.WHITE);
+            sb.draw(DifficultyMeter, XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
+            if (Difficulty <= 356) {
+                sb.draw(DifficultyFrame, XPosition - 2 * Settings.scale + (Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
+            } else {
+                sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
+            }
+            FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
         }
-        FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
     }
 
     public void updatePositions() {
@@ -87,7 +93,17 @@ public class DifficultyMeter {
             this.hb.clicked = false;
         }
     }
+
+    public void hideHitbox() {
+        this.hb.resize(0f, 0f);
+    }
+
+    public void unhideHitbox() {
+        this.hb.resize(400 * Settings.scale, 44 * Settings.scale);
+    }
+
     public void onBattleStart(AbstractMonster m) {
-        m.increaseMaxHp(m.maxHealth * this.Difficulty / 200 * (int) Math.floor(AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
+        m.increaseMaxHp(MathUtils.round(m.maxHealth * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
+        //TODO: Add alternatives like gaining strength and Regen
     }
 }

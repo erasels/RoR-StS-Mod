@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.NextTurnBlockPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.powers.HoofBlockPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class PaulsHoof extends StackableRelic {
@@ -23,8 +23,11 @@ public class PaulsHoof extends StackableRelic {
     }
 
     public int onPlayerGainedBlock(float blockAmount) {
-        AbstractPlayer p = AbstractDungeon.player;
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new NextTurnBlockPower(p, getVal()), getVal()));
+        if(!(AbstractDungeon.player.hasPower(HoofBlockPower.POWER_ID) && blockAmount == AbstractDungeon.player.getPower(HoofBlockPower.POWER_ID).amount)) {
+            flash();
+            AbstractPlayer p = AbstractDungeon.player;
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new HoofBlockPower(p, getVal()), getVal()));
+        }
 
         return MathUtils.floor(blockAmount);
     }
