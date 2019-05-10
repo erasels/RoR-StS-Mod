@@ -24,16 +24,17 @@ public class LunarCoinHelper {
     public static int LUNAR_CACHE_BASE_COST = 1;
 
     public static void modifyCombatRewards(CombatRewardScreen cRS) {
-        if(CardCrawlGame.isInARun()){
-            if(AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
+        if (CardCrawlGame.isInARun()) {
+            if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
                 /*if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss) {
                     cRS.rewards.add(new LunarCoinReward(AbstractDungeon.miscRng.random(BOSS_MOD) + BASE_LUNAR_COIN_AMT));
-                } else*/ if (AbstractDungeon.miscRng.randomBoolean(RANDOM_LUNAR_COIN_CHANCE)) {
+                } else*/
+                if (AbstractDungeon.miscRng.randomBoolean(RANDOM_LUNAR_COIN_CHANCE)) {
                     cRS.rewards.add(new LunarCoinReward(BASE_LUNAR_COIN_AMT));
                 }
             }
 
-            if(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) {
+            if (AbstractDungeon.getCurrRoom() instanceof TreasureRoom) {
                 if (AbstractDungeon.miscRng.randomBoolean(RANDOM_LUNAR_CACHE_CHANCE)) {
                     cRS.rewards.add(new LunarCacheReward());
                 }
@@ -42,11 +43,11 @@ public class LunarCoinHelper {
     }
 
     public static void manipLunarCoins(int amt, boolean playSound) {
-        if(playSound) {
+        if (playSound) {
             CardCrawlGame.sound.play("RELIC_DROP_MAGICAL");
         }
-        lunarCoinAmount+=amt;
-        if(lunarCoinAmount < 0) {
+        lunarCoinAmount += amt;
+        if (lunarCoinAmount < 0) {
             lunarCoinAmount = 0;
         }
         RiskOfSpire.lCD.flash();

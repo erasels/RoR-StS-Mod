@@ -16,23 +16,23 @@ import riskOfSpire.util.LunarCoinHelper;
 import riskOfSpire.util.TextureLoader;
 
 public class LunarCacheReward extends CustomReward {
-    public static UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(RiskOfSpire.makeID("LunarCacheReward"));
     private static final Texture ICON = TextureLoader.getTexture(RiskOfSpire.assetPath("images/ui/") + "LunarCoinIcon.png");
     private static final Texture CACHE_ICON = TextureLoader.getTexture(RiskOfSpire.assetPath("images/ui/") + "LunarCache_alt.png");
     private static final float LC_TEXT_X = 1135.0F * Settings.scale;
     private static final float LC_IMG_X = LC_TEXT_X - 66.0f * Settings.scale;
     private static final float LC_IMG_SIZE = (float) ICON.getWidth() * Settings.scale;
-
+    public static UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(RiskOfSpire.makeID("LunarCacheReward"));
     private boolean canAfford = false;
+
     public LunarCacheReward() {
         this(0);
     }
 
     public LunarCacheReward(int lunarCoinCostModifier) {
         super(CACHE_ICON, UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_CACHE);
-        this.goldAmt = LunarCoinHelper.LUNAR_CACHE_BASE_COST+lunarCoinCostModifier;
-        if(goldAmt<0) {
-            goldAmt=0;
+        this.goldAmt = LunarCoinHelper.LUNAR_CACHE_BASE_COST + lunarCoinCostModifier;
+        if (goldAmt < 0) {
+            goldAmt = 0;
         }
     }
 
@@ -61,7 +61,7 @@ public class LunarCacheReward extends CustomReward {
         super.render(sb);
 
         sb.setColor(Color.WHITE);
-        sb.draw(ICON, LC_IMG_X+10, this.y - 2.0F * Settings.scale, LC_IMG_SIZE*0.66F, LC_IMG_SIZE*0.66F);
+        sb.draw(ICON, LC_IMG_X + 10, this.y - 2.0F * Settings.scale, LC_IMG_SIZE * 0.66F, LC_IMG_SIZE * 0.66F);
         Color c = Color.WHITE.cpy();
         if (this.goldAmt > RiskOfSpire.lunarCoinAmount) {
             c = Color.SALMON.cpy();
