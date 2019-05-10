@@ -269,5 +269,13 @@
       "Imp Guardian",
       "Imp Guardians are 0-cost cards that exhaust and are ethereal. There are #b2 Attacks, #b2 Skills and #b1 Power [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:Medkit": {
+    "NAME": "Medkit",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you take unblocked attack damage, gain #b",
+      " #yTemporary_HP [REMOVE_SPACE]."
+    ]
   }
 }
