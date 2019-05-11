@@ -1,11 +1,12 @@
 package riskOfSpire.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import riskOfSpire.RiskOfSpire;
@@ -18,7 +19,7 @@ public class DifficultyButton {
     public static ArrayList<DifficultyButton> Buttons = new ArrayList<>();
     private static TutorialStrings ButtonStrings = CardCrawlGame.languagePack.getTutorialString("DifficultyButton");
     private static String[] LABEL = ButtonStrings.LABEL;
-    public Texture texture = TextureLoader.getTexture("riskOfSpireResources/images/ui/ButtonGlow.png");
+    public Texture texture;
     private float x;
     private float y;
     private float DifficultyMod;
@@ -43,9 +44,19 @@ public class DifficultyButton {
         DifficultyMod = amount;
     }
 
+    public void setSelected() {
+        for (DifficultyButton d : Buttons) {
+            d.isselected = false;
+        }
+        isselected = true;
+        RiskOfSpire.DifficultyMeter.setDifficultyMod(DifficultyMod);
+    }
+
+
     public void render(SpriteBatch sb) {
         if (this.isselected) {
             sb.draw(HoverTexture, x * Settings.scale, y * Settings.scale, 50.0F * Settings.scale, 50.0F * Settings.scale);
+            FontHelper.renderFontLeft(sb, FontHelper.cardTitleFont_small_L, Name, Settings.WIDTH - 230.0F * Settings.scale, 270.0F * Settings.scale, Color.WHITE.cpy());
         }
         sb.draw(texture, x * Settings.scale, y * Settings.scale, 50.0F * Settings.scale, 50.0F * Settings.scale);
     }
@@ -54,9 +65,6 @@ public class DifficultyButton {
         this.hitbox.update();
         if ((InputHelper.justClickedLeft) && (this.hitbox.hovered)) {
             this.hitbox.clickStarted = true;
-        }
-        if (this.hitbox.hovered) {
-            TipHelper.renderGenericTip(x * Settings.scale, (y - 50) * Settings.scale, LABEL[0], Name);
         }
         if (this.hitbox.clicked) {
             CardCrawlGame.sound.play("UI_CLICK_1");

@@ -22,5 +22,12 @@
     "DESCRIPTIONS": [
       "At the start of your next turn, add the stored cards to your hand. NL Currently stored: "
     ]
+  },
+  "riskOfSpire:HoofBlock": {
+    "NAME": "Hoof Block",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " #yBlock at the start of next turn."
+    ]
   }
 }
