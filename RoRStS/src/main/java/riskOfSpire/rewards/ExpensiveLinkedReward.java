@@ -21,7 +21,12 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
 
     public ExpensiveLinkedReward(LinkedRewardItem setLink, AbstractRelic reward) {
         super(setLink, reward);
-        float modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod()*(RiskOfSpire.DifficultyMeter.getDifficulty()/100F))*1F); //Adjust this value
+        float modifier = 0f; //Adjust this value
+        if(RiskOfSpire.difficultyCostSetting) {
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod()*(RiskOfSpire.DifficultyMeter.getDifficulty()/100F))*1F); //Adjust this value
+        } else {
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F);
+        }
         this.goldAmt = MathUtils.round(((float) relic.getPrice() * modifier)/2F);
     }
 

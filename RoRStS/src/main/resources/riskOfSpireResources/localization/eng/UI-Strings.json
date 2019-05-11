@@ -1,4 +1,9 @@
 {
+  "riskOfSpire:ModSettings": {
+    "TEXT": [
+      "Increase RoRRelic costs in combat reward screens based on difficulty?"
+    ]
+  },
   "riskOfSpire:LinkedRewardItem": {
     "TEXT": [
       "the linked card reward"
