@@ -23,7 +23,7 @@ public class Medkit extends StackableRelic {
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (info.type == DamageInfo.DamageType.NORMAL && (damageAmount > 0 || (info.output > 0 && AbstractDungeon.player.currentBlock == 0)) &&info.owner != AbstractDungeon.player) {
             flash();
-            AbstractDungeon.actionManager.addToTop(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, relicStack));
+            AbstractDungeon.actionManager.addToBottom(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, relicStack));
         }
         return damageAmount;
     }

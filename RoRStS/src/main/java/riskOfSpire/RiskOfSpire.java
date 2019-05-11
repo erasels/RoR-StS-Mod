@@ -1,6 +1,7 @@
 package riskOfSpire;
 
 import basemod.BaseMod;
+import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.abstracts.CustomSavable;
 import basemod.abstracts.CustomSavableRaw;
@@ -20,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -67,13 +69,12 @@ public class RiskOfSpire implements
         PostUpdateSubscriber,
         PreStartGameSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
-    public static final String ENABLE_PLACEHOLDER_SETTINGS = "enablePlaceholder";
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
     private static final String AUTHOR = "erasels / Alchyr / Kiooeht / Lobbien";
     private static final String DESCRIPTION = "A mod to add the items from Risk of Rain in the context of Slay the Spire relics.";
     public static Properties ModSettings = new Properties();
-    public static boolean enablePlaceholder = true;
+    public static boolean difficultyCostSetting = true;
     public static DifficultyMeter DifficultyMeter;
     public static ArrayList<Color> COLORS = new ArrayList<>(Arrays.asList(Color.MAGENTA.cpy(), Color.WHITE.cpy(), Color.BLUE.cpy(), Color.CHARTREUSE.cpy(), Color.CORAL.cpy(), Color.CYAN.cpy(), Color.FIREBRICK.cpy(), Color.FOREST.cpy(), Color.GOLD.cpy(), Color.VIOLET.cpy()));
     //No need to track shop or boss relics.
@@ -87,6 +88,8 @@ public class RiskOfSpire implements
     public static boolean lCacheTrigger = false;
     private static String modID;
 
+    public static final String DIFFICULTY_RELIC_COST_MOD_SETTING = "diffMoneyMod";
+
     public RiskOfSpire() {
         logger.info("Subscribe to BaseMod hooks");
 
@@ -97,17 +100,193 @@ public class RiskOfSpire implements
         logger.info("Done subscribing");
 
         logger.info("Adding mod settings");
-        ModSettings.setProperty(ENABLE_PLACEHOLDER_SETTINGS, "FALSE"); // This is the default setting. It's actually set...
+        ModSettings.setProperty(DIFFICULTY_RELIC_COST_MOD_SETTING, "TRUE");
         try {
-            SpireConfig config = new SpireConfig("riskOfSpire", "theDefaultConfig", ModSettings); // ...right here
+            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig", ModSettings); // ...right here
             // the "fileName" parameter is the name of the file MTS will create where it will save our setting.
             config.load(); // Load the setting and set the boolean to equal it
-            enablePlaceholder = config.getBool(ENABLE_PLACEHOLDER_SETTINGS);
+            difficultyCostSetting = config.getBool(DIFFICULTY_RELIC_COST_MOD_SETTING);
         } catch (Exception e) {
             e.printStackTrace();
         }
         logger.info("Done adding mod settings");
 
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        logger.info("Adding relics");
+        //All relics are Shared relics, not character specific, so I can just do this.
+        try {
+            autoAddRelics();
+        } catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | CannotCompileException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("Done adding relics!");
+    }
+
+    @Override
+    public void receiveEditCards() {
+        BaseMod.addCard(new ImpAetu());
+        BaseMod.addCard(new ImpBava());
+        BaseMod.addCard(new ImpYggo());
+        BaseMod.addCard(new ImpUgorn());
+        BaseMod.addCard(new ImpChir());
+    }
+
+    @Override
+    public void receiveEditKeywords() {
+        Gson gson = new Gson();
+        //String keywordStrings = Gdx.files.internal(assetPath("loc/" + languageSupport() + "/" +"aspiration-KeywordStrings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
+        String keywordStrings = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
+        Type typeToken = new TypeToken<Map<String, Keyword>>() {
+        }.getType();
+
+        Map<String, Keyword> keywords = gson.fromJson(keywordStrings, typeToken);
+
+        keywords.forEach((k, v) -> {
+            // Keyword word = (Keyword)v;
+            logger.info("Adding Keyword - " + v.NAMES[0]);
+            BaseMod.addKeyword((getModID().toLowerCase() + ":"), v.PROPER_NAME, v.NAMES, v.DESCRIPTION);
+        });
+    }
+
+    @Override
+    public void receiveRelicGet(AbstractRelic rel) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof StackableRelic) {
+                ((StackableRelic) r).onRelicGet(rel);
+            } else if (r instanceof UsableRelic) {
+                ((UsableRelic) r).onRelicGet(rel);
+            }
+        }
+    }
+
+    @Override
+    public void receivePostInitialize() {
+        logger.info("Loading badge image and mod options");
+        UIStrings mSStrings = CardCrawlGame.languagePack.getUIString(RiskOfSpire.makeID("ModSettings"));
+
+        // Load the Mod Badge
+        Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE);
+
+        // Create the Mod Menu
+        ModPanel settingsPanel = new ModPanel();
+
+        // Create the on/off button:
+        ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton(mSStrings.TEXT[0], 350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont, difficultyCostSetting, settingsPanel,
+                (label) -> {},
+                (button) -> {
+                    difficultyCostSetting = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig", ModSettings);
+                        config.setBool(DIFFICULTY_RELIC_COST_MOD_SETTING, difficultyCostSetting);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        settingsPanel.addUIElement(enableNormalsButton); // Add the button to the settings panel. Button is a go.
+
+        BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
+
+        //Lunar Coins
+        loadData();
+
+        BaseMod.registerCustomReward(
+                RewardItemTypeEnumPatch.LUNAR_COIN,
+                (rewardSave) -> new LunarCoinReward(rewardSave.amount),
+                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCoinReward) customReward).amountOfCoins, 0)
+        );
+
+        BaseMod.registerCustomReward(
+                RewardItemTypeEnumPatch.LUNAR_CACHE,
+                (rewardSave) -> new LunarCacheReward(rewardSave.amount),
+                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCacheReward) customReward).goldAmt, 0)
+        );
+
+        if (lCD == null) {
+            lCD = new LunarCoinDisplay();
+        }
+        BaseMod.addTopPanelItem(lCD);
+
+        DifficultyMeter = new DifficultyMeter();
+        BaseMod.addSaveField("RoRDifficulty", new CustomSavableRaw() {
+            @Override
+            public JsonElement onSaveRaw() {
+                Gson coolG = new Gson();
+                logger.info("Saved Shit");
+                return coolG.toJsonTree(DifficultyMeter.getDifficulty());
+            }
+
+            @Override
+            public void onLoadRaw(JsonElement jsonElement) {
+                if (jsonElement != null) {
+                    Gson coolG = new Gson();
+                    DifficultyMeter.setDifficulty(coolG.fromJson(jsonElement, Integer.class));
+                    logger.info("Loaded Shit");
+                }
+            }
+        });
+        BaseMod.addSaveField("RoRDifficultyMod", new CustomSavable<Float>() {
+            @Override
+            public Float onSave() {
+                return DifficultyMeter.getDifficultyMod();
+            }
+
+            @Override
+            public void onLoad(Float Float) {
+                DifficultyMeter.setDifficultyMod(Float);
+            }
+        });
+        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", Settings.WIDTH / Settings.scale - 230/*- 175.0F*/, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
+        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", Settings.WIDTH / Settings.scale - 170/*235.0F*/, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
+        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", Settings.WIDTH / Settings.scale - 110/*295.0F*/, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
+        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", Settings.WIDTH / Settings.scale - 50/*355.0F*/, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        B.setSelected();
+        DifficultyButton.Buttons.add(B);
+        DifficultyButton.Buttons.add(C);
+        DifficultyButton.Buttons.add(D);
+        DifficultyButton.Buttons.add(E);
+        logger.info("Done loading badge Image and mod options");
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
+        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
+        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        rorCommonRelics.sort(String::compareTo);
+        rorUncommonRelics.sort(String::compareTo);
+        rorRareRelics.sort(String::compareTo);
+        rorLunarRelics.sort(String::compareTo);
+
+        if (DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
+    }
+
+    @Override
+    public void receivePostUpdate() {
+        if (AbstractDungeon.player == null) return;
+        if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
+            if (lCacheTrigger) {
+                lCacheTrigger = false;
+                AbstractDungeon.combatRewardScreen.hasTakenAll = false;
+                AbstractDungeon.combatRewardScreen.rewards.add(new RewardItem(RiskOfRainRelicHelper.getRandomLunarRelic()));
+                AbstractDungeon.combatRewardScreen.positionRewards();
+            }
+        }
+    }
+
+    @Override
+    public void receivePreStartGame() {
+        DifficultyMeter.setDifficulty(0);
     }
 
     public static String makeCardPath(String resourcePath) {
@@ -132,6 +311,38 @@ public class RiskOfSpire implements
 
     public static String makeEventPath(String resourcePath) {
         return getModID() + "Resources/images/events/" + resourcePath;
+    }
+
+    @Override
+    public void receiveEditStrings() {
+        logger.info("Beginning to edit strings for mod with ID: " + getModID());
+
+        // CardStrings
+        BaseMod.loadCustomStringsFile(CardStrings.class,
+                getModID() + "Resources/localization/eng/Card-Strings.json");
+
+        // PowerStrings
+        BaseMod.loadCustomStringsFile(PowerStrings.class,
+                getModID() + "Resources/localization/eng/Power-Strings.json");
+
+        // RelicStrings
+        BaseMod.loadCustomStringsFile(RelicStrings.class,
+                getModID() + "Resources/localization/eng/Relic-Strings.json");
+
+        // Event Strings
+        BaseMod.loadCustomStringsFile(EventStrings.class,
+                getModID() + "Resources/localization/eng/Event-Strings.json");
+
+        // UI Strings
+        BaseMod.loadCustomStringsFile(UIStrings.class,
+                getModID() + "Resources/localization/eng/UI-Strings.json");
+        // OrbStrings
+        BaseMod.loadCustomStringsFile(OrbStrings.class,
+                getModID() + "Resources/localization/eng/Orb-Strings.json");
+        //TutorialStrings
+        BaseMod.loadCustomStringsFile(TutorialStrings.class,
+                getModID() + "Resources/localization/eng/Tutorial-Strings.json");
+        logger.info("Done editing strings");
     }
 
     public static String getModID() { // NO
@@ -271,196 +482,5 @@ public class RiskOfSpire implements
             e.printStackTrace();
             clearData();
         }
-    }
-
-    @Override
-    public void receiveEditRelics() {
-        logger.info("Adding relics");
-
-        //All relics are Shared relics, not character specific, so I can just do this.
-        try {
-            autoAddRelics();
-        } catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | CannotCompileException e) {
-            e.printStackTrace();
-        }
-
-        logger.info("Done adding relics!");
-    }
-
-    @Override
-    public void receiveEditCards() {
-        BaseMod.addCard(new ImpAetu());
-        BaseMod.addCard(new ImpBava());
-        BaseMod.addCard(new ImpYggo());
-        BaseMod.addCard(new ImpUgorn());
-        BaseMod.addCard(new ImpChir());
-    }
-
-    @Override
-    public void receiveEditStrings() {
-        logger.info("Beginning to edit strings for mod with ID: " + getModID());
-
-        // CardStrings
-        BaseMod.loadCustomStringsFile(CardStrings.class,
-                getModID() + "Resources/localization/eng/Card-Strings.json");
-
-        // PowerStrings
-        BaseMod.loadCustomStringsFile(PowerStrings.class,
-                getModID() + "Resources/localization/eng/Power-Strings.json");
-
-        // RelicStrings
-        BaseMod.loadCustomStringsFile(RelicStrings.class,
-                getModID() + "Resources/localization/eng/Relic-Strings.json");
-
-        // Event Strings
-        BaseMod.loadCustomStringsFile(EventStrings.class,
-                getModID() + "Resources/localization/eng/Event-Strings.json");
-
-        // UI Strings
-        BaseMod.loadCustomStringsFile(UIStrings.class,
-                getModID() + "Resources/localization/eng/UI-Strings.json");
-        // OrbStrings
-        BaseMod.loadCustomStringsFile(OrbStrings.class,
-                getModID() + "Resources/localization/eng/Orb-Strings.json");
-        //TutorialStrings
-        BaseMod.loadCustomStringsFile(TutorialStrings.class,
-                getModID() + "Resources/localization/eng/Tutorial-Strings.json");
-        logger.info("Done editing strings");
-    }
-
-    @Override
-    public void receiveEditKeywords() {
-        Gson gson = new Gson();
-        //String keywordStrings = Gdx.files.internal(assetPath("loc/" + languageSupport() + "/" +"aspiration-KeywordStrings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
-        String keywordStrings = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        Type typeToken = new TypeToken<Map<String, Keyword>>() {
-        }.getType();
-
-        Map<String, Keyword> keywords = gson.fromJson(keywordStrings, typeToken);
-
-        keywords.forEach((k, v) -> {
-            // Keyword word = (Keyword)v;
-            logger.info("Adding Keyword - " + v.NAMES[0]);
-            BaseMod.addKeyword((getModID().toLowerCase() + ":"), v.PROPER_NAME, v.NAMES, v.DESCRIPTION);
-        });
-    }
-
-    @Override
-    public void receiveRelicGet(AbstractRelic rel) {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(rel);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(rel);
-            }
-        }
-    }
-
-    @Override
-    public void receivePostInitialize() {
-        logger.info("Loading badge image and mod options");
-
-        // Load the Mod Badge
-        Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE);
-
-        // Create the Mod Menu
-        ModPanel settingsPanel = new ModPanel();
-
-        BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
-
-        //Lunar Coins
-        loadData();
-
-        BaseMod.registerCustomReward(
-                RewardItemTypeEnumPatch.LUNAR_COIN,
-                (rewardSave) -> new LunarCoinReward(rewardSave.amount),
-                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCoinReward) customReward).amountOfCoins, 0)
-        );
-
-        BaseMod.registerCustomReward(
-                RewardItemTypeEnumPatch.LUNAR_CACHE,
-                (rewardSave) -> new LunarCacheReward(rewardSave.amount),
-                (customReward) -> new RewardSave(customReward.type.toString(), null, ((LunarCacheReward) customReward).goldAmt, 0)
-        );
-
-        if (lCD == null) {
-            lCD = new LunarCoinDisplay();
-        }
-        BaseMod.addTopPanelItem(lCD);
-        DifficultyMeter = new DifficultyMeter();
-        BaseMod.addSaveField("RoRDifficulty", new CustomSavableRaw() {
-            @Override
-            public JsonElement onSaveRaw() {
-                Gson coolG = new Gson();
-                logger.info("Saved Shit");
-                return coolG.toJsonTree(DifficultyMeter.getDifficulty());
-            }
-
-            @Override
-            public void onLoadRaw(JsonElement jsonElement) {
-                if (jsonElement != null) {
-                    Gson coolG = new Gson();
-                    DifficultyMeter.setDifficulty(coolG.fromJson(jsonElement, Integer.class));
-                    logger.info("Loaded Shit");
-                }
-            }
-        });
-        BaseMod.addSaveField("RoRDifficultyMod", new CustomSavable<Float>() {
-            @Override
-            public Float onSave() {
-                return DifficultyMeter.getDifficultyMod();
-            }
-
-            @Override
-            public void onLoad(Float Float) {
-                DifficultyMeter.setDifficultyMod(Float);
-            }
-        });
-        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", Settings.WIDTH / Settings.scale - 230/*- 175.0F*/, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
-        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", Settings.WIDTH / Settings.scale - 170/*235.0F*/, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
-        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", Settings.WIDTH / Settings.scale - 110/*295.0F*/, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
-        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", Settings.WIDTH / Settings.scale - 50/*355.0F*/, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
-        B.setSelected();
-        DifficultyButton.Buttons.add(B);
-        DifficultyButton.Buttons.add(C);
-        DifficultyButton.Buttons.add(D);
-        DifficultyButton.Buttons.add(E);
-        logger.info("Done loading badge Image and mod options");
-    }
-
-    @Override
-    public void receivePostDungeonInitialize() {
-        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
-        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
-        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        rorCommonRelics.sort(String::compareTo);
-        rorUncommonRelics.sort(String::compareTo);
-        rorRareRelics.sort(String::compareTo);
-        rorLunarRelics.sort(String::compareTo);
-
-        if(DifficultyMeter.getDifficultyMod() == 0f) {
-            DifficultyMeter.hideHitbox();
-        } else {
-            DifficultyMeter.unhideHitbox();
-        }
-    }
-
-    @Override
-    public void receivePostUpdate() {
-        if (AbstractDungeon.player == null) return;
-        if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
-            if (lCacheTrigger) {
-                lCacheTrigger = false;
-                AbstractDungeon.combatRewardScreen.hasTakenAll = false;
-                AbstractDungeon.combatRewardScreen.rewards.add(new RewardItem(RiskOfRainRelicHelper.getRandomLunarRelic()));
-                AbstractDungeon.combatRewardScreen.positionRewards();
-            }
-        }
-    }
-
-    @Override
-    public void receivePreStartGame() {
-        DifficultyMeter.setDifficulty(0);
     }
 }
