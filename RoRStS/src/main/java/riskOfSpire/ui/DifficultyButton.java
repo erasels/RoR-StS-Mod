@@ -56,7 +56,7 @@ public class DifficultyButton {
     public void render(SpriteBatch sb) {
         if (this.isselected) {
             sb.draw(HoverTexture, x * Settings.scale, y * Settings.scale, 50.0F * Settings.scale, 50.0F * Settings.scale);
-            FontHelper.renderFontLeft(sb, FontHelper.cardTitleFont_small_L, Name, Settings.WIDTH - 230.0F * Settings.scale, 270.0F * Settings.scale, Color.WHITE.cpy());
+            FontHelper.renderFontLeft(sb, FontHelper.cardTitleFont_small_L, Name, Settings.WIDTH - 230.0F * Settings.scale, 20.0F * Settings.scale, Color.WHITE.cpy());
         }
         sb.draw(texture, x * Settings.scale, y * Settings.scale, 50.0F * Settings.scale, 50.0F * Settings.scale);
     }
