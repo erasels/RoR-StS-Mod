@@ -241,10 +241,11 @@ public class RiskOfSpire implements
                 DifficultyMeter.setDifficultyMod(Float);
             }
         });
-        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", 175.0F, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
-        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", 235.0F, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
-        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", 295.0F, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
-        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", 355.0F, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", Settings.WIDTH / Settings.scale - 230/*- 175.0F*/, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
+        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", Settings.WIDTH / Settings.scale - 170/*235.0F*/, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
+        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", Settings.WIDTH / Settings.scale - 110/*295.0F*/, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
+        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", Settings.WIDTH / Settings.scale - 50/*355.0F*/, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        B.setSelected();
         DifficultyButton.Buttons.add(B);
         DifficultyButton.Buttons.add(C);
         DifficultyButton.Buttons.add(D);
