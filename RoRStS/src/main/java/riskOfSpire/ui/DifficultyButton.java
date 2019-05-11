@@ -43,6 +43,15 @@ public class DifficultyButton {
         DifficultyMod = amount;
     }
 
+    public void setSelected() {
+        for (DifficultyButton d : Buttons) {
+            d.isselected = false;
+        }
+        isselected = true;
+        RiskOfSpire.DifficultyMeter.setDifficultyMod(DifficultyMod);
+    }
+
+
     public void render(SpriteBatch sb) {
         if (this.isselected) {
             sb.draw(HoverTexture, x * Settings.scale, y * Settings.scale, 50.0F * Settings.scale, 50.0F * Settings.scale);

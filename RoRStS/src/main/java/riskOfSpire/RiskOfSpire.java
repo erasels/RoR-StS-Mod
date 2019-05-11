@@ -419,6 +419,7 @@ public class RiskOfSpire implements
         DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", 235.0F, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
         DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", 295.0F, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
         DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", 355.0F, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        B.setSelected();
         DifficultyButton.Buttons.add(B);
         DifficultyButton.Buttons.add(C);
         DifficultyButton.Buttons.add(D);
