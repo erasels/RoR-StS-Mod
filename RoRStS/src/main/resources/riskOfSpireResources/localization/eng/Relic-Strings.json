@@ -277,5 +277,15 @@
       "Whenever you take unblocked attack damage, gain #b",
       " #yTemporary_HP [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:ShieldGenerator": {
+    "NAME": "Shield Generator",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the the start of each turn, if you didn't take damage last turn and have less than #b",
+      " #yTemporary_HP [REMOVE_SPACE], gain #b",
+      " #yTemporary_HP [REMOVE_SPACE]."
+
+    ]
   }
 }
