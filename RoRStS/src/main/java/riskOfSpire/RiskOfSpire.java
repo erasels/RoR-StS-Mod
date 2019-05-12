@@ -36,6 +36,7 @@ import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.relics.Debug.DebugRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
 import riskOfSpire.ui.DifficultyButton;
@@ -241,10 +242,10 @@ public class RiskOfSpire implements
                 DifficultyMeter.setDifficultyMod(Float);
             }
         });
-        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", Settings.WIDTH / Settings.scale - 230/*- 175.0F*/, 300.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
-        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", Settings.WIDTH / Settings.scale - 170/*235.0F*/, 300.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
-        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", Settings.WIDTH / Settings.scale - 110/*295.0F*/, 300.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
-        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", Settings.WIDTH / Settings.scale - 50/*355.0F*/, 300.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
+        DifficultyButton B = new DifficultyButton("riskOfSpireResources/images/ui/PeacefulButton.png", Settings.WIDTH / Settings.scale - 230/*- 175.0F*/, 50.0F, 0.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[0]);
+        DifficultyButton C = new DifficultyButton("riskOfSpireResources/images/ui/EasyButton.png", Settings.WIDTH / Settings.scale - 170/*235.0F*/, 50.0F, 0.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[1]);
+        DifficultyButton D = new DifficultyButton("riskOfSpireResources/images/ui/MediumButton.png", Settings.WIDTH / Settings.scale - 110/*295.0F*/, 50.0F, 1.0F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[2]);
+        DifficultyButton E = new DifficultyButton("riskOfSpireResources/images/ui/HardButton.png", Settings.WIDTH / Settings.scale - 50/*355.0F*/, 50.0F, 1.5F, CardCrawlGame.languagePack.getTutorialString("DifficultyButton").TEXT[3]);
         B.setSelected();
         DifficultyButton.Buttons.add(B);
         DifficultyButton.Buttons.add(C);
@@ -433,7 +434,8 @@ public class RiskOfSpire implements
                     rorRareRelics.add(r.relicId);
                     break;
                 case SPECIAL:
-                    rorLunarRelics.add(r.relicId);
+                    if (!(r instanceof DebugRelic))
+                        rorLunarRelics.add(r.relicId);
                     break;
             }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
