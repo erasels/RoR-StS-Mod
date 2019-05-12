@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.util.TextureLoader;
 
 public class DifficultyMeter {
@@ -103,7 +104,15 @@ public class DifficultyMeter {
     }
 
     public void onBattleStart(AbstractMonster m) {
-        m.increaseMaxHp(MathUtils.round(m.maxHealth * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
-        //TODO: Add alternatives like gaining strength and Regen
+        if(getDifficultyMod() > 0f) {
+            float modifier = 1f; //To nerf the health gain on high health enemies as to not make it too crazy
+            if (m.type == AbstractMonster.EnemyType.BOSS) {
+                modifier = 0.66f;
+            } else if (m.type == AbstractMonster.EnemyType.ELITE) {
+                modifier = 0.8f;
+            }
+            m.increaseMaxHp(MathUtils.round(((float)m.maxHealth*modifier) * (float)Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
+            //TODO: Add alternatives like gaining strength and Regen
+        }
     }
 }

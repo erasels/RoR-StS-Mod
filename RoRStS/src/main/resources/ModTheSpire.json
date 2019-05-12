@@ -3,7 +3,8 @@
   "name": "${project.name}",
   "author_list": [
     "erasels",
-    "Alchyr"
+    "Alchyr",
+    "lobbien"
   ],
   "description": "${project.description}",
   "version": "${project.version}",

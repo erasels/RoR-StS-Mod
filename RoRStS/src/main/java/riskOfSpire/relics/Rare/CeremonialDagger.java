@@ -42,7 +42,7 @@ public class CeremonialDagger extends StackableRelic implements BetterOnLoseHpRe
         if (storedDamage > 1) {
             int tmp = MathUtils.ceilPositive((storedDamage/2F)/(float)KNIFE_AMT);
             for (int j = 0; j < KNIFE_AMT; j++) {
-                AbstractDungeon.actionManager.addToTop(new WobblyMissileAction(AbstractDungeon.getCurrRoom().monsters.getRandomMonster(true), AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, tmp, DamageInfo.DamageType.THORNS), relicStack, 0.1f, Color.BLACK.cpy(), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                AbstractDungeon.actionManager.addToTop(new WobblyMissileAction(AbstractDungeon.getCurrRoom().monsters.getRandomMonster(true), AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, tmp, DamageInfo.DamageType.THORNS), relicStack, 0.05f, Color.BLACK.cpy(), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
             }
         }
         setCounter(-1);
