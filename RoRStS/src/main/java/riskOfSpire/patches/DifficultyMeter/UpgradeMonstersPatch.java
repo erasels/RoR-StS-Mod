@@ -1,48 +1,43 @@
 package riskOfSpire.patches.DifficultyMeter;
 
 
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.rooms.MonsterRoom;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
-import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
+import javassist.CannotCompileException;
+import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
 
+import java.util.ArrayList;
+
 public class UpgradeMonstersPatch {
-    @SpirePatch(clz = MonsterRoom.class, method = "onPlayerEntry")
-    public static class NormalMonsters {
-        @SpirePostfixPatch
-        public static void patch(MonsterRoom __instance) {
-            for (AbstractMonster m : __instance.monsters.monsters) {
-                if (!m.isDeadOrEscaped()) {
-                    RiskOfSpire.DifficultyMeter.onBattleStart(m);
-                }
-            }
+    @SpirePatch(clz = AbstractMonster.class, method = "setHp", paramtypez = {
+            int.class, int.class
+    })
+    public static class MonsterUpgrade {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void patch(AbstractMonster __instance, int min, int max) {
+            RiskOfSpire.DifficultyMeter.UpgradeMonster(__instance);
         }
-    }
 
-    @SpirePatch(clz = MonsterRoomElite.class, method = "onPlayerEntry")
-    public static class EliteMonsters {
-        @SpirePostfixPatch
-        public static void patch(MonsterRoomElite __instance) {
-            for (AbstractMonster m : __instance.monsters.monsters) {
-                if (!m.isDeadOrEscaped()) {
-                    RiskOfSpire.DifficultyMeter.onBattleStart(m);
-                }
-            }
-        }
-    }
+        private static class Locator extends SpireInsertLocator {
+            ArrayList<Matcher> Prerequisites = new ArrayList<>();
 
-    @SpirePatch(clz = MonsterRoomBoss.class, method = "onPlayerEntry")
-    public static class BossMonsters {
-        @SpirePostfixPatch
-        public static void patch(MonsterRoomBoss __instance) {
-            for (AbstractMonster m : __instance.monsters.monsters) {
-                if (!m.isDeadOrEscaped()) {
-                    RiskOfSpire.DifficultyMeter.onBattleStart(m);
-                }
+            public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                Matcher finalMatcher = new Matcher.FieldAccessMatcher(
+                        AbstractMonster.class, "maxHealth");
+                return LineFinder.findAllInOrder(ctMethodToPatch, Prerequisites, finalMatcher);
             }
         }
+        /*....................../´¯/)
+          ....................,/¯../
+          .................../..../
+          ............./´¯/'...'/´¯¯`·¸
+          ........../'/.../..../......./¨¯\
+          ........('(...´...´.... ¯~/'...')
+          .........\.................'...../
+          ..........''...\.......... _.·´
+          ............\..............(
+          ..............\.............\...*/
     }
 }

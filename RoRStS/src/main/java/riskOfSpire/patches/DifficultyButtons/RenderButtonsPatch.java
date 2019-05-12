@@ -22,7 +22,7 @@ public class RenderButtonsPatch {
     private static String[] LABEL = ButtonStrings.LABEL;
     @SpireInsertPatch(locator = riskOfSpire.patches.DifficultyButtons.RenderButtonsPatch.Locator.class)
     public static void patch(CharacterSelectScreen __instance, SpriteBatch sb) {
-        FontHelper.renderFontLeft(sb, FontHelper.cardTitleFont_small_L, LABEL[0], Settings.WIDTH - 230.0F * Settings.scale, 370.0F * Settings.scale, Color.WHITE.cpy());
+        FontHelper.renderFontLeft(sb, FontHelper.charDescFont, LABEL[0], Settings.WIDTH - 230.0F * Settings.scale, 120.0F * Settings.scale, Color.WHITE.cpy());
         for (DifficultyButton D : DifficultyButton.Buttons) {
             D.render(sb);
         }
