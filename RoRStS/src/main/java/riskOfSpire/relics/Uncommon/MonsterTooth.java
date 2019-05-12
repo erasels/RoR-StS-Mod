@@ -10,7 +10,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class MonsterTooth extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("MonsterTooth");
-    private static final int HEAL = 3;
+    private static final int HEAL = 2;
 
     public MonsterTooth() {
         super(ID, "MonsterTooth.png", RelicTier.UNCOMMON, LandingSound.CLINK);
