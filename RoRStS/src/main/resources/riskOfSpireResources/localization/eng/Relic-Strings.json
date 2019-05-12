@@ -285,7 +285,13 @@
       "At the the start of each turn, if you didn't take damage last turn and have less than #b",
       " #yTemporary_HP [REMOVE_SPACE], gain #b",
       " #yTemporary_HP [REMOVE_SPACE]."
-
+    ]
+  },
+  "riskOfSpire:DebugRelic": {
+    "NAME": "Debug Relic",
+    "FLAVOR": "You are already dead.",
+    "DESCRIPTIONS": [
+      "Right Click to increase the Difficulty"
     ]
   }
 }

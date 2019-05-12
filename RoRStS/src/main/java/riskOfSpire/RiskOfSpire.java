@@ -36,6 +36,7 @@ import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.relics.Debug.DebugRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
 import riskOfSpire.ui.DifficultyButton;
@@ -433,7 +434,8 @@ public class RiskOfSpire implements
                     rorRareRelics.add(r.relicId);
                     break;
                 case SPECIAL:
-                    rorLunarRelics.add(r.relicId);
+                    if (!(r instanceof DebugRelic))
+                        rorLunarRelics.add(r.relicId);
                     break;
             }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
