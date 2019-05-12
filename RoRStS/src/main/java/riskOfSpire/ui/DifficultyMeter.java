@@ -102,8 +102,8 @@ public class DifficultyMeter {
         this.hb.resize(400 * Settings.scale, 44 * Settings.scale);
     }
 
-    public void onBattleStart(AbstractMonster m) {
-        m.increaseMaxHp(MathUtils.round(m.maxHealth * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F)), false);
+    public void UpgradeMonster(AbstractMonster m) {
+        m.currentHealth = MathUtils.round(m.maxHealth * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F));
         //TODO: Add alternatives like gaining strength and Regen
     }
 }
