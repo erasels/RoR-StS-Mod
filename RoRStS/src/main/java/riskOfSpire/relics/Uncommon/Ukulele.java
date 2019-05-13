@@ -24,6 +24,9 @@ public class Ukulele extends StackableRelic implements OnAfterUseCardRelic {
     }
 
     public String getUpdatedDescription() {
+        if(relicStack == 1) {
+            return DESCRIPTIONS[0] + BASE_DMG + DESCRIPTIONS[1] + relicStack + DESCRIPTIONS[3];
+        }
         return DESCRIPTIONS[0] + BASE_DMG + DESCRIPTIONS[1] + relicStack + DESCRIPTIONS[2];
     }
 

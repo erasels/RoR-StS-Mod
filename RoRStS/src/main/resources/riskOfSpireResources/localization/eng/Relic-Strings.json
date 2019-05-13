@@ -327,7 +327,8 @@
     "DESCRIPTIONS": [
       "Whenever you use a single target attack, deal #b",
       " damage to an enemy other than the one targeted, #b",
-       " times."
+      " times.",
+      " time."
     ]
   }
 }
