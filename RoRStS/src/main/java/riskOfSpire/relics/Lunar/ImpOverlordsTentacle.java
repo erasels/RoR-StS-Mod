@@ -19,6 +19,7 @@ public class ImpOverlordsTentacle extends StackableRelic {
         this.tips.add(new PowerTip(name, description));
         this.tips.add(new PowerTip(DESCRIPTIONS[4], DESCRIPTIONS[5]));
         initializeTips();
+        isLunar = true;
     }
 
     @Override

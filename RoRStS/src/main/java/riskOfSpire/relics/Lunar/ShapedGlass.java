@@ -23,6 +23,7 @@ public class ShapedGlass extends StackableRelic implements ModifyDamageRelic {
 
     public ShapedGlass() {
         super(ID, "ShapedGlass.png", RelicTier.SPECIAL, LandingSound.CLINK);
+        isLunar = true;
     }
 
     @Override
