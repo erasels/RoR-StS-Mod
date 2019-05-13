@@ -29,5 +29,12 @@
       "Gain #b",
       " #yBlock at the start of next turn."
     ]
+  },
+  "riskOfSpire:PlayerFlight": {
+    "NAME": "Flight",
+    "DESCRIPTIONS": [
+      "Receive 50% less attack damage. Removed after losing HP from an attack #b",
+      " times."
+    ]
   }
 }
