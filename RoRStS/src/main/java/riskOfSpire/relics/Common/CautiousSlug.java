@@ -1,10 +1,8 @@
 package riskOfSpire.relics.Common;
 
 import com.evacipated.cardcrawl.mod.stslib.patches.core.AbstractCreature.TempHPField;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.RegenPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
@@ -19,10 +17,10 @@ public class CautiousSlug extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + getVal() + DESCRIPTIONS[1] + getVal() + DESCRIPTIONS[2];
+        return DESCRIPTIONS[0] + getVal() + DESCRIPTIONS[1];
     }
 
-    @Override
+    /*@Override
     public void onRest() {
         flash();
         if(counter<=0) {
@@ -42,12 +40,11 @@ public class CautiousSlug extends StackableRelic {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new RegenPower(AbstractDungeon.player, counter*getVal()), counter*getVal()));
             counter = -1;
         }
-    }
+    }*/
 
     @Override
     public void onTrigger() {
         int tmp = NumberUtils.min(TempHPField.tempHp.get(AbstractDungeon.player), getVal());
-        System.out.println("Healed for: " + tmp + " max was: " + TempHPField.tempHp.get(AbstractDungeon.player));
         if(tmp > 0) {
             flash();
             AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
@@ -56,7 +53,7 @@ public class CautiousSlug extends StackableRelic {
     }
 
     public int getVal() {
-        return relicStack;
+        return relicStack*2;
     }
 
     public AbstractRelic makeCopy() {

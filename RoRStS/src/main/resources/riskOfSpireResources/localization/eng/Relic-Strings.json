@@ -308,7 +308,8 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "At the end of combat, heal HP equal to your #yTemporary_HP to a maximum of #b",
-      " [REMOVE_SPACE]. Whenever you rest at a Rest Site, gain #b",
+      " [REMOVE_SPACE].",
+      " Whenever you rest at a Rest Site, gain #b",
       " #yRegen at the start of the next combat."
     ]
   }
