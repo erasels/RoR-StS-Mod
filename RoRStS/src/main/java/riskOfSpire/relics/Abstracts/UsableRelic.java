@@ -220,6 +220,11 @@ public abstract class UsableRelic extends AbstractRelic {
         this.renderFlash(sb, false);
     }
 
+     @Override
+     public boolean canSpawn() {
+        return !(UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).relicId.equals(this.relicId));
+     }
+
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
         this.isDone = true;
