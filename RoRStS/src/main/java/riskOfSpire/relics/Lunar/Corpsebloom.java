@@ -18,6 +18,7 @@ public class Corpsebloom extends StackableRelic implements OnFinalHealRelic {
         super(ID, "Corpsebloom.png", RelicTier.SPECIAL, LandingSound.MAGICAL);
         isCorpsebloomHeal = false;
         this.counter = 0;
+        isLunar = true;
     }
 
     @Override

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public abstract class UsableRelic extends AbstractRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
+    public boolean isLunar = false;
 
     public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);

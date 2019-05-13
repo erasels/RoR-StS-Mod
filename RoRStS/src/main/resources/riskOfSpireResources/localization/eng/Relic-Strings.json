@@ -227,7 +227,7 @@
     "NAME": "Ceremonial Dagger",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you take unblocked attack damage, deal damage equal to half the damage received back #b",
+      "Whenever you lose HP from an attack, deal damage equal to half the damage received back #b",
       " times."
     ]
   },
@@ -311,6 +311,14 @@
       " [REMOVE_SPACE].",
       " Whenever you rest at a Rest Site, gain #b",
       " #yRegen at the start of the next combat."
+    ]
+  },
+  "riskOfSpire:HopooFeather": {
+    "NAME": "Hopoo Feather",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of each combat, take #b50 [REMOVE_SPACE]% less damage from attacks until you lose HP from attacks #b",
+      " times."
     ]
   }
 }
