@@ -36,5 +36,15 @@
       "Receive 50% less attack damage. Removed after losing HP from an attack #b",
       " times."
     ]
+  },
+  "riskOfSpire:Burning": {
+    "NAME": "Burning",
+    "DESCRIPTIONS": [
+      "At the start of the next #b",
+      " turns,",
+      " turn,",
+      " the afflicted creature loses #b",
+      " HP and Block."
+    ]
   }
 }

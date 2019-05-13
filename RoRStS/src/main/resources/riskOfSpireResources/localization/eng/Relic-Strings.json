@@ -330,5 +330,15 @@
       " times.",
       " time."
     ]
+  },
+  "riskOfSpire:Gasoline": {
+    "NAME": "Gasoline",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The first time you play a card that targets ALL enemies each combat, ALL enemies lose #b",
+      " HP and #yBlock at the start of the next #b",
+      " turns.",
+      " turn."
+    ]
   }
 }
