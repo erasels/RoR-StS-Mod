@@ -125,9 +125,9 @@
     "NAME": "Bandolier",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever an enemy dies, reduce the cost of #b",
-      " random card in your hand by #b1 this combat.",
-      " random cards in your hand by #b1 this combat."
+      "Every time you shuffle your deck, reduce the cost of #b",
+      " random card in your hand by #b1 until played.",
+      " random cards in your hand by #b1 until played."
     ]
   },
   "riskOfSpire:MonsterTooth": {

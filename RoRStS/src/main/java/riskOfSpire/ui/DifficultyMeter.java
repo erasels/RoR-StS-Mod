@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import riskOfSpire.RiskOfSpire;
 import riskOfSpire.util.TextureLoader;
 
 public class DifficultyMeter {
@@ -112,7 +111,7 @@ public class DifficultyMeter {
                 modifier = 0.8f;
             }
 
-            m.currentHealth = MathUtils.round(((float) m.maxHealth * modifier) * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F));
+            m.currentHealth += MathUtils.round(((float) m.maxHealth * modifier) * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F));
             //TODO: Add alternatives like gaining strength and Regen
         }
     }
