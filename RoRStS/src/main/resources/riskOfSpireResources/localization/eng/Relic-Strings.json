@@ -320,5 +320,14 @@
       "At the start of each combat, take #b50 [REMOVE_SPACE]% less damage from attacks until you lose HP from attacks #b",
       " times."
     ]
+  },
+  "riskOfSpire:Ukulele": {
+    "NAME": "Ukulele",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you use a single target attack, deal #b",
+      " damage to an enemy other than the one targeted, #b",
+       " times."
+    ]
   }
 }
