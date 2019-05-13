@@ -21,7 +21,7 @@ public class LunarCoinReward extends CustomReward {
     }
 
     public LunarCoinReward(int amount) {
-        super(ICON, amount + amount == 1 ? UIStrings.TEXT[1]:UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
+        super(ICON, amount == 1 ? UIStrings.TEXT[1]:UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
         this.amountOfCoins = amount;
     }
 

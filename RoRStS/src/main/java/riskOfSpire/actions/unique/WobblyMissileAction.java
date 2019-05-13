@@ -50,7 +50,7 @@ public class WobblyMissileAction extends AbstractGameAction {
         }
         if (projectilesFired < projectileCount && projectileTimer <= 0.0f) {
             AbstractDungeon.effectList.add(
-                    new WobblyMissileEffect(source.drawX * Settings.scale, source.drawY * Settings.scale, target.hb.cX, target.hb.cY, this, effectColor.cpy(), 3600.0f)
+                    new WobblyMissileEffect(source.drawX * Settings.scale, source.drawY * Settings.scale, target.hb.cX, target.hb.cY, this, effectColor.cpy(), 6000.0f)
             );
             projectilesFired++;
             projectileTimer = projectileDelay;
@@ -70,7 +70,7 @@ public class WobblyMissileAction extends AbstractGameAction {
                 AbstractDungeon.actionManager.clearPostCombatActions();
             }
         }
-        if (damageCount == projectileCount || target.isDying) {
+        if (damageCount == projectileCount) {
             this.isDone = true;
         }
     }

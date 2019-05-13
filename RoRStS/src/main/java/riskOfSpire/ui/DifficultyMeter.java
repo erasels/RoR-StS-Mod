@@ -103,7 +103,16 @@ public class DifficultyMeter {
     }
 
     public void UpgradeMonster(AbstractMonster m) {
-        m.currentHealth = MathUtils.round(m.maxHealth * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F));
-        //TODO: Add alternatives like gaining strength and Regen
+        if(getDifficultyMod() > 0f) {
+            float modifier = 1f; //To nerf the health gain on high health enemies as to not make it too crazy
+            if (m.type == AbstractMonster.EnemyType.BOSS) {
+                modifier = 0.66f;
+            } else if (m.type == AbstractMonster.EnemyType.ELITE) {
+                modifier = 0.8f;
+            }
+
+            m.currentHealth += MathUtils.round(((float) m.maxHealth * modifier) * this.Difficulty / 200F * AbstractDungeon.miscRng.random(0.8F, 1.2F));
+            //TODO: Add alternatives like gaining strength and Regen
+        }
     }
 }

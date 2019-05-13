@@ -4,17 +4,25 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.GetAllInBattleInstances;
+import riskOfSpire.patches.cards.ModifiedUntilPlayedSpireField;
 
 import java.util.ArrayList;
 
 public class ReduceRandomCostAction extends AbstractGameAction {
     private int reduction;
+    private boolean untilUsed;
 
-    public ReduceRandomCostAction(int numCards, int reduction)
+    public ReduceRandomCostAction(int numCards, int reduction, boolean untilUsed)
     {
         this.actionType = ActionType.CARD_MANIPULATION;
         this.reduction = reduction;
         this.amount = numCards;
+        this.untilUsed = untilUsed;
+    }
+
+    public ReduceRandomCostAction(int numCards, int reduction)
+    {
+        this(numCards, reduction, false);
     }
 
     @Override
@@ -75,9 +83,16 @@ public class ReduceRandomCostAction extends AbstractGameAction {
     {
         for (AbstractCard copy : GetAllInBattleInstances.get(c.uuid))
         {
-            copy.modifyCostForCombat(-reduction);
-            if (AbstractDungeon.player.hand.contains(copy))
-                copy.superFlash();
+            if(!untilUsed) {
+                copy.modifyCostForCombat(-reduction);
+                if (AbstractDungeon.player.hand.contains(copy))
+                    copy.superFlash();
+            } else {
+                copy.modifyCostForTurn(-reduction);
+                ModifiedUntilPlayedSpireField.isCostModifiedUntilPlayed.set(copy, true);
+                if (AbstractDungeon.player.hand.contains(copy))
+                    copy.superFlash();
+            }
         }
     }
 }

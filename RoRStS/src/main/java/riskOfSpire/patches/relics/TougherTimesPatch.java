@@ -1,4 +1,4 @@
-package riskOfSpire.patches;
+package riskOfSpire.patches.relics;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;

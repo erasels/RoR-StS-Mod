@@ -2,7 +2,6 @@ package riskOfSpire.relics.Uncommon;
 
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.general.ReduceRandomCostAction;
@@ -17,7 +16,8 @@ public class Bandolier extends StackableRelic {
         super(ID, "Bandolier.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
     }
 
-    @Override
+    //Upon killing an enemy, reduce the cost of x random card in your hand by 1 this combat.
+    /*@Override
     public void onMonsterDeath(AbstractMonster m) {
         if (m.currentHealth == 0) { //idk gremlin horn does it so I will too
             if (!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
@@ -26,11 +26,18 @@ public class Bandolier extends StackableRelic {
                 this.flash();
             }
         }
-    }
+    }*/
+
+    //Whenever you shuffle your discard pile, reduce the cost of a random card in your hand by 1 until played.
+     @Override
+     public void onShuffle() {
+         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+         AbstractDungeon.actionManager.addToTop(new ReduceRandomCostAction(this.relicStack, REDUCTION, true));
+         this.flash();
+     }
 
     @Override
     public String getUpdatedDescription() {
-        //Upon killing an enemy, reduce the cost of x random card in your hand by 1 this combat.
         return DESCRIPTIONS[0] + relicStack + (relicStack == 1 ? DESCRIPTIONS[1] : DESCRIPTIONS[2]);
     }
 
