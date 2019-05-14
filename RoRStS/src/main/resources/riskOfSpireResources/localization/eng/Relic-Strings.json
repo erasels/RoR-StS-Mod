@@ -75,7 +75,7 @@
     "NAME": "War Banner",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you smith a card, gain #b",
+      "Whenever you smith a card at a Rest Site, gain #b",
       " #yStrength and #yDexterity at the start of the next combat."
     ]
   },
