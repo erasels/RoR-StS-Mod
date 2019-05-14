@@ -27,7 +27,7 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
         } else {
             modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F);
         }
-        this.goldAmt = MathUtils.round(((float) relic.getPrice() * modifier)/2F);
+        this.goldAmt = MathUtils.round(((float) relic.getPrice() * modifier)*RiskOfRainRelicHelper.FINAL_COST_MOD);
     }
 
     @Override

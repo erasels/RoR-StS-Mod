@@ -20,6 +20,8 @@ public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
 
+    public static float FINAL_COST_MOD = 0.4f;
+
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
     }
