@@ -2,7 +2,6 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
-import basemod.abstracts.CustomSavable;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
