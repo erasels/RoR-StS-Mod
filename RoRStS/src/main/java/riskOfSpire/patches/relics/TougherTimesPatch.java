@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import javassist.CtBehavior;
-import riskOfSpire.relics.Uncommon.TougherTimes;
+import riskOfSpire.relics.Common.TougherTimes;
 
 public class TougherTimesPatch
 {
