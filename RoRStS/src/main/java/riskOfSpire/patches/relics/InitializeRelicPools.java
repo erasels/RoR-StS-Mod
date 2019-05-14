@@ -1,6 +1,7 @@
 package riskOfSpire.patches.relics;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
@@ -17,7 +18,7 @@ import java.util.Collections;
         method = "initializeRelicList"
 )
 public class InitializeRelicPools {
-    @SpirePrefixPatch
+    @SpirePostfixPatch
     public static void init(AbstractDungeon __instance)
     {
         RiskOfSpire.rorCommonRelicPool.clear();
@@ -77,6 +78,8 @@ public class InitializeRelicPools {
                     break;
             }
         }
+
+
     }
 
     private static AbstractRelic getRandomUsableRelic()
