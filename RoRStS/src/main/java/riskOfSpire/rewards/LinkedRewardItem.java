@@ -29,6 +29,8 @@ public class LinkedRewardItem extends RewardItem
 
     public boolean claimed = false;
 
+    private static final boolean NO_PEEKING = false;
+
     public LinkedRewardItem(RewardItem original)
     {
         type = original.type;
@@ -82,7 +84,7 @@ public class LinkedRewardItem extends RewardItem
     public boolean claimReward()
     {
         boolean claimedReward = super.claimReward();
-        this.claimed = claimedReward || this.type == RewardType.CARD; //When you click on reward, if it's card or claimed successfully, remove others.
+        this.claimed = claimedReward || (this.type == RewardType.CARD && NO_PEEKING); //When you click on reward, if it's card or claimed successfully, remove others.
         if (this.claimed)
         {
             if (!this.ignoreReward)
@@ -114,12 +116,16 @@ public class LinkedRewardItem extends RewardItem
             }
         }
 
-        if (hb.hovered) {
-            for (RewardItem link : linkedRewards) {
+        for (RewardItem link : linkedRewards) {
+            if (hb.hovered) {
                 link.redText = true;
             }
+            if (!AbstractDungeon.combatRewardScreen.rewards.contains(link) && !this.claimed) //the linked item has vanished but not because this got claimed
+            {
+                this.isDone = true;
+                this.ignoreReward = true;
+            }
         }
-
     }
 
     @Override
