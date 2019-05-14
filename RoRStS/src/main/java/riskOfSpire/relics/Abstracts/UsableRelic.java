@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 public abstract class UsableRelic extends AbstractRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
+    public boolean isLunar = false;
 
     public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -220,6 +221,11 @@ public abstract class UsableRelic extends AbstractRelic {
 
         this.renderFlash(sb, false);
     }
+
+     @Override
+     public boolean canSpawn() {
+        return !(UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).relicId.equals(this.relicId));
+     }
 
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {

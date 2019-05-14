@@ -16,5 +16,35 @@
     "DESCRIPTIONS": [
       "Increases damage taken by elites and bosses."
     ]
+  },
+  "riskOfSpire:Chir": {
+    "NAME": "Chir",
+    "DESCRIPTIONS": [
+      "At the start of your next turn, add the stored cards to your hand. NL Currently stored: "
+    ]
+  },
+  "riskOfSpire:HoofBlock": {
+    "NAME": "Hoof Block",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " #yBlock at the start of next turn."
+    ]
+  },
+  "riskOfSpire:PlayerFlight": {
+    "NAME": "Flight",
+    "DESCRIPTIONS": [
+      "Receive 50% less attack damage. Removed after losing HP from an attack #b",
+      " times."
+    ]
+  },
+  "riskOfSpire:Burning": {
+    "NAME": "Burning",
+    "DESCRIPTIONS": [
+      "At the start of the next #b",
+      " turns,",
+      " turn,",
+      " the afflicted creature loses #b",
+      " HP and Block."
+    ]
   }
 }

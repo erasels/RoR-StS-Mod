@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
     public int relicStack = START_CHARGE;
+    public boolean isLunar = false;
 
     public static final float STACK_FONT_SIZE = 20;
     public static BitmapFont STACK_FONT;
@@ -114,6 +115,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             flash();
     }
 
+    public void onUnstack() {
+        this.relicStack--;
+        if(relicStack <= 1) {
+            AbstractDungeon.player.loseRelic(this.relicId);
+        } else {
+            this.relicStack--;
+        }
+        updateDescriptionOnStack(true);
+    }
+
     @Override
     protected void initializeTips() {
         super.initializeTips();
@@ -149,15 +160,16 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         switch(this.tier) {
             case COMMON:
                 return 50;
+            case UNCOMMON:
+                return 100;
             case RARE:
             case SHOP:
                 return 200;
             case SPECIAL:
                 return 400;
             case BOSS:
-                return 999;
             default:
-                return 100;
+                return 999;
         }
     }
 

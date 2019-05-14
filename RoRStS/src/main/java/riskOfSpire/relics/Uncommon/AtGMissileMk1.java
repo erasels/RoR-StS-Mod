@@ -13,21 +13,25 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 public class AtGMissileMk1 extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("AtGMissileMk1");
 
-    public static final int BASE_DMG = 2;
+    public static final int BASE_DMG = 1;
 
     public AtGMissileMk1() {
         super(ID, "AtGMissileMk1.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
     }
     
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + (BASE_DMG*relicStack) + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + getVal() + DESCRIPTIONS[1];
     }
 
     @Override
     public void onUseCard(AbstractCard c, UseCardAction uac) {
         if(!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
-            AbstractDungeon.actionManager.addToBottom(new TargetedMissileAction(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, Color.ORANGE.cpy(), 1, new DamageInfo(AbstractDungeon.player, BASE_DMG*relicStack, DamageInfo.DamageType.THORNS)));
+            AbstractDungeon.actionManager.addToBottom(new TargetedMissileAction(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, Color.ORANGE.cpy(), 1, new DamageInfo(AbstractDungeon.player, getVal(), DamageInfo.DamageType.THORNS)));
         }
+    }
+
+    private int getVal() {
+        return BASE_DMG+relicStack;
     }
 
     @Override

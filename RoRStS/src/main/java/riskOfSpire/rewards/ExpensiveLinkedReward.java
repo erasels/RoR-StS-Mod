@@ -8,32 +8,35 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.util.RiskOfRainRelicHelper;
 
 public class ExpensiveLinkedReward extends LinkedRewardItem {
     private static final float GOLD_TEXT_X = 1135.0F * Settings.scale;
     private static final float GOLD_IMG_X = GOLD_TEXT_X - 66.0f * Settings.scale;
-    private static final float GOLD_IMG_SIZE = (float)ImageMaster.UI_GOLD.getWidth() * Settings.scale;
+    private static final float GOLD_IMG_SIZE = (float) ImageMaster.UI_GOLD.getWidth() * Settings.scale;
     //This class is not meant to be used on Gold rewards. As such, base class gold variable will be used to store gold cost. because i'm lazy xd
     //Also using it for a card reward will probably not work well.
     private boolean canAfford = false;
 
-    public ExpensiveLinkedReward(LinkedRewardItem setLink, AbstractRelic reward)
-    {
+    public ExpensiveLinkedReward(LinkedRewardItem setLink, AbstractRelic reward) {
         super(setLink, reward);
-        this.goldAmt = MathUtils.round(((float)relic.getPrice() * RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.95F, 1.05F)/2F));
+        float modifier = 0f; //Adjust this value
+        if(RiskOfSpire.difficultyCostSetting) {
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod()*(RiskOfSpire.DifficultyMeter.getDifficulty()/100F))*1F); //Adjust this value
+        } else {
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F);
+        }
+        this.goldAmt = MathUtils.round(((float) relic.getPrice() * modifier)/2F);
     }
 
     @Override
     public boolean claimReward() {
-        if (this.ignoreReward)
-        {
+        if (this.ignoreReward) {
             return true;
         }
-        if (AbstractDungeon.player.gold >= this.goldAmt)
-        {
-            if (super.claimReward())
-            {
+        if (AbstractDungeon.player.gold >= this.goldAmt) {
+            if (super.claimReward()) {
                 AbstractDungeon.player.loseGold(this.goldAmt);
                 return true;
             }

@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.actions.common.SpawnMonsterAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import riskOfSpire.relics.Abstracts.OnMonsterSpawn;
+import riskOfSpire.relics.Interfaces.OnMonsterSpawn;
 
 public class OnMonsterSpawnHook {
     @SpirePatch(

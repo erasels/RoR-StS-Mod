@@ -14,7 +14,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 public class WaxQuail extends StackableRelic implements OnReceivePowerRelic {
     public static final String ID = RiskOfSpire.makeID("WaxQuail");
     public WaxQuail() {
-        super(ID, "Infusion.png", RelicTier.UNCOMMON, LandingSound.FLAT);
+        super(ID, "Infusion.png", RelicTier.DEPRECATED, LandingSound.FLAT);
     }
 
     @Override

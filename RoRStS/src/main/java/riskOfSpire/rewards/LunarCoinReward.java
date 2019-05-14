@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
+import riskOfSpire.util.LunarCoinHelper;
 import riskOfSpire.util.TextureLoader;
 
 
@@ -20,13 +21,13 @@ public class LunarCoinReward extends CustomReward {
     }
 
     public LunarCoinReward(int amount) {
-        super(ICON, amount + amount == 1 ? UIStrings.TEXT[1]:UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
+        super(ICON, amount == 1 ? UIStrings.TEXT[1]:UIStrings.TEXT[0], RewardItemTypeEnumPatch.LUNAR_COIN);
         this.amountOfCoins = amount;
     }
 
     @Override
     public boolean claimReward() {
-        RiskOfSpire.manipLunarCoins(amountOfCoins, true);
+        LunarCoinHelper.manipLunarCoins(amountOfCoins, true);
         return true;
     }
 }

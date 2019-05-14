@@ -1,4 +1,9 @@
 {
+  "riskOfSpire:ModSettings": {
+    "TEXT": [
+      "Increase RoRRelic costs in combat reward screens based on difficulty?"
+    ]
+  },
   "riskOfSpire:LinkedRewardItem": {
     "TEXT": [
       "the linked card reward"
@@ -14,13 +19,19 @@
   "riskOfSpire:LunarCoinItem": {
     "TEXT": [
       "Lunar Coins",
-      "A mystical currency used to buy certain special items at a mysterious place."
+      "A mystical currency used to buy certain special items at a mysterious place or opening rare containers."
     ]
   },
   "riskOfSpire:LunarCoinReward": {
     "TEXT": [
       " Lunar Coins",
       " Lunar Coin"
+    ]
+  },
+  "riskOfSpire:LunarCacheReward": {
+    "TEXT": [
+      "Lunar Pod",
+      "Costs #bLunar #bCoins to buy. Once bought, adds a random #blunar relic to the rewards which can be picked up."
     ]
   }
 }
