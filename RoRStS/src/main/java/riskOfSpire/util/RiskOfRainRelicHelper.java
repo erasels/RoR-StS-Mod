@@ -53,8 +53,8 @@ public class RiskOfRainRelicHelper {
             }
 
             if (!changeCounter) {
-                RiskOfRainRelicRng.counter -= 1;
-                incrementLater += 1;
+                RiskOfRainRelicRng.counter -= rolls;
+                incrementLater += rolls;
             }
 
         }
