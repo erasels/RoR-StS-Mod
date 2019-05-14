@@ -2,7 +2,6 @@ package riskOfSpire.powers;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -11,6 +10,7 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.actions.unique.ModifiedGainBlockAction;
 import riskOfSpire.powers.abstracts.RoRStSPower;
 
 public class HoofBlockPower extends RoRStSPower implements CloneablePowerInterface {
@@ -32,7 +32,7 @@ public class HoofBlockPower extends RoRStSPower implements CloneablePowerInterfa
     public void atStartOfTurn() {
         this.flash();
         AbstractDungeon.effectList.add(new FlashAtkImgEffect(this.owner.hb.cX, this.owner.hb.cY, AbstractGameAction.AttackEffect.SHIELD));
-        AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this.owner, this.owner, this.amount));
+        AbstractDungeon.actionManager.addToBottom(new ModifiedGainBlockAction(this.owner, this.owner, this.amount));
         AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(this.owner, this.owner, this));
     }
 
