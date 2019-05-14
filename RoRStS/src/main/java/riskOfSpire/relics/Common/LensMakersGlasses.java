@@ -21,6 +21,7 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
     public LensMakersGlasses() {
         super(ID, "LensMakersGlasses.png", RelicTier.COMMON, LandingSound.CLINK);
         setCounter(CARD_AMT);
+        isCritical = true;
     }
 
     @Override

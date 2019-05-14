@@ -8,8 +8,7 @@ import com.megacrit.cardcrawl.shop.ShopScreen;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import org.apache.commons.lang3.math.NumberUtils;
-import riskOfSpire.relics.Abstracts.StackableRelic;
-import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.relics.Abstracts.BaseRelic;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class ReInsertShopRelicsPatch {
     @SpireInsertPatch(locator = Locator.class, localvars = {"tempRelic"})
     public static void Insert(ShopScreen __instance, @ByRef AbstractRelic[] tempRelic) {
-        if (tempRelic[0] instanceof StackableRelic || tempRelic[0] instanceof UsableRelic) {
+        if (tempRelic[0] instanceof BaseRelic) {
             if (tempRelic[0].tier != null) {
                 ArrayList<String> tmp;
                 switch (tempRelic[0].tier) {

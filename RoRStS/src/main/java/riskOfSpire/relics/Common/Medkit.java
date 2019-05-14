@@ -12,6 +12,7 @@ public class Medkit extends StackableRelic {
 
     public Medkit() {
         super(ID, "Medkit.png", RelicTier.COMMON, LandingSound.SOLID);
+        isTempHP = true;
     }
 
     @Override

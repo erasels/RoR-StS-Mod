@@ -18,6 +18,7 @@ public class ShieldGenerator extends StackableRelic {
 
     public ShieldGenerator() {
         super(ID, "ShieldGenerator.png", RelicTier.COMMON, LandingSound.CLINK);
+        isTempHP = true;
     }
 
     @Override
