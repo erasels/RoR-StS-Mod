@@ -24,6 +24,7 @@ import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Interfaces.ModifyCooldownRelic;
 import riskOfSpire.relics.Interfaces.MultiplyCooldownRelic;
+import riskOfSpire.util.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
 
@@ -244,6 +245,7 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(p, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         notifyRelicGet();
     }
@@ -263,6 +265,7 @@ public abstract class UsableRelic extends AbstractRelic {
         this.relicTip();
 
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
@@ -279,6 +282,7 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         notifyRelicGet();
     }
