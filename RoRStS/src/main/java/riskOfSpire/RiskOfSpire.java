@@ -82,6 +82,15 @@ public class RiskOfSpire implements
     public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
     public static ArrayList<String> rorRareRelics = new ArrayList<>();
     public static ArrayList<String> rorLunarRelics = new ArrayList<>();
+    public static ArrayList<String> rorUsableRelics = new ArrayList<>();
+
+    public static ArrayList<String> rorCommonRelicPool = new ArrayList<>();
+    public static ArrayList<String> rorUncommonRelicPool = new ArrayList<>();
+    public static ArrayList<String> rorRareRelicPool = new ArrayList<>();
+
+    public static final int BASE_COMMONS = 3;
+    public static final int BASE_UNCOMMONS = 2;
+    public static final int BASE_RARES = 2;
 
     public static int lunarCoinAmount = 0;
     public static LunarCoinDisplay lCD;
@@ -110,7 +119,6 @@ public class RiskOfSpire implements
             e.printStackTrace();
         }
         logger.info("Done adding mod settings");
-
     }
 
     @Override
@@ -254,24 +262,6 @@ public class RiskOfSpire implements
     }
 
     @Override
-    public void receivePostDungeonInitialize() {
-        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
-        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
-        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        rorCommonRelics.sort(String::compareTo);
-        rorUncommonRelics.sort(String::compareTo);
-        rorRareRelics.sort(String::compareTo);
-        rorLunarRelics.sort(String::compareTo);
-
-        if (DifficultyMeter.getDifficultyMod() == 0f) {
-            DifficultyMeter.hideHitbox();
-        } else {
-            DifficultyMeter.unhideHitbox();
-        }
-    }
-
-    @Override
     public void receivePostUpdate() {
         if (AbstractDungeon.player == null) return;
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
@@ -344,11 +334,44 @@ public class RiskOfSpire implements
                 getModID() + "Resources/localization/eng/Tutorial-Strings.json");
         logger.info("Done editing strings");
     }
-
+    
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
 
+    @Override
+    public void receivePostDungeonInitialize() {
+        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
+        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
+        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        if (DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
+    }
+
+    public static String assetPath(String path) {
+        return getModID() + "Resources/" + path;
+    }
+
+    public static String makeID(String idText) {
+        return getModID() + ":" + idText;
+    }
+
+    public static void saveData() {
+        logger.info("Risk of Spire | Saving Data...");
+        try {
+            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig");
+
+            config.setInt("lunarCoinAmt", lunarCoinAmount);
+            config.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+          
     public static void setModID(String ID) { // DON'T EDIT
         Gson coolG = new Gson(); // EY DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i hate u Gdx.files
@@ -438,30 +461,20 @@ public class RiskOfSpire implements
                     }
                     break;
             }
+            if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE))
+            {
+                rorUsableRelics.add(r.relicId);
+            }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
 
             BaseMod.addRelic(r, RelicType.SHARED);
         }
-    }
 
-    public static String assetPath(String path) {
-        return getModID() + "Resources/" + path;
-    }
-
-    public static String makeID(String idText) {
-        return getModID() + ":" + idText;
-    }
-
-    public static void saveData() {
-        logger.info("Risk of Spire | Saving Data...");
-        try {
-            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig");
-
-            config.setInt("lunarCoinAmt", lunarCoinAmount);
-            config.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        rorCommonRelics.sort(String::compareTo);
+        rorUncommonRelics.sort(String::compareTo);
+        rorRareRelics.sort(String::compareTo);
+        rorLunarRelics.sort(String::compareTo);
+        rorUsableRelics.sort(String::compareTo);
     }
 
     public static void clearData() {

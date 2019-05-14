@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
@@ -23,13 +24,15 @@ public class RiskOfRainRelicHelper {
         return getRandomRelic(rare, changeCounter, 1.0f);
     }
 
-    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier) {
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier)
+    {
+        int rolls = 0;
         rateModifier *= getFinalRateModifier();
         ArrayList<AbstractRelic> validPool = new ArrayList<>();
         AbstractRelic toCopy;
 
         if (rare) {
-            for (String s : RiskOfSpire.rorRareRelics) {
+            for (String s : RiskOfSpire.rorRareRelicPool) {
                 AbstractRelic r = RelicLibrary.getRelic(s);
                 if (r != null && r.canSpawn())
                     validPool.add(r);
@@ -37,48 +40,85 @@ public class RiskOfRainRelicHelper {
 
             if (validPool.isEmpty()) { //no circlets.
                 toCopy = RelicLibrary.getRelic(RiskOfSpire.rorRareRelics.get(RiskOfRainRelicRng.random(RiskOfSpire.rorRareRelics.size() - 1)));
-            } else {
-                toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+                if (!RiskOfSpire.rorRareRelicPool.contains(toCopy.relicId))
+                    RiskOfSpire.rorRareRelicPool.add(toCopy.relicId);
+                rolls += 1;
             }
-
+            else
+            {
+                toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+                rolls += 1;
+                if (addToPool(toCopy.tier))
+                    rolls += 1;
+            }
 
             if (!changeCounter) {
-                RiskOfRainRelicRng.counter -= 1;
-                incrementLater += 1;
+                RiskOfRainRelicRng.counter -= rolls;
+                incrementLater += rolls;
             }
 
-        } else {
-            int pool = RiskOfRainRelicRng.random(100);
-            ArrayList<AbstractRelic> failurePool = new ArrayList<>();
+        }
+        else
+        {
+            AbstractRelic.RelicTier tier;
             ArrayList<String> sourceList;
+            int pool = RiskOfRainRelicRng.random(100);
+            rolls += 1;
 
             if (pool >= 95 * rateModifier) {
-                sourceList = RiskOfSpire.rorRareRelics;
-            } else if (pool > 75 * rateModifier) {
-                sourceList = RiskOfSpire.rorUncommonRelics;
-            } else {
-                sourceList = RiskOfSpire.rorCommonRelics;
+                sourceList = RiskOfSpire.rorRareRelicPool;
+                tier = AbstractRelic.RelicTier.RARE;
+            }
+            else if (pool > 75 * rateModifier) {
+                sourceList = RiskOfSpire.rorUncommonRelicPool;
+                tier = AbstractRelic.RelicTier.UNCOMMON;
+            }
+            else {
+                sourceList = RiskOfSpire.rorCommonRelicPool;
+                tier = AbstractRelic.RelicTier.COMMON;
             }
 
-            for (String s : sourceList) {
+            for (String s : sourceList)
+            {
                 AbstractRelic r = RelicLibrary.getRelic(s);
                 if (r != null) {
-                    failurePool.add(r);
                     if (r.canSpawn())
                         validPool.add(r);
                 }
             }
 
             if (validPool.isEmpty()) { //no circlets.
-                toCopy = failurePool.get(RiskOfRainRelicRng.random(failurePool.size() - 1));
-            } else {
+                ArrayList<String> failurePool;
+                switch (tier)
+                {
+                    case UNCOMMON:
+                        failurePool = RiskOfSpire.rorUncommonRelics;
+                        break;
+                    case RARE:
+                        failurePool = RiskOfSpire.rorRareRelics;
+                        break;
+                    default:
+                        failurePool = RiskOfSpire.rorCommonRelics;
+                        break;
+                }
+                toCopy = RelicLibrary.getRelic(failurePool.get(RiskOfRainRelicRng.random(failurePool.size() - 1)));
+                if (!sourceList.contains(toCopy.relicId))
+                    sourceList.add(toCopy.relicId);
+                rolls += 1;
+            }
+            else
+            {
                 toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
+                rolls += 1;
+                if (addToPool(toCopy.tier))
+                    rolls += 1;
             }
 
 
-            if (!changeCounter) {
-                RiskOfRainRelicRng.counter -= 2;
-                incrementLater += 2;
+            if (!changeCounter)
+            {
+                RiskOfRainRelicRng.counter -= rolls;
+                incrementLater += rolls;
             }
         }
 
@@ -139,7 +179,62 @@ public class RiskOfRainRelicHelper {
         }
     }
 
-    public static void updateCounter() {
+    private static boolean addToPool(AbstractRelic.RelicTier tier)
+    {
+        ArrayList<String> targetPool;
+        ArrayList<String> sourcePool;
+
+        switch (tier)
+        {
+            case UNCOMMON:
+                sourcePool = RiskOfSpire.rorUncommonRelics;
+                targetPool = RiskOfSpire.rorUncommonRelicPool;
+                break;
+            case RARE:
+                sourcePool = RiskOfSpire.rorRareRelics;
+                targetPool = RiskOfSpire.rorRareRelicPool;
+                break;
+            default:
+                sourcePool = RiskOfSpire.rorCommonRelics;
+                targetPool = RiskOfSpire.rorCommonRelicPool;
+                break;
+        }
+
+        sourcePool.removeAll(targetPool);
+        if (AbstractDungeon.player != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null)
+        {
+            sourcePool.remove(UsableRelicSlot.usableRelic.get(AbstractDungeon.player).relicId);
+        }
+
+        if (sourcePool.size() == 1)
+        {
+            targetPool.add(sourcePool.get(0));
+        }
+        if (sourcePool.size() > 1)
+        {
+            targetPool.add(sourcePool.get(RiskOfRainRelicRng.random(sourcePool.size() - 1)));
+            return true;
+        }
+        return false;
+    }
+    public static void removeFromPool(AbstractRelic r)
+    {
+        switch (r.tier)
+        {
+            case COMMON:
+                RiskOfSpire.rorCommonRelicPool.remove(r.relicId);
+                break;
+            case UNCOMMON:
+                RiskOfSpire.rorUncommonRelicPool.remove(r.relicId);
+                break;
+            case RARE:
+                RiskOfSpire.rorRareRelicPool.remove(r.relicId);
+                break;
+        }
+    }
+
+    public static void updateCounter()
+    {
         RiskOfRainRelicRng.counter += incrementLater;
         incrementLater = 0;
     }

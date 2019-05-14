@@ -9,9 +9,11 @@ import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CtBehavior;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.util.RiskOfRainRelicHelper;
 import riskOfSpire.util.RiskOfSpireSavedata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static riskOfSpire.RiskOfSpire.logger;
@@ -19,9 +21,15 @@ import static riskOfSpire.RiskOfSpire.logger;
 public class RelicData {
     //Keys
     private static final String rorRelicRngCountID = "RISK_OF_SPIRE_RELIC_RNG_COUNT";
+    private static final String rorCommonPoolID = "RISK_OF_SPIRE_COMMON_POOL";
+    private static final String rorUncommonPoolID = "RISK_OF_SPIRE_UNCOMMON_POOL";
+    private static final String rorRarePoolID = "RISK_OF_SPIRE_RARE_POOL";
 
     //Data
     public static int rorRelicRngCount = 0;
+    public static ArrayList<String> rorCommonPool = new ArrayList<>();
+    public static ArrayList<String> rorUncommonPool = new ArrayList<>();
+    public static ArrayList<String> rorRarePool = new ArrayList<>();
 
     //Save data whenever SaveFile is constructed
     @SpirePatch(
@@ -34,15 +42,69 @@ public class RelicData {
         @SpirePostfixPatch
         public static void saveAllTheSaveData(SaveFile __instance, SaveFile.SaveType type)
         {
-            /* Load save data from custom relic pools
-            SaveData.rorCommonRelics =
-            */
             rorRelicRngCount = RiskOfRainRelicHelper.RiskOfRainRelicRng.counter;
+            rorCommonPool.clear();
+            rorCommonPool.addAll(RiskOfSpire.rorCommonRelicPool);
+            rorUncommonPool.clear();
+            rorUncommonPool.addAll(RiskOfSpire.rorUncommonRelicPool);
+            rorRarePool.clear();
+            rorRarePool.addAll(RiskOfSpire.rorRareRelicPool);
             logger.info("Saved Risk Of Rain Relic RNG Counter: " + rorRelicRngCount);
+
+            StringBuilder sb = new StringBuilder("Saved RiskOfSpire Relic pools:");
+            sb.append("\nCommon relics: ");
+            for (String s : rorCommonPool)
+            {
+                sb.append(s).append(" ");
+            }
+            sb.append("\nUncommon relics: ");
+            for (String s : rorUncommonPool)
+            {
+                sb.append(s).append(" ");
+            }
+            sb.append("\nRare relics: ");
+            for (String s : rorRarePool)
+            {
+                sb.append(s).append(" ");
+            }
+            logger.info(sb.toString());
         }
     }
 
-    //Ensure seed is loaded/generated along with other seeds
+    //Ensure data is loaded/generated
+    @SpirePatch(
+            clz = AbstractDungeon.class,
+            method = "loadSave"
+    )
+    public static class loadPools
+    {
+        @SpirePostfixPatch
+        public static void loadRelicPools(AbstractDungeon __instance, SaveFile file)
+        {
+            RiskOfSpire.rorCommonRelicPool = new ArrayList<>(rorCommonPool);
+            RiskOfSpire.rorUncommonRelicPool = new ArrayList<>(rorUncommonPool);
+            RiskOfSpire.rorRareRelicPool = new ArrayList<>(rorRarePool);
+
+            StringBuilder sb = new StringBuilder("Loaded RiskOfSpire Relic pools:");
+            sb.append("\nCommon relics: ");
+            for (String s : rorCommonPool)
+            {
+                sb.append(s).append(" ");
+            }
+            sb.append("\nUncommon relics: ");
+            for (String s : rorUncommonPool)
+            {
+                sb.append(s).append(" ");
+            }
+            sb.append("\nRare relics: ");
+            for (String s : rorRarePool)
+            {
+                sb.append(s).append(" ");
+            }
+            logger.info(sb.toString());
+        }
+    }
+
     @SpirePatch(
             clz = AbstractDungeon.class,
             method = "loadSeeds"
@@ -85,6 +147,9 @@ public class RelicData {
         public static void addCustomSaveData(SaveFile save, HashMap<Object, Object> params)
         {
             params.put(rorRelicRngCountID, rorRelicRngCount);
+            params.put(rorCommonPoolID, rorCommonPool);
+            params.put(rorUncommonPoolID, rorUncommonPool);
+            params.put(rorRarePoolID, rorRarePool);
         }
 
         private static class Locator extends SpireInsertLocator
@@ -116,6 +181,9 @@ public class RelicData {
                 RiskOfSpireSavedata data = gson.fromJson(savestr, RiskOfSpireSavedata.class);
 
                 rorRelicRngCount = data.RISK_OF_SPIRE_RELIC_RNG_COUNT;
+                rorCommonPool = data.RISK_OF_SPIRE_COMMON_POOL;
+                rorUncommonPool = data.RISK_OF_SPIRE_UNCOMMON_POOL;
+                rorRarePool = data.RISK_OF_SPIRE_RARE_POOL;
             }
             catch (Exception e)
             {
