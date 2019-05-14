@@ -2,6 +2,7 @@ package riskOfSpire;
 
 import basemod.BaseMod;
 import basemod.ModPanel;
+import basemod.abstracts.CustomSavable;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
@@ -71,6 +72,15 @@ public class RiskOfSpire implements
     public static ArrayList<String> rorCommonRelics = new ArrayList<>();
     public static ArrayList<String> rorUncommonRelics = new ArrayList<>();
     public static ArrayList<String> rorRareRelics = new ArrayList<>();
+    public static ArrayList<String> rorUsableRelics = new ArrayList<>();
+
+    public static ArrayList<String> rorCommonRelicPool = new ArrayList<>();
+    public static ArrayList<String> rorUncommonRelicPool = new ArrayList<>();
+    public static ArrayList<String> rorRareRelicPool = new ArrayList<>();
+
+    public static final int BASE_COMMONS = 3;
+    public static final int BASE_UNCOMMONS = 2;
+    public static final int BASE_RARES = 2;
 
     public static int lunarCoinAmount = 0;
 
@@ -121,7 +131,6 @@ public class RiskOfSpire implements
             e.printStackTrace();
         }
         logger.info("Done adding mod settings");
-
     }
 
     public static void setModID(String ID) { // DON'T EDIT
@@ -265,10 +274,6 @@ public class RiskOfSpire implements
         AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
         AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
         AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        rorCommonRelics.sort(String::compareTo);
-        rorUncommonRelics.sort(String::compareTo);
-        rorRareRelics.sort(String::compareTo);
     }
 
     public static String assetPath(String path) {
@@ -380,9 +385,18 @@ public class RiskOfSpire implements
                     rorRareRelics.add(r.relicId);
                     break;
             }
+            if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE))
+            {
+                rorUsableRelics.add(r.relicId);
+            }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
 
             BaseMod.addRelic(r, RelicType.SHARED);
         }
+
+        rorCommonRelics.sort(String::compareTo);
+        rorUncommonRelics.sort(String::compareTo);
+        rorRareRelics.sort(String::compareTo);
+        rorUsableRelics.sort(String::compareTo);
     }
 }
