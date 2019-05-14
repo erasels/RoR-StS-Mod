@@ -262,24 +262,6 @@ public class RiskOfSpire implements
     }
 
     @Override
-    public void receivePostDungeonInitialize() {
-        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
-        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
-        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        rorCommonRelics.sort(String::compareTo);
-        rorUncommonRelics.sort(String::compareTo);
-        rorRareRelics.sort(String::compareTo);
-        rorLunarRelics.sort(String::compareTo);
-
-        if (DifficultyMeter.getDifficultyMod() == 0f) {
-            DifficultyMeter.hideHitbox();
-        } else {
-            DifficultyMeter.unhideHitbox();
-        }
-    }
-
-    @Override
     public void receivePostUpdate() {
         if (AbstractDungeon.player == null) return;
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
@@ -356,29 +338,18 @@ public class RiskOfSpire implements
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
-          
-    @Override
-    public void receiveEditKeywords() {
-        Gson gson = new Gson();
-        //String keywordStrings = Gdx.files.internal(assetPath("loc/" + languageSupport() + "/" +"aspiration-KeywordStrings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
-        String keywordStrings = Gdx.files.internal(getModID() + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        Type typeToken = new TypeToken<Map<String, Keyword>>() {
-        }.getType();
-
-        Map<String, Keyword> keywords = (Map) gson.fromJson(keywordStrings, typeToken);
-
-        keywords.forEach((k, v) -> {
-            // Keyword word = (Keyword)v;
-            logger.info("Adding Keyword - " + v.NAMES[0]);
-            BaseMod.addKeyword((getModID().toLowerCase() + ":"), v.PROPER_NAME, v.NAMES, v.DESCRIPTION);
-        });
-    }
 
     @Override
     public void receivePostDungeonInitialize() {
         AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
         AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
         AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        if (DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
     }
 
     public static String assetPath(String path) {
@@ -387,17 +358,6 @@ public class RiskOfSpire implements
 
     public static String makeID(String idText) {
         return getModID() + ":" + idText;
-    }
-
-    @Override
-    public void receiveRelicGet(AbstractRelic rel) {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(rel);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(rel);
-            }
-        }
     }
 
     public static void saveData() {
@@ -513,27 +473,8 @@ public class RiskOfSpire implements
         rorCommonRelics.sort(String::compareTo);
         rorUncommonRelics.sort(String::compareTo);
         rorRareRelics.sort(String::compareTo);
+        rorLunarRelics.sort(String::compareTo);
         rorUsableRelics.sort(String::compareTo);
-    }
-
-    public static String assetPath(String path) {
-        return getModID() + "Resources/" + path;
-    }
-
-    public static String makeID(String idText) {
-        return getModID() + ":" + idText;
-    }
-
-    public static void saveData() {
-        logger.info("Risk of Spire | Saving Data...");
-        try {
-            SpireConfig config = new SpireConfig("riskOfSpire", "riskOfSpireConfig");
-
-            config.setInt("lunarCoinAmt", lunarCoinAmount);
-            config.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void clearData() {
