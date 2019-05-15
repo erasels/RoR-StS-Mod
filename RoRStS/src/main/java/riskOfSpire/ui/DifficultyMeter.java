@@ -36,7 +36,7 @@ public class DifficultyMeter {
 
     public void tick() {
         TimePassed += Gdx.graphics.getRawDeltaTime(); //SuperFastMode compatibility. Raw isn't patched by SFM
-        if (TimePassed * DifficultyMod >= 6.0F) // <- Will be a lot slower when finished, just that fast for debugging purposes
+        if (TimePassed * DifficultyMod >= 6.0F)
         {
             TimePassed = 0;
             Difficulty++;

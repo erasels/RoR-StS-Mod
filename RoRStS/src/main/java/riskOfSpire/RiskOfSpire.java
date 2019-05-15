@@ -34,6 +34,7 @@ import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
+import riskOfSpire.patches.StartingScreen.BgChanges;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.rewards.LunarCacheReward;
@@ -45,6 +46,8 @@ import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
 import riskOfSpire.util.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
+import riskOfSpire.vfx.titlescreen.CustomSlowTitleCloud;
+import riskOfSpire.vfx.titlescreen.CustomTitleCloud;
 
 import java.io.File;
 import java.io.IOException;
@@ -258,6 +261,12 @@ public class RiskOfSpire implements
         DifficultyButton.Buttons.add(C);
         DifficultyButton.Buttons.add(D);
         DifficultyButton.Buttons.add(E);
+        for (int i = 0; i < 11; i++) {
+            BgChanges.VfxClouds.add(new CustomTitleCloud((Settings.WIDTH / 9) * i - 400 * Settings.scale));
+        }
+        for (int i = 0; i < 11; i++) {
+            BgChanges.SlowVfxClouds.add(new CustomSlowTitleCloud((Settings.WIDTH / 9) * i - 400 * Settings.scale));
+        }
         logger.info("Done loading badge Image and mod options");
     }
 
