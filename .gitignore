@@ -77,4 +77,6 @@ $RECYCLE.BIN/
 
 # Spriter files
 *.autosave.scml
-RoRStS/pom.xml
+
+#Custom
+pom.xml

@@ -17,8 +17,8 @@ public class EffigyOfGrief extends UsableRelic {
 
     public EffigyOfGrief() {
         super(ID, "EffigyOfGrief.png", RelicTier.SPECIAL, LandingSound.FLAT);
-
         setCounter(-2);
+        isLunar = true;
     }
 
     @Override

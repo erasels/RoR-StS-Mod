@@ -40,8 +40,7 @@ public class LunarCoinDisplay extends TopPanelItem {
         FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont_N, Integer.toString(RiskOfSpire.lunarCoinAmount), this.x + (this.hb_w / 2), this.y + 16f * Settings.scale, Color.WHITE.cpy());
 
         if(this.getHitbox().hovered) {
-            float xPos = this.x + (this.hb_w / 2);
-            TipHelper.renderGenericTip(xPos, tipYpos, UIStrings.TEXT[0], UIStrings.TEXT[1]);
+            TipHelper.renderGenericTip(this.x, tipYpos, UIStrings.TEXT[0], UIStrings.TEXT[1]);
         }
 
     }

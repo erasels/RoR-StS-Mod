@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
     public int relicStack = START_CHARGE;
+    public boolean isLunar = false;
 
     public static final float STACK_FONT_SIZE = 20;
     public static BitmapFont STACK_FONT;

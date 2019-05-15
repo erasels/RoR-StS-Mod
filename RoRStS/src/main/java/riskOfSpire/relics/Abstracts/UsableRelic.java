@@ -24,11 +24,13 @@ import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Interfaces.ModifyCooldownRelic;
 import riskOfSpire.relics.Interfaces.MultiplyCooldownRelic;
+import riskOfSpire.util.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
 
 public abstract class UsableRelic extends AbstractRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
+    public boolean isLunar = false;
 
     public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -220,6 +222,11 @@ public abstract class UsableRelic extends AbstractRelic {
         this.renderFlash(sb, false);
     }
 
+     @Override
+     public boolean canSpawn() {
+        return !(UsableRelicSlot.usableRelic.get(AbstractDungeon.player) != null && UsableRelicSlot.usableRelic.get(AbstractDungeon.player).relicId.equals(this.relicId));
+     }
+
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
         this.isDone = true;
@@ -238,6 +245,7 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(p, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         notifyRelicGet();
     }
@@ -257,6 +265,7 @@ public abstract class UsableRelic extends AbstractRelic {
         this.relicTip();
 
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
 
@@ -273,6 +282,7 @@ public abstract class UsableRelic extends AbstractRelic {
         UsableRelicSlot.usableRelic.set(AbstractDungeon.player, this);
 
         UnlockTracker.markRelicAsSeen(this.relicId);
+        RiskOfRainRelicHelper.removeFromPool(this);
 
         notifyRelicGet();
     }

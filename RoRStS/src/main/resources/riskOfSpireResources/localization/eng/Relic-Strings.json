@@ -125,9 +125,9 @@
     "NAME": "Bandolier",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever an enemy dies, reduce the cost of #b",
-      " random card in your hand by #b1 this combat.",
-      " random cards in your hand by #b1 this combat."
+      "Every time you shuffle your deck, reduce the cost of #b",
+      " random card in your hand by #b1 until played.",
+      " random cards in your hand by #b1 until played."
     ]
   },
   "riskOfSpire:MonsterTooth": {
@@ -227,7 +227,7 @@
     "NAME": "Ceremonial Dagger",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you take unblocked attack damage, deal damage equal to half the damage received back #b",
+      "Whenever you lose HP from an attack, deal damage equal to half the damage received back #b",
       " times."
     ]
   },
@@ -282,7 +282,7 @@
     "NAME": "Shield Generator",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "At the the start of each turn, if you didn't take damage last turn and have less than #b",
+      "At the the start of each turn, if you didn't lose HP last turn and have less than #b",
       " #yTemporary_HP [REMOVE_SPACE], gain #b",
       " #yTemporary_HP [REMOVE_SPACE]."
     ]
@@ -292,6 +292,53 @@
     "FLAVOR": "You are already dead.",
     "DESCRIPTIONS": [
       "Right Click to increase the Difficulty"
+    ]
+  },
+  "riskOfSpire:ShapedGlass": {
+    "NAME": "Shaped Glass",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "#rReduce your Max HP by #r",
+      " [REMOVE_SPACE]% and increase your attack damage by #b",
+      " [REMOVE_SPACE]%."
+    ]
+  },
+  "riskOfSpire:CautiousSlug": {
+    "NAME": "Cautious Slug",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the end of combat, heal HP equal to your #yTemporary_HP to a maximum of #b",
+      " [REMOVE_SPACE].",
+      " Whenever you rest at a Rest Site, gain #b",
+      " #yRegen at the start of the next combat."
+    ]
+  },
+  "riskOfSpire:HopooFeather": {
+    "NAME": "Hopoo Feather",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of each combat, take #b50 [REMOVE_SPACE]% less damage from attacks until you lose HP from attacks #b",
+      " times."
+    ]
+  },
+  "riskOfSpire:Ukulele": {
+    "NAME": "Ukulele",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you use a single target attack, deal #b",
+      " damage to an enemy other than the one targeted, #b",
+      " times.",
+      " time."
+    ]
+  },
+  "riskOfSpire:Gasoline": {
+    "NAME": "Gasoline",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "The first time you play a card that targets ALL enemies each combat, ALL enemies lose #b",
+      " HP and #yBlock at the start of the next #b",
+      " turns.",
+      " turn."
     ]
   }
 }

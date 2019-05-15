@@ -23,6 +23,7 @@ public class GestureOfTheDrowned extends StackableRelic implements MultiplyCoold
 
     public GestureOfTheDrowned() {
         super(ID, "GestureOfTheDrowned.png", RelicTier.SPECIAL, LandingSound.MAGICAL);
+        isLunar = true;
     }
 
     @Override
