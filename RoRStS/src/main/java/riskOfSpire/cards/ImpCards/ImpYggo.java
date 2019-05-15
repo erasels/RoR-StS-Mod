@@ -6,9 +6,10 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import com.megacrit.cardcrawl.vfx.combat.VerticalAuraEffect;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.powers.AblativeThornsPower;
 
 import static riskOfSpire.RiskOfSpire.makeCardPath;
 
@@ -35,7 +36,8 @@ public class ImpYggo extends AbstractImpCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new VFXAction(AbstractDungeon.player, new VerticalAuraEffect(Color.GREEN, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY), 0.0F));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p,new DexterityPower(p, magicNumber), magicNumber));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p,new PlatedArmorPower(p, magicNumber), magicNumber));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p,new AblativeThornsPower(p, magicNumber), magicNumber));
     }
 
     @Override

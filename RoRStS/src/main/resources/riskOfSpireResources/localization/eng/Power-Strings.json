@@ -46,5 +46,12 @@
       " the afflicted creature loses #b",
       " HP and Block."
     ]
+  },
+  "riskOfSpire:AblativeThorns": {
+    "NAME": "Ablative Thorns",
+    "DESCRIPTIONS": [
+      "When attacked, deal #b",
+      " damage back. Losing HP from an attack reduces this power by #b1."
+    ]
   }
 }
