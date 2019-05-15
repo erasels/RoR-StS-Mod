@@ -184,6 +184,22 @@ public class RelicData {
                 rorCommonPool = data.RISK_OF_SPIRE_COMMON_POOL;
                 rorUncommonPool = data.RISK_OF_SPIRE_UNCOMMON_POOL;
                 rorRarePool = data.RISK_OF_SPIRE_RARE_POOL;
+
+                if (rorCommonPool == null)
+                {
+                    rorCommonPool = new ArrayList<>();
+                    logger.error("WHY LOADING EMPTY COMMON POOL?");
+                }
+                if (rorUncommonPool == null)
+                {
+                    rorUncommonPool = new ArrayList<>();
+                    logger.error("WHY LOADING EMPTY UNCOMMON POOL?");
+                }
+                if (rorRarePool == null)
+                {
+                    rorRarePool = new ArrayList<>();
+                    logger.error("WHY LOADING EMPTY RARE POOL?");
+                }
             }
             catch (Exception e)
             {
