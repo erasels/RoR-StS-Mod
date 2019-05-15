@@ -5,6 +5,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.MinionPower;
 import com.megacrit.cardcrawl.vfx.GainPennyEffect;
 
 public class MonsterDropGoldOnDeath {
@@ -20,9 +21,11 @@ public class MonsterDropGoldOnDeath {
             if (!GoldField.hasDroppedGold.get(__instance) && __instance.isDying) {
                 GoldField.hasDroppedGold.set(__instance, true);
                 int maxhp = __instance.maxHealth / 10;
-                AbstractDungeon.player.gainGold(maxhp);
-                for (int i = 0; i < maxhp; i++) {
-                    AbstractDungeon.effectList.add(new GainPennyEffect(AbstractDungeon.player, __instance.hb.cX, __instance.hb.cY, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, true));
+                if (!__instance.hasPower(MinionPower.POWER_ID)) {
+                    AbstractDungeon.player.gainGold(maxhp);
+                    for (int i = 0; i < maxhp; i++) {
+                        AbstractDungeon.effectList.add(new GainPennyEffect(AbstractDungeon.player, __instance.hb.cX, __instance.hb.cY, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, true));
+                    }
                 }
             }
         }
