@@ -28,9 +28,8 @@ import riskOfSpire.util.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
 
-public abstract class UsableRelic extends AbstractRelic {
+public abstract class UsableRelic extends BaseRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
-    public boolean isLunar = false;
 
     public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
@@ -287,18 +286,9 @@ public abstract class UsableRelic extends AbstractRelic {
         notifyRelicGet();
     }
 
+    @Override
     public void onRelicGet(AbstractRelic r) {
         updateDescriptionWhenNeeded();
-    }
-
-    public void notifyRelicGet() {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(this);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(this);
-            }
-        }
     }
 
     private static float START_X = 64.0F * Settings.scale;

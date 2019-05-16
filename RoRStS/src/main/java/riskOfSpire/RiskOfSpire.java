@@ -34,8 +34,8 @@ import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
+import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.patches.StartingScreen.BgChanges;
-import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
@@ -166,10 +166,8 @@ public class RiskOfSpire implements
     @Override
     public void receiveRelicGet(AbstractRelic rel) {
         for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(rel);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(rel);
+            if (r instanceof BaseRelic) {
+                ((BaseRelic) r).onRelicGet(rel);
             }
         }
     }
@@ -465,7 +463,7 @@ public class RiskOfSpire implements
                     rorRareRelics.add(r.relicId);
                     break;
                 case SPECIAL:
-                    if ((r instanceof UsableRelic && ((UsableRelic) r).isLunar) || (r instanceof StackableRelic && ((StackableRelic) r).isLunar)) {
+                    if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
                         rorLunarRelics.add(r.relicId);
                     }
                     break;

@@ -30,6 +30,11 @@ public class DebugRelic extends CustomRelic implements ClickableRelic {
         this.counter = (int) (RiskOfSpire.DifficultyMeter.getDifficultyMod() * 2);
     }
 
+    @Override
+    public boolean canSpawn() {
+        return false;
+    }
+
     public AbstractRelic makeCopy() {
         return new DebugRelic();
     }
