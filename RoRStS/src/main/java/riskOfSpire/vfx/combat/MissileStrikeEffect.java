@@ -19,9 +19,9 @@ public class MissileStrikeEffect extends AbstractGameEffect {
     private TextureAtlas.AtlasRegion img;
     private boolean playedSound = false;
     private boolean forcedAngle = false;
+    private String soundKey;
 
-    public MissileStrikeEffect(float x, float y, Color col)
-    {
+    public MissileStrikeEffect(float x, float y, Color col, String soundKey) {
         this.img = ImageMaster.DAGGER_STREAK;
         this.x = (x - MathUtils.random(320.0F, 360.0F) - this.img.packedWidth / 2.0F);
         this.destY = y;
@@ -31,6 +31,11 @@ public class MissileStrikeEffect extends AbstractGameEffect {
         this.scale = Settings.scale;
         this.rotation = MathUtils.random(-3.0F, 3.0F);
         this.color = col.cpy();
+        this.soundKey = soundKey;
+    }
+
+    public MissileStrikeEffect(float x, float y, Color col) {
+        this(x, y, col, "CARD_EXHAUST");
     }
 
     public MissileStrikeEffect(float x, float y, float fAngle, Color col)
@@ -51,7 +56,7 @@ public class MissileStrikeEffect extends AbstractGameEffect {
     {
         if (!this.playedSound)
         {
-            CardCrawlGame.sound.playA("CARD_EXHAUST", 1F);
+            CardCrawlGame.sound.playA(soundKey, 1F);
             this.playedSound = true;
         }
         this.duration -= Gdx.graphics.getDeltaTime();

@@ -365,5 +365,15 @@
       "Whenever an enemy dies, deal damage equal to #b",
       " [REMOVE_SPACE]% of its Max HP to ALL enemies."
     ]
+  },
+  "riskOfSpire:TheCrowdfunder": {
+    "NAME": "The Crowdfunder",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Lose #b",
+      " #ygold and deal #b",
+      " damage #b",
+      " times to the targeted enemy."
+    ]
   }
 }
