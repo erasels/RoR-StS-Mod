@@ -349,5 +349,13 @@
       " or more cards during your turn, gain #b",
       " #yBlock at the end of it."
     ]
+  },
+  "riskOfSpire:RejuvenationRack": {
+    "NAME": "Rejuvenation Rack",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Healing is #b",
+      " [REMOVE_SPACE]% more effective. (Includes #yTemporary_HP [REMOVE_SPACE])"
+    ]
   }
 }
