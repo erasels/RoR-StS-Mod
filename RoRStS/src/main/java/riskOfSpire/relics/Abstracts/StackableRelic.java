@@ -38,6 +38,14 @@ public abstract class StackableRelic extends BaseRelic implements CustomSavable<
         updateDescriptionOnStack(false); //Description is constructed in super before stack value is set to 1, so values will be incorrect if this is not done.
     }
 
+    @Override
+    public void loadLargeImg()
+    {
+        if (this.largeImg == null) {
+            largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgUrl));
+        }
+    }
+
     //For mods that use CustomRelics
     public StackableRelic(String setId, Texture img, Texture outline, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);

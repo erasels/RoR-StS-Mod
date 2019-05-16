@@ -48,6 +48,14 @@ public abstract class UsableRelic extends BaseRelic {
         this.beginLongPulse();
     }
 
+    @Override
+    public void loadLargeImg()
+    {
+        if (this.largeImg == null) {
+            largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgUrl));
+        }
+    }
+
     public UsableRelic(String setId, Texture img, Texture outline, RelicTier tier, LandingSound sfx) {
         super(setId, "", tier, sfx);
         img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
