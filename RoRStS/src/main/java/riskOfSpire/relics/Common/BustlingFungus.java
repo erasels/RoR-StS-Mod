@@ -17,6 +17,7 @@ public class BustlingFungus extends StackableRelic {
 
     public BustlingFungus() {
         super(ID, "BustlingFungus.png", RelicTier.COMMON, LandingSound.FLAT);
+        isTempHP = true;
     }
 
     @Override

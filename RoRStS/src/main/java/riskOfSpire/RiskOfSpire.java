@@ -35,7 +35,7 @@ import org.clapper.util.classutil.*;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.patches.StartingScreen.BgChanges;
-import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
@@ -163,15 +163,70 @@ public class RiskOfSpire implements
         });
     }
 
-    @Override
-    public void receiveRelicGet(AbstractRelic rel) {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(rel);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(rel);
+    private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException {
+        ClassFinder finder = new ClassFinder();
+        URL url = RiskOfSpire.class.getProtectionDomain().getCodeSource().getLocation();
+        finder.add(new File(url.toURI()));
+
+        ClassFilter filter =
+                new AndClassFilter(
+                        new NotClassFilter(new InterfaceOnlyClassFilter()),
+                        new NotClassFilter(new AbstractClassFilter()),
+                        new ClassModifiersClassFilter(Modifier.PUBLIC),
+                        new RelicFilter()
+                );
+        Collection<ClassInfo> foundClasses = new ArrayList<>();
+        finder.findClasses(foundClasses, filter);
+
+        for (ClassInfo classInfo : foundClasses) {
+            CtClass cls = Loader.getClassPool().get(classInfo.getClassName());
+
+            boolean isRelic = false;
+            CtClass superCls = cls;
+            while (superCls != null) {
+                superCls = superCls.getSuperclass();
+                if (superCls == null) {
+                    break;
+                }
+                if (superCls.getName().equals(AbstractRelic.class.getName())) {
+                    isRelic = true;
+                    break;
+                }
             }
+            if (!isRelic) {
+                continue;
+            }
+
+            AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
+            switch (r.tier) {
+                case COMMON:
+                    rorCommonRelics.add(r.relicId);
+                    break;
+                case UNCOMMON:
+                    rorUncommonRelics.add(r.relicId);
+                    break;
+                case RARE:
+                    rorRareRelics.add(r.relicId);
+                    break;
+                case SPECIAL:
+                    if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+                        rorLunarRelics.add(r.relicId);
+                    }
+                    break;
+            }
+            if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE)) {
+                rorUsableRelics.add(r.relicId);
+            }
+            logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
+
+            BaseMod.addRelic(r, RelicType.SHARED);
         }
+
+        rorCommonRelics.sort(String::compareTo);
+        rorUncommonRelics.sort(String::compareTo);
+        rorRareRelics.sort(String::compareTo);
+        rorLunarRelics.sort(String::compareTo);
+        rorUsableRelics.sort(String::compareTo);
     }
 
     @Override
@@ -419,71 +474,13 @@ public class RiskOfSpire implements
         RiskOfSpire riskOfSpire = new RiskOfSpire();
     }
 
-    private static void autoAddRelics() throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, CannotCompileException {
-        ClassFinder finder = new ClassFinder();
-        URL url = RiskOfSpire.class.getProtectionDomain().getCodeSource().getLocation();
-        finder.add(new File(url.toURI()));
-
-        ClassFilter filter =
-                new AndClassFilter(
-                        new NotClassFilter(new InterfaceOnlyClassFilter()),
-                        new NotClassFilter(new AbstractClassFilter()),
-                        new ClassModifiersClassFilter(Modifier.PUBLIC),
-                        new RelicFilter()
-                );
-        Collection<ClassInfo> foundClasses = new ArrayList<>();
-        finder.findClasses(foundClasses, filter);
-
-        for (ClassInfo classInfo : foundClasses) {
-            CtClass cls = Loader.getClassPool().get(classInfo.getClassName());
-
-            boolean isRelic = false;
-            CtClass superCls = cls;
-            while (superCls != null) {
-                superCls = superCls.getSuperclass();
-                if (superCls == null) {
-                    break;
-                }
-                if (superCls.getName().equals(AbstractRelic.class.getName())) {
-                    isRelic = true;
-                    break;
-                }
+    @Override
+    public void receiveRelicGet(AbstractRelic rel) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof BaseRelic) {
+                ((BaseRelic) r).onRelicGet(rel);
             }
-            if (!isRelic) {
-                continue;
-            }
-
-            AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
-            switch (r.tier) {
-                case COMMON:
-                    rorCommonRelics.add(r.relicId);
-                    break;
-                case UNCOMMON:
-                    rorUncommonRelics.add(r.relicId);
-                    break;
-                case RARE:
-                    rorRareRelics.add(r.relicId);
-                    break;
-                case SPECIAL:
-                    if ((r instanceof UsableRelic && ((UsableRelic) r).isLunar) || (r instanceof StackableRelic && ((StackableRelic) r).isLunar)) {
-                        rorLunarRelics.add(r.relicId);
-                    }
-                    break;
-            }
-            if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE))
-            {
-                rorUsableRelics.add(r.relicId);
-            }
-            logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
-
-            BaseMod.addRelic(r, RelicType.SHARED);
         }
-
-        rorCommonRelics.sort(String::compareTo);
-        rorUncommonRelics.sort(String::compareTo);
-        rorRareRelics.sort(String::compareTo);
-        rorLunarRelics.sort(String::compareTo);
-        rorUsableRelics.sort(String::compareTo);
     }
 
     public static void clearData() {

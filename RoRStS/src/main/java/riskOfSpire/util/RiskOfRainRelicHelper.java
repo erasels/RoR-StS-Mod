@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
+import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
@@ -19,6 +20,8 @@ import java.util.List;
 public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
+
+    public static float FINAL_COST_MOD = 0.4f;
 
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
@@ -247,5 +250,32 @@ public class RiskOfRainRelicHelper {
             }
         }
         return mod;
+    }
+
+    public static boolean hasCritRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isCritical)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasLunarRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasTempHPRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isTempHP)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
