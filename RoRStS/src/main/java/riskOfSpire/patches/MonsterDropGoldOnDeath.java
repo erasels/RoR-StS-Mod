@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.MinionPower;
 import com.megacrit.cardcrawl.vfx.GainPennyEffect;
+import riskOfSpire.RiskOfSpire;
 
 public class MonsterDropGoldOnDeath {
     @SpirePatch(clz = AbstractMonster.class, method = SpirePatch.CLASS)
@@ -18,7 +19,7 @@ public class MonsterDropGoldOnDeath {
     public static class MonsterDropGoldOnDeathPatch {
         @SpirePrefixPatch
         public static void patch(AbstractMonster __instance) {
-            if (!GoldField.hasDroppedGold.get(__instance) && __instance.isDying) {
+            if (!GoldField.hasDroppedGold.get(__instance) && __instance.isDying && RiskOfSpire.DifficultyMeter.getDifficultyMod() > 0) {
                 GoldField.hasDroppedGold.set(__instance, true);
                 int maxhp = __instance.maxHealth / 10;
                 if (!__instance.hasPower(MinionPower.POWER_ID)) {
