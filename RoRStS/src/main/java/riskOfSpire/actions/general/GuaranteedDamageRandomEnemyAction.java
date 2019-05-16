@@ -16,6 +16,7 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
     private boolean fast;
     private boolean rainbowFirework;
     private Color missileColor = null;
+    private String soundKey;
 
     public GuaranteedDamageRandomEnemyAction(AbstractCreature source, int damage, DamageInfo.DamageType damageType, AttackEffect effect, boolean fast) {
         this.source = source;
@@ -44,6 +45,16 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
         this.missileColor = missileColor;
     }
 
+    public GuaranteedDamageRandomEnemyAction(DamageInfo info, AttackEffect effect, boolean fast, Color missileColor, String soundKey) {
+        this.source = info.owner;
+        this.info = info;
+        this.attackEffect = effect;
+        this.fast = fast;
+        this.rainbowFirework = false;
+        this.missileColor = missileColor;
+        this.soundKey = soundKey;
+    }
+
     public GuaranteedDamageRandomEnemyAction(DamageInfo info, AttackEffect effect, boolean fast) {
         this.source = info.owner;
         this.info = info;
@@ -65,7 +76,11 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
                     AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, RiskOfSpire.COLORS.get(MathUtils.random(RiskOfSpire.COLORS.size()-1))));
                 }
                 else if (missileColor != null) {
-                    AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
+                    if(soundKey != null) {
+                        AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor, soundKey));
+                    } else {
+                        AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
+                    }
                 }
                 AbstractDungeon.actionManager.addToTop(new DamageAction(target, damageInfo, this.attackEffect, fast));
             } else {
@@ -73,7 +88,11 @@ public class GuaranteedDamageRandomEnemyAction extends AbstractGameAction {
                     AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, RiskOfSpire.COLORS.get(MathUtils.random(RiskOfSpire.COLORS.size()-1))));
                 }
                 else if (missileColor != null) {
-                    AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
+                    if(soundKey != null) {
+                        AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor, soundKey));
+                    } else {
+                        AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, missileColor));
+                    }
                 }
                 AbstractDungeon.actionManager.addToTop(new DamageAction(target, info, this.attackEffect, fast));
             }
