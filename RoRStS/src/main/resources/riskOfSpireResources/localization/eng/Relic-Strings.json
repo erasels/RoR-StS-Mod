@@ -340,5 +340,14 @@
       " turns.",
       " turn."
     ]
+  },
+  "riskOfSpire:RoseBuckler": {
+    "NAME": "Rose Buckler",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you play #b",
+      " or more cards during your turn, gain #b",
+      " #yBlock at the end of it."
+    ]
   }
 }
