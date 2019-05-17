@@ -33,5 +33,10 @@
       "Lunar Pod",
       "Costs #bLunar #bCoins to buy. Once bought, adds a random #blunar relic to the rewards which can be picked up."
     ]
+  },
+  "riskOfSpire:LoseGoldEffect": {
+    "TEXT": [
+      " Gold"
+    ]
   }
 }
