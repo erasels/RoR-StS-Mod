@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.esotericsoftware.spine.Skeleton;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -20,10 +19,13 @@ import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 
+import java.lang.reflect.Field;
+
 
 public class HappiestMaskPatches {
     public static boolean hasHM;
     public static boolean victoryMet;
+    private static Field skelField;
 
     @SpirePatch(
             clz = AbstractMonster.class,
@@ -31,10 +33,14 @@ public class HappiestMaskPatches {
     )
     public static class RenderNormallyPls {
         @SpirePostfixPatch
-        public static void Postfix(AbstractMonster __instance, SpriteBatch sb) {
+        public static void Postfix(AbstractMonster __instance, SpriteBatch sb) throws NoSuchFieldException, IllegalAccessException {
             if (!victoryMet && (__instance.isDead || __instance.isDying) && !__instance.id.equals(SlimeBoss.ID) && !__instance.id.equals(AcidSlime_L.ID) && !__instance.id.equals(SpikeSlime_L.ID)) {
                 if (hasHM) {
-                    Skeleton sk = (Skeleton) ReflectionHacks.getPrivate(__instance, AbstractCreature.class, "skeleton");
+                    if (skelField == null) {
+                        skelField = getField(AbstractMonster.class, "skeleton");//AbstractCreature.class.getDeclaredField("skeleton");
+                    }
+                    skelField.setAccessible(true);
+                    Skeleton sk = (Skeleton) skelField.get(__instance);
                     if (sk != null) {
                         __instance.state.update(Gdx.graphics.getDeltaTime());
                         __instance.state.apply(sk);
@@ -61,6 +67,19 @@ public class HappiestMaskPatches {
         }
     }
 
+    private static Field getField(Class clazz, String fieldName) throws NoSuchFieldException {
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            Class superClass = clazz.getSuperclass();
+            if (superClass == null) {
+                throw e;
+            } else {
+                return getField(superClass, fieldName);
+            }
+        }
+    }
+
     @SpirePatch(
             clz = AbstractMonster.class,
             method = "updateDeathAnimation"
@@ -72,7 +91,7 @@ public class HappiestMaskPatches {
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getClassName().equals(AbstractMonster.class.getName()) && m.getMethodName().equals("dispose")) {
                         m.replace("{" +
-                                "if(!"+AbstractDungeon.class.getName()+".player.hasRelic(\"riskOfSpire:HappiestMask\"))" +
+                                "if(!" + AbstractDungeon.class.getName() + ".player.hasRelic(\"riskOfSpire:HappiestMask\"))" +
                                 "$proceed();" +
                                 "}");
                     }
