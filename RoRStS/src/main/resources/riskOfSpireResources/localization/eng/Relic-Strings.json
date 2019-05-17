@@ -375,5 +375,14 @@
       " damage #b",
       " times to the targeted enemy."
     ]
+  },
+  "riskOfSpire:HappiestMask": {
+    "NAME": "Happiest Mask",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, all enemies between it and you will receive #b",
+      " [REMOVE_SPACE]% more and deal #b",
+      " [REMOVE_SPACE]% less damage."
+    ]
   }
 }

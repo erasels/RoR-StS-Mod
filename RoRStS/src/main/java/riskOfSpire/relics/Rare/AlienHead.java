@@ -9,6 +9,7 @@ import riskOfSpire.util.StringManipulationUtilities;
 public class AlienHead extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("AlienHead");
 
+    private static final int RED_AMT = 2;
     private static final int CARD_AMT = 11;
 
     public AlienHead() {
@@ -18,7 +19,8 @@ public class AlienHead extends StackableRelic {
 
     private int getCardAmt()
     {
-        return (CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1;
+        //return (CARD_AMT - (relicStack - 1)) > 0 ? (CARD_AMT - (relicStack - 1)) : 1; //Previous implementation loses 1 per stack
+        return (CARD_AMT - (relicStack*RED_AMT - RED_AMT)) > 0 ? (CARD_AMT - (relicStack*RED_AMT - RED_AMT)) : 1;
     }
 
     @Override
