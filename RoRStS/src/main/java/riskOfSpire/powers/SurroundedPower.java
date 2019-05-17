@@ -33,21 +33,22 @@ public class SurroundedPower extends RoRStSPower implements CloneablePowerInterf
     @Override
     public float atDamageReceive(float dmg, DamageInfo.DamageType type) {
         if (hM != null && type == DamageInfo.DamageType.NORMAL) {
-            return dmg * hM.getVal();
+            return dmg * hM.getInc();
         }
         return dmg;
     }
 
     public float atDamageGive(float dmg, DamageInfo.DamageType type) {
         if (hM != null && type == DamageInfo.DamageType.NORMAL) {
-            return dmg / hM.getVal();
+            return dmg * hM.getDec();
         }
         return dmg;
     }
 
     public void updateDescription() {
-        int tmp = MathUtils.round((hM.getVal()-1f)*100);
-        this.description = DESCRIPTIONS[0] + tmp + DESCRIPTIONS[1] + tmp + DESCRIPTIONS[2];
+        int tmp1 = MathUtils.round((hM.getInc()-1f)*100);
+        int tmp2 = MathUtils.round((1f-hM.getDec())*100);
+        this.description = DESCRIPTIONS[0] + tmp1 + DESCRIPTIONS[1] + tmp2 + DESCRIPTIONS[2];
     }
 
     @Override
