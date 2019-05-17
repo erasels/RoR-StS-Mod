@@ -371,7 +371,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Lose #b",
-      " #ygold and deal #b",
+      " #yGold and deal #b",
       " damage #b",
       " times to the targeted enemy."
     ]
@@ -383,6 +383,15 @@
       "Whenever an enemy dies, all enemies between it and you will receive #b",
       " [REMOVE_SPACE]% more and deal #b",
       " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:BrittleCrown": {
+    "NAME": "Brittle Crown",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies for the first time, gain #b",
+      " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
+      " [REMOVE_SPACE]% of your current #yGold [REMOVE_SPACE]."
     ]
   }
 }

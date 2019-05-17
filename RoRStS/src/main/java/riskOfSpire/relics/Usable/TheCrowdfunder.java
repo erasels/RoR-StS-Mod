@@ -5,10 +5,11 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.general.GuaranteedDamageRandomEnemyAction;
 import riskOfSpire.actions.general.TargetAction;
+import riskOfSpire.actions.unique.MissileStrikeAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 public class TheCrowdfunder extends UsableRelic {
@@ -17,7 +18,7 @@ public class TheCrowdfunder extends UsableRelic {
 
     private static final int DAMAGE_PER = 4;
     private static final int MISSILE_COUNT = 5;
-    private static final int GOLD_COST = 20;
+    private static final int GOLD_COST = 35;
     private boolean targeting;
 
     private static final int COOLDOWN = 1;
@@ -63,7 +64,7 @@ public class TheCrowdfunder extends UsableRelic {
 
             DamageInfo info = new DamageInfo(AbstractDungeon.player, DAMAGE_PER, DamageInfo.DamageType.THORNS);
             for (int i = 0; i < MISSILE_COUNT; i++) {
-                AbstractDungeon.actionManager.addToBottom(new GuaranteedDamageRandomEnemyAction(info, AbstractGameAction.AttackEffect.NONE, true, Color.GOLD.cpy(), "GOLD_GAIN"));
+                AbstractDungeon.actionManager.addToBottom(new MissileStrikeAction((AbstractMonster)m, info, AbstractGameAction.AttackEffect.NONE, Color.GOLD.cpy(), "GOLD_GAIN"));
             }
         }
     }
