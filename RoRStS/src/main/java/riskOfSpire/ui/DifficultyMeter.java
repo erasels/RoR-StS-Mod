@@ -16,6 +16,8 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import riskOfSpire.powers.BlazingPower;
+import riskOfSpire.powers.GlacialPower;
 import riskOfSpire.powers.OverloadingPower;
 import riskOfSpire.util.TextureLoader;
 
@@ -133,6 +135,21 @@ public class DifficultyMeter {
     }
 
     public void SetElite(AbstractMonster m) {
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new OverloadingPower(m)));
+        int r = AbstractDungeon.miscRng.random(1, 100);
+        if (r <= 40 - 40 / (getDifficulty() / 100 + 1)) {
+            r = AbstractDungeon.miscRng.random(0, 2);
+            switch (r) {
+                case 0:
+                    AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new OverloadingPower(m)));
+                    break;
+                case 1:
+                    AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new GlacialPower(m)));
+                    break;
+
+                default:
+                    AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new BlazingPower(m)));
+                    break;
+            }
+        }
     }
 }

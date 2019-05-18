@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
@@ -94,7 +95,7 @@ public class RiskOfSpire implements
     public static final int BASE_COMMONS = 3;
     public static final int BASE_UNCOMMONS = 2;
     public static final int BASE_RARES = 2;
-
+    public static ShaderProgram GlacialShader;
     public static int lunarCoinAmount = 0;
     public static LunarCoinDisplay lCD;
     public static boolean lCacheTrigger = false;
@@ -322,6 +323,10 @@ public class RiskOfSpire implements
         for (int i = 0; i < 11; i++) {
             BgChanges.SlowVfxClouds.add(new CustomSlowTitleCloud((Settings.WIDTH / 9) * i - 400 * Settings.scale));
         }
+        GlacialShader = new ShaderProgram(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString(), Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
+        logger.info(GlacialShader.getLog());
+        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString());
+        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
         logger.info("Done loading badge Image and mod options");
     }
 

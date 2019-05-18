@@ -53,6 +53,18 @@
       "Currently only looks cool."
     ]
   },
+  "riskOfSpire:Glacial": {
+    "NAME": "Glacial",
+    "DESCRIPTIONS": [
+      "Currently only looks cool."
+    ]
+  },
+  "riskOfSpire:Blazing": {
+    "NAME": "Blazing",
+    "DESCRIPTIONS": [
+      "Currently only looks cool."
+    ]
+  },
   "riskOfSpire:AblativeThorns": {
     "NAME": "Ablative Thorns",
     "DESCRIPTIONS": [

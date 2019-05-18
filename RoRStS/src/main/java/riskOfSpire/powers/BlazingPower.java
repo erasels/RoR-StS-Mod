@@ -7,13 +7,13 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 
-public class OverloadingPower extends AbstractPower implements CloneablePowerInterface {
-    public static final String POWER_ID = RiskOfSpire.makeID("Overloading");
+public class BlazingPower extends AbstractPower implements CloneablePowerInterface {
+    public static final String POWER_ID = RiskOfSpire.makeID("Blazing");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public OverloadingPower(AbstractCreature owner) {
+    public BlazingPower(AbstractCreature owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
@@ -28,7 +28,7 @@ public class OverloadingPower extends AbstractPower implements CloneablePowerInt
 
     @Override
     public AbstractPower makeCopy() {
-        return new OverloadingPower(owner);
+        return new BlazingPower(owner);
     }
 
     @Override
