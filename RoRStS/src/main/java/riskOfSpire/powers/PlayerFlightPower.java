@@ -12,8 +12,9 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
+import riskOfSpire.powers.interfaces.PostOnLoseHpPower;
 
-public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInterface {
+public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInterface, PostOnLoseHpPower {
     public static final String POWER_ID = RiskOfSpire.makeID("PlayerFlight");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
@@ -71,8 +72,8 @@ public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInte
     }
 
     @Override
-    public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+    public int postOnLoseHp(DamageInfo info, int damageAmount) {
+        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS) {
             flash();
             decreasePower();
         }

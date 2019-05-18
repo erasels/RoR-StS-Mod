@@ -71,5 +71,13 @@
       "When attacked, deal #b",
       " damage back. Losing HP from an attack reduces this power by #b1."
     ]
+  },
+  "riskOfSpire:Surrounded": {
+    "NAME": "Surrounded",
+    "DESCRIPTIONS": [
+      "Receives #b",
+      " [REMOVE_SPACE]% more and deals #b",
+      " [REMOVE_SPACE]% less damage."
+    ]
   }
 }

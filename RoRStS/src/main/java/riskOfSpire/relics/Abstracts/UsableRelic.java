@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public abstract class UsableRelic extends BaseRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
 
-    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
+    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx, boolean coolDownBased) {
         super(setId, "", tier, sfx);
 
         imgUrl = imgName;
@@ -42,10 +42,25 @@ public abstract class UsableRelic extends BaseRelic {
             outlineImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relics/outline/" + imgName));
         }
 
-        this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
+        if(coolDownBased) {
+            this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
 
-        this.counter = 0; //cooldown.
+            this.counter = 0; //cooldown.
+        }
         this.beginLongPulse();
+    }
+
+    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
+        this(setId, imgName, tier, sfx, true);
+    }
+
+
+        @Override
+    public void loadLargeImg()
+    {
+        if (this.largeImg == null) {
+            largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgUrl));
+        }
     }
 
     public UsableRelic(String setId, Texture img, Texture outline, RelicTier tier, LandingSound sfx) {

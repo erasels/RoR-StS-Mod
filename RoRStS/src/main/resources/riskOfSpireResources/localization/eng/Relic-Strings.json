@@ -340,5 +340,58 @@
       " turns.",
       " turn."
     ]
+  },
+  "riskOfSpire:RoseBuckler": {
+    "NAME": "Rose Buckler",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you play #b",
+      " or more cards during your turn, gain #b",
+      " #yBlock at the end of it."
+    ]
+  },
+  "riskOfSpire:RejuvenationRack": {
+    "NAME": "Rejuvenation Rack",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Healing is #b",
+      " [REMOVE_SPACE]% more effective. (Includes #yTemporary_HP [REMOVE_SPACE])"
+    ]
+  },
+  "riskOfSpire:WillOWisp": {
+    "NAME": "Will-o'-the-Wisp",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, deal damage equal to #b",
+      " [REMOVE_SPACE]% of its Max HP to ALL enemies."
+    ]
+  },
+  "riskOfSpire:TheCrowdfunder": {
+    "NAME": "The Crowdfunder",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Lose #b",
+      " #yGold and deal #b",
+      " damage #b",
+      " times to the targeted enemy."
+    ]
+  },
+  "riskOfSpire:HappiestMask": {
+    "NAME": "Happiest Mask",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, all enemies between it and you will receive #b",
+      " [REMOVE_SPACE]% more and deal #b",
+      " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:BrittleCrown": {
+    "NAME": "Brittle Crown",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies for the first time, gain #b",
+      " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
+      " [REMOVE_SPACE]% of your current #yGold [REMOVE_SPACE]."
+    ]
   }
 }
