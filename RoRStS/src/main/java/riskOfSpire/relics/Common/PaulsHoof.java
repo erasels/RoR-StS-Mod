@@ -25,7 +25,7 @@ public class PaulsHoof extends StackableRelic {
 
     public int onPlayerGainedBlock(float blockAmount) {
         //if(!(AbstractDungeon.player.hasPower(HoofBlockPower.POWER_ID) && blockAmount == AbstractDungeon.player.getPower(HoofBlockPower.POWER_ID).amount)) {
-        if(!(AbstractDungeon.actionManager.currentAction instanceof ModifiedGainBlockAction)) {
+        if (!(AbstractDungeon.actionManager.currentAction instanceof ModifiedGainBlockAction)) {
             flash();
             AbstractPlayer p = AbstractDungeon.player;
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new HoofBlockPower(p, getVal()), getVal()));

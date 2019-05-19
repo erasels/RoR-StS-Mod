@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class MonsterDropGoldOnDeath {
     @SpireInsertPatch(locator = Locator.class)
     public static void Insert(AbstractRoom __instance) {
-        if(RiskOfSpire.DifficultyMeter.getDifficultyMod() > 0 && RiskOfSpire.difficultyCostSetting) {
+        if (RiskOfSpire.DifficultyMeter.getDifficultyMod() > 0 && RiskOfSpire.difficultyCostSetting) {
             float toAdd = 0;
             for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-                if(!m.hasPower(MinionPower.POWER_ID)) {
+                if (!m.hasPower(MinionPower.POWER_ID)) {
                     toAdd += (float) m.maxHealth / 10F;
                 }
             }

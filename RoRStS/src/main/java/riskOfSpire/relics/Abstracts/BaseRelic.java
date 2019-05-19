@@ -16,11 +16,11 @@ public abstract class BaseRelic extends AbstractRelic {
     }
 
     public void notifyRelicGet() {
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
             if (r instanceof StackableRelic) {
-                ((StackableRelic)r).onRelicGet(this);
-            } else if(r instanceof UsableRelic) {
-                ((UsableRelic)r).onRelicGet(this);
+                ((StackableRelic) r).onRelicGet(this);
+            } else if (r instanceof UsableRelic) {
+                ((UsableRelic) r).onRelicGet(this);
             }
         }
     }

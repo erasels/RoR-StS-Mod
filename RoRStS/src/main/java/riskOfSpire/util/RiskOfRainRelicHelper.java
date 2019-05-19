@@ -253,8 +253,8 @@ public class RiskOfRainRelicHelper {
     }
 
     public static boolean hasCritRelic() {
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
-            if((r instanceof BaseRelic && ((BaseRelic) r).isCritical)) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isCritical)) {
                 return true;
             }
         }
@@ -262,8 +262,8 @@ public class RiskOfRainRelicHelper {
     }
 
     public static boolean hasLunarRelic() {
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
-            if((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
                 return true;
             }
         }
@@ -271,8 +271,8 @@ public class RiskOfRainRelicHelper {
     }
 
     public static boolean hasTempHPRelic() {
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
-            if((r instanceof BaseRelic && ((BaseRelic) r).isTempHP)) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isTempHP)) {
                 return true;
             }
         }

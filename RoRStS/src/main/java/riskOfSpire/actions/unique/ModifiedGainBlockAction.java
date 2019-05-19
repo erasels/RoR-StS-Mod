@@ -14,10 +14,10 @@ public class ModifiedGainBlockAction extends AbstractGameAction {
     public ModifiedGainBlockAction(AbstractCreature target, AbstractCreature source, int amount) {
         setValues(target, source, amount);
         this.actionType = AbstractGameAction.ActionType.BLOCK;
-        if(Settings.FAST_MODE) {
+        if (Settings.FAST_MODE) {
             this.duration = Fast_DUR;
             this.startDuration = Fast_DUR;
-        }else {
+        } else {
             this.duration = DUR;
             this.startDuration = DUR;
         }

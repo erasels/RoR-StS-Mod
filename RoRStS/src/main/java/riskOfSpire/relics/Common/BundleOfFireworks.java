@@ -29,7 +29,7 @@ public class BundleOfFireworks extends StackableRelic {
     @Override
     public void onRelicGet(AbstractRelic r){
         //if((!(r instanceof StackableRelic) && !AbstractDungeon.player.hasRelic(r.relicId)) || (r instanceof StackableRelic && ((StackableRelic) r).relicStack == 1)) {
-        if(!CardCrawlGame.loadingSave) {
+        if (!CardCrawlGame.loadingSave) {
             this.flash();
             this.counter += DAMAGE_COUNT * relicStack;
         }

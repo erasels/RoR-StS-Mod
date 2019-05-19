@@ -24,11 +24,11 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
         super(setLink, reward);
         float modifier = 0f; //Adjust this value
         if(RiskOfSpire.difficultyCostSetting) {
-            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.8F, 1.2F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod()*(RiskOfSpire.DifficultyMeter.getDifficulty()/200F))*1F); //Adjust this value
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.8F, 1.2F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod() * (RiskOfSpire.DifficultyMeter.getDifficulty() / 200F)) * 1F); //Adjust this value
         } else {
             modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F);
         }
-        this.goldAmt = NumberUtils.min(MathUtils.round(((float) relic.getPrice() * modifier)*RiskOfRainRelicHelper.FINAL_COST_MOD), relic.getPrice()*2);
+        this.goldAmt = NumberUtils.min(MathUtils.round(((float) relic.getPrice() * modifier) * RiskOfRainRelicHelper.FINAL_COST_MOD), relic.getPrice() * 2);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
         super.render(sb);
 
         sb.setColor(Color.WHITE);
-        if(goldAmt > 0) {
+        if (goldAmt > 0) {
             sb.draw(ImageMaster.UI_GOLD, GOLD_IMG_X, this.y - 9.0F * Settings.scale, GOLD_IMG_SIZE, GOLD_IMG_SIZE);
             Color c = Color.WHITE.cpy();
             if (this.goldAmt > AbstractDungeon.player.gold) {
