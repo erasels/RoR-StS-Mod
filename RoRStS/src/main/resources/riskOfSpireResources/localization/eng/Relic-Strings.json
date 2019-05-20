@@ -410,5 +410,13 @@
       "Whenever you use the #ycritical power ( [REMOVE_SPACE]#gLens-Maker's #gGlasses [REMOVE_SPACE]), decrease the counter for the next #ydouble #yattack power ( [REMOVE_SPACE]#gSoldier's #gSyringe [REMOVE_SPACE]) by #b",
       " turns and vice versa."
     ]
+  },
+  "riskOfSpire:Crowbar": {
+    "NAME": "Crowbar",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Attacks against enemies at full HP deal #b",
+      " [REMOVE_SPACE]% more damage."
+    ]
   }
 }
