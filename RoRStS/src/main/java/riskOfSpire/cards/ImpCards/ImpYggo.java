@@ -36,8 +36,8 @@ public class ImpYggo extends AbstractImpCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new VFXAction(AbstractDungeon.player, new VerticalAuraEffect(Color.GREEN, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY), 0.0F));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p,new PlatedArmorPower(p, magicNumber), magicNumber));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p,new AblativeThornsPower(p, magicNumber), magicNumber));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new PlatedArmorPower(p, magicNumber), magicNumber));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new AblativeThornsPower(p, magicNumber), magicNumber));
     }
 
     @Override
