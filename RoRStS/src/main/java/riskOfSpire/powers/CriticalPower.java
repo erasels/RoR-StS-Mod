@@ -10,8 +10,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
+import riskOfSpire.relics.Interfaces.ModifyCritDamageRelic;
 
 public class CriticalPower extends RoRStSPower implements CloneablePowerInterface {
     public static final String POWER_ID = RiskOfSpire.makeID("Critical");
@@ -36,16 +38,28 @@ public class CriticalPower extends RoRStSPower implements CloneablePowerInterfac
     @Override
     public float atDamageFinalGive(float damageAmount, DamageInfo.DamageType info) {
         if (info == DamageInfo.DamageType.NORMAL) {
-            return (damageAmount * 2);
+            float critModifier = 2f;
+            for (AbstractRelic r : AbstractDungeon.player.relics) {
+                if (r instanceof ModifyCritDamageRelic) {
+                    critModifier = ((ModifyCritDamageRelic) r).modifyCrit(critModifier);
+                }
+            }
+            return (damageAmount * critModifier);
         }
-
         return damageAmount;
     }
 
     @Override
     public void onAfterUseCard(AbstractCard card, UseCardAction action) {
-        if (card.type == AbstractCard.CardType.ATTACK && !dontRemove && card.damage > 0) {
-            AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, this.ID));
+        if (card.type == AbstractCard.CardType.ATTACK && card.damage > 0) {
+            if (!dontRemove) {
+                AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, this.ID));
+            }
+            for (AbstractRelic r : AbstractDungeon.player.relics) {
+                if (r instanceof ModifyCritDamageRelic) {
+                    ((ModifyCritDamageRelic) r).afterCrit();
+                }
+            }
         }
     }
 
