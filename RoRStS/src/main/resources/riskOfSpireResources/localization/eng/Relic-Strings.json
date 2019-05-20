@@ -393,5 +393,22 @@
       " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
       " [REMOVE_SPACE]% of your current #yGold [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:HarvesterScythe": {
+    "NAME": "Harvester Scythe",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "#yriskofspire:Critical attacks deal an additional #b",
+      " [REMOVE_SPACE]% damage and heal #b",
+      " HP."
+    ]
+  },
+  "riskOfSpire:PredatoryInstincts": {
+    "NAME": "Predatory Instincts",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you use the #ycritical power ( [REMOVE_SPACE]#gLens-Maker's #gGlasses [REMOVE_SPACE]), decrease the counter for the next #ydouble #yattack power ( [REMOVE_SPACE]#gSoldier's #gSyringe [REMOVE_SPACE]) by #b",
+      " turns and vice versa."
+    ]
   }
 }

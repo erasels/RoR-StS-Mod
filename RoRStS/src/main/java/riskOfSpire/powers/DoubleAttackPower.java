@@ -12,8 +12,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
+import riskOfSpire.relics.Interfaces.OnDoubleAttackRelic;
 
 public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInterface {
     public static final String POWER_ID = RiskOfSpire.makeID("DoubleAttack");
@@ -43,6 +45,11 @@ public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInte
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
         if ((!card.purgeOnUse) && (card.type == AbstractCard.CardType.ATTACK)) {
+            for(AbstractRelic r : AbstractDungeon.player.relics) {
+                if(r instanceof OnDoubleAttackRelic) {
+                    ((OnDoubleAttackRelic) r).beforeDoubleAttack(card, action);
+                }
+            }
             flash();
             AbstractMonster m = null;
             if (action.target != null) {
@@ -63,6 +70,7 @@ public class DoubleAttackPower extends RoRStSPower implements CloneablePowerInte
             if (!dontRemove) {
                 AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(owner, owner, POWER_ID));
             }
+
         }
     }
 

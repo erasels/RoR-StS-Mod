@@ -85,6 +85,15 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
         }
     }
 
+    public void decreaseCharge(int amt) {
+        setCounter(counter - amt);
+        if(counter <= 1) {
+            counter = 1;
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
+        }
+    }
+
     private void manipCharge(int amt) {
         setCounter(counter + amt);
     }

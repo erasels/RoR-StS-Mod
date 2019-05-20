@@ -26,7 +26,7 @@ public class ExpensiveLinkedReward extends LinkedRewardItem {
         if(RiskOfSpire.difficultyCostSetting) {
             modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.8F, 1.2F) + ((RiskOfSpire.DifficultyMeter.getDifficultyMod()*(RiskOfSpire.DifficultyMeter.getDifficulty()/200F))*1F); //Adjust this value
         } else {
-            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.66F, 1.33F);
+            modifier = RiskOfRainRelicHelper.RiskOfRainRelicRng.random(0.8F, 1.2F);
         }
         this.goldAmt = NumberUtils.min(MathUtils.round(((float) relic.getPrice() * modifier)*RiskOfRainRelicHelper.FINAL_COST_MOD), relic.getPrice()*2);
     }
