@@ -16,6 +16,7 @@ public class PredatoryInstincts extends StackableRelic implements ModifyCritDama
 
     public PredatoryInstincts() {
         super(ID, "PredatoryInstincts.png", RelicTier.UNCOMMON, LandingSound.FLAT);
+        isCritical = true;
     }
 
     @Override
