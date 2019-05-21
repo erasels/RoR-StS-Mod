@@ -429,5 +429,13 @@
       " times",
       ", you do not lose #yBlock at the start of your turn."
     ]
+  },
+  "riskOfSpire:Transcendence": {
+    "NAME": "Transcendence",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of each combat, gain #yTemporary_HP equal to #b",
+      " [REMOVE_SPACE]% of your Max HP and your max HP is reduced to #b1 [REMOVE_SPACE]. Increase your max HP to its original value at the end of combat."
+    ]
   }
 }

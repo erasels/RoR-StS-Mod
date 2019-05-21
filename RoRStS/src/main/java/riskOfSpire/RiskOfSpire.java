@@ -73,7 +73,7 @@ public class RiskOfSpire implements
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
         PreStartGameSubscriber,
-        OnPlayerLoseBlockSubscriber {
+        OnPlayerLoseBlockSubscriber{
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
@@ -245,7 +245,8 @@ public class RiskOfSpire implements
 
         // Create the on/off button:
         ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton(mSStrings.TEXT[0], 350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont, difficultyCostSetting, settingsPanel,
-                (label) -> {},
+                (label) -> {
+                },
                 (button) -> {
                     difficultyCostSetting = button.enabled;
                     try {
@@ -348,13 +349,14 @@ public class RiskOfSpire implements
     @Override
     public int receiveOnPlayerLoseBlock(int i) {
         int tmp = i;
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
-            if(r instanceof OnBlockClearRelic) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof OnBlockClearRelic) {
                 tmp = ((OnBlockClearRelic) r).onBlockClear(tmp);
             }
         }
         return tmp;
     }
+
 
     @Override
     public void receivePreStartGame() {
@@ -416,7 +418,7 @@ public class RiskOfSpire implements
                 getModID() + "Resources/localization/eng/Tutorial-Strings.json");
         logger.info("Done editing strings");
     }
-    
+
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
@@ -453,7 +455,7 @@ public class RiskOfSpire implements
             e.printStackTrace();
         }
     }
-          
+
     public static void setModID(String ID) { // DON'T EDIT
         Gson coolG = new Gson(); // EY DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i hate u Gdx.files
