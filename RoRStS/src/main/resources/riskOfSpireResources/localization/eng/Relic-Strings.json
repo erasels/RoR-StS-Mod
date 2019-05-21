@@ -418,5 +418,16 @@
       "Attacks against enemies at full HP deal #b",
       " [REMOVE_SPACE]% more damage."
     ]
+  },
+  "riskOfSpire:HeadStv2": {
+    "NAME": "H3AD-5T v2",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Each combat, until your #yBlock is broken for the first ",
+      "time",
+      "#b",
+      " times",
+      ", you do not lose #yBlock at the start of your turn."
+    ]
   }
 }

@@ -38,6 +38,7 @@ import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.patches.StartingScreen.BgChanges;
 import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.relics.Interfaces.OnBlockClearRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
 import riskOfSpire.ui.DifficultyButton;
@@ -71,7 +72,8 @@ public class RiskOfSpire implements
         PostInitializeSubscriber,
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
-        PreStartGameSubscriber {
+        PreStartGameSubscriber,
+        OnPlayerLoseBlockSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
@@ -341,6 +343,17 @@ public class RiskOfSpire implements
                 AbstractDungeon.combatRewardScreen.positionRewards();
             }
         }
+    }
+
+    @Override
+    public int receiveOnPlayerLoseBlock(int i) {
+        int tmp = i;
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if(r instanceof OnBlockClearRelic) {
+                tmp = ((OnBlockClearRelic) r).onBlockClear(tmp);
+            }
+        }
+        return tmp;
     }
 
     @Override
