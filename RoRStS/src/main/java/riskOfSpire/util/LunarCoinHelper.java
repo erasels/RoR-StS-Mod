@@ -2,11 +2,13 @@ package riskOfSpire.util;
 
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.relics.Interfaces.BonusRorRelicChanceRelic;
 import riskOfSpire.rewards.LunarCacheReward;
 import riskOfSpire.rewards.LunarCoinReward;
 
@@ -38,7 +40,13 @@ public class LunarCoinHelper {
             }
 
             if (AbstractDungeon.getCurrRoom() instanceof TreasureRoom) {
-                if (AbstractDungeon.miscRng.randomBoolean(RANDOM_LUNAR_CACHE_CHANCE * getDifficultyModifier())) {
+                float tmpChance = RANDOM_LUNAR_CACHE_CHANCE * getDifficultyModifier();
+                for(AbstractRelic r : AbstractDungeon.player.relics) {
+                    if(r instanceof BonusRorRelicChanceRelic) {
+                        ((BonusRorRelicChanceRelic) r).lunarCacheChanceModifier(tmpChance);
+                    }
+                }
+                if (AbstractDungeon.miscRng.randomBoolean(tmpChance)) {
                     cRS.rewards.add(new LunarCacheReward());
                 }
             }
