@@ -43,15 +43,17 @@ public class LunarCoinHelper {
                 float tmpChance = RANDOM_LUNAR_CACHE_CHANCE * getDifficultyModifier();
                 for(AbstractRelic r : AbstractDungeon.player.relics) {
                     if(r instanceof BonusRorRelicChanceRelic) {
-                        ((BonusRorRelicChanceRelic) r).lunarCacheChanceModifier(tmpChance);
+                        tmpChance = ((BonusRorRelicChanceRelic) r).lunarCacheChanceModifier(tmpChance);
                     }
                 }
-                if (AbstractDungeon.miscRng.randomBoolean(tmpChance)) {
+                if (AbstractDungeon.miscRng.randomBoolean(tmpChance>1.0f?1.0f:tmpChance)) {
                     cRS.rewards.add(new LunarCacheReward());
                 }
             }
         }
     }
+
+    //TODO: See if I need to do the save and load this for this (increment later like RoRRelicHelper)
 
     public static void manipLunarCoins(int amt, boolean playSound) {
         if (playSound) {

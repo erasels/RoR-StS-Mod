@@ -12,6 +12,7 @@ public interface BonusRorRelicChanceRelic {
         return currentChance;
     }
 
+    //After difficulty modifier is applied
     default float lunarCacheChanceModifier(float currentChance) {
         return currentChance;
     }
