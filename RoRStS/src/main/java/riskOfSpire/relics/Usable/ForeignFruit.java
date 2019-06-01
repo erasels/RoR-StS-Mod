@@ -11,7 +11,7 @@ public class ForeignFruit extends UsableRelic {
     private static final int COOLDOWN = 10;
 
     public ForeignFruit() {
-        super(ID, "ForeignFruit.png", RelicTier.UNCOMMON, LandingSound.SOLID);
+        super(ID, "ForeignFruit.png", RelicTier.COMMON, LandingSound.SOLID);
     }
 
     @Override

@@ -452,5 +452,13 @@
     "DESCRIPTIONS": [
       "Replace your #yBlock with #yTemporary_HP [REMOVE_SPACE]. NL "
     ]
+  },
+  "riskOfSpire:MilkyChrysalis": {
+    "NAME": "Milky Chrysalis",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " #yFlight [REMOVE_SPACE]. NL "
+    ]
   }
 }
