@@ -445,5 +445,12 @@
       "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
       " [REMOVE_SPACE]%."
     ]
+  },
+  "riskOfSpire:ForeignFruit": {
+    "NAME": "Foreign Fruit",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Replace your #yBlock with #yTemporary_HP [REMOVE_SPACE]. NL "
+    ]
   }
 }
