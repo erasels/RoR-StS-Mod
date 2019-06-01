@@ -437,5 +437,28 @@
       "At the start of each combat, replace your HP with #yTemporary_HP equal to #b",
       " [REMOVE_SPACE]% of your Max HP."
     ]
+  },
+  "riskOfSpire:FiftySevenLeafClover": {
+    "NAME": "57 Leaf Clover",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
+      " [REMOVE_SPACE]%."
+    ]
+  },
+  "riskOfSpire:ForeignFruit": {
+    "NAME": "Foreign Fruit",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Replace your #yBlock with #yTemporary_HP [REMOVE_SPACE]. NL "
+    ]
+  },
+  "riskOfSpire:MilkyChrysalis": {
+    "NAME": "Milky Chrysalis",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " #yFlight [REMOVE_SPACE]. NL "
+    ]
   }
 }

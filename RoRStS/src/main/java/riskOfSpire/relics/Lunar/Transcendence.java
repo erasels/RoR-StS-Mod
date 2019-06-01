@@ -20,7 +20,7 @@ public class Transcendence extends StackableRelic {
     private int chp;
 
     public Transcendence() {
-        super(ID, "HopooFeather.png", RelicTier.SPECIAL, LandingSound.MAGICAL);
+        super(ID, "Transcendence.png", RelicTier.SPECIAL, LandingSound.MAGICAL);
         isLunar = true;
     }
 

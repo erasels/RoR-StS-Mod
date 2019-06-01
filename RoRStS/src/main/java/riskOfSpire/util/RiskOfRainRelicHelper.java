@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.BaseRelic;
+import riskOfSpire.relics.Interfaces.BonusRorRelicChanceRelic;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
@@ -149,9 +150,6 @@ public class RiskOfRainRelicHelper {
             toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
         }
 
-        RiskOfRainRelicRng.counter -= 1;
-        incrementLater += 1;
-
         return toCopy.makeCopy();
     }
 
@@ -180,6 +178,20 @@ public class RiskOfRainRelicHelper {
                 __instance.rewards.set(indexOf, replaceReward);
             }
         }
+
+        float bonusRelicChance = 0.01f;
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if(r instanceof BonusRorRelicChanceRelic) {
+                bonusRelicChance = ((BonusRorRelicChanceRelic) r).flatBonusRelicChanceModifier(bonusRelicChance);
+                bonusRelicChance = ((BonusRorRelicChanceRelic) r).bonusRelicChanceModifier(bonusRelicChance, __instance);
+            }
+        }
+
+        if(RiskOfRainRelicRng.randomBoolean(bonusRelicChance>1.0f?1.0f:bonusRelicChance)) {
+            __instance.rewards.add(new RewardItem(getRandomRelic(false, true)));
+        }
+        RiskOfRainRelicRng.counter--;
+        incrementLater++; //Save and loading thing
     }
 
     private static boolean addToPool(AbstractRelic.RelicTier tier)

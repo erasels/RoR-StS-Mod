@@ -26,13 +26,6 @@ public class HopooFeather extends StackableRelic {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlayerFlightPower(AbstractDungeon.player, relicStack), relicStack));
     }
 
-    @Override
-    public void onVictory() {
-        if (AbstractDungeon.player.hasPower(PlayerFlightPower.POWER_ID)) {
-            AbstractDungeon.player.getPower(PlayerFlightPower.POWER_ID).onRemove();
-        }
-    }
-
     public AbstractRelic makeCopy() {
         return new HopooFeather();
     }
