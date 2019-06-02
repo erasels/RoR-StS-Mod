@@ -460,5 +460,13 @@
       "Gain #b",
       " #yFlight [REMOVE_SPACE]. NL "
     ]
+  },
+  "riskOfSpire:SoulboundCatalyst": {
+    "NAME": "Soulbound Catalyst",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you receive unblocked attack damage, reduce the cooldown of your usable relic by #b",
+      " [REMOVE_SPACE]."
+    ]
   }
 }

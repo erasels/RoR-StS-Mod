@@ -171,6 +171,16 @@ public abstract class UsableRelic extends BaseRelic {
         }
     }
 
+    public void reduceCooldown(int cd) {
+        if (this.counter > 0) {
+            counter-=cd;
+            if (this.counter <= 0) {
+                counter = 0;
+                this.beginLongPulse();
+            }
+        }
+    }
+
     public void onRightClick() {
 
     }
