@@ -54,7 +54,7 @@ public class ShapedGlass extends StackableRelic implements ModifyDamageRelic {
 
     @Override
     public void onUnequip() {
-        increase();
+        fullIncrease();
     }
 
     @Override
@@ -82,6 +82,16 @@ public class ShapedGlass extends StackableRelic implements ModifyDamageRelic {
             AbstractDungeon.player.increaseMaxHp(mhpDecreases.get(mhpDecreases.size() - 1), false);
         } else {
             AbstractDungeon.player.increaseMaxHp(AbstractDungeon.player.maxHealth, false);
+        }
+    }
+
+    private void fullIncrease() {
+        if(!mhpDecreases.isEmpty()) {
+                mhpDecreases.forEach(i -> AbstractDungeon.player.increaseMaxHp(i, false));
+        } else {
+            for(int i = 0; i<relicStack;i++) {
+                AbstractDungeon.player.increaseMaxHp(AbstractDungeon.player.maxHealth, false);
+            }
         }
     }
 

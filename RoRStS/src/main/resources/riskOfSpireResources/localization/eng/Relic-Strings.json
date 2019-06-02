@@ -468,5 +468,22 @@
       "Whenever you receive unblocked attack damage, reduce the cooldown of your usable relic by #b",
       " [REMOVE_SPACE]."
     ]
+  },
+  "riskOfSpire:Brainstalks": {
+    "NAME": "Brainstalks",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever a non-minion enemy dies, the next #b",
+      " cards you play have #yRefund #b1 [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:TitanicKnurl": {
+    "NAME": "Titanic Knurl",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Upon pickup, raise your Max HP by #b",
+      " [REMOVE_SPACE]. At the start of every turn, heal #b",
+      " HP."
+    ]
   }
 }
