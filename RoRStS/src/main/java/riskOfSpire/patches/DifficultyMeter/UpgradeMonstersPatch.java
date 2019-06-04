@@ -23,7 +23,9 @@ public class UpgradeMonstersPatch {
     public static class MonsterConstructorUpgrade {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(AbstractMonster __instance, String name, String id, int maxHealth, float hb_x, float hb_y, float hb_w, float hb_h, String imgUrl, float offsetX, float offsetY, boolean ignoreBlights) {
-            RiskOfSpire.DifficultyMeter.PreUpgradeMonsterHealth(__instance);
+            if(__instance != null && CardCrawlGame.isInARun()) {
+                RiskOfSpire.DifficultyMeter.PreUpgradeMonsterHealth(__instance);
+            }
         }
 
         private static class Locator extends SpireInsertLocator {
@@ -50,7 +52,9 @@ public class UpgradeMonstersPatch {
     public static class MonsterHpUpgrade {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(AbstractMonster __instance, int min, int max) {
-            RiskOfSpire.DifficultyMeter.UpgradeMonsterHealth(__instance);
+            if(__instance != null && CardCrawlGame.isInARun()) {
+                RiskOfSpire.DifficultyMeter.UpgradeMonsterHealth(__instance);
+            }
         }
 
         private static class Locator extends SpireInsertLocator {
