@@ -37,9 +37,10 @@ public class LunarCoinDisplay extends TopPanelItem {
     public void render(SpriteBatch sb) {
         super.render(sb);
         renderFlash(sb);
-        FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont_N, Integer.toString(RiskOfSpire.lunarCoinAmount), this.x + (this.hb_w / 2), this.y + 16f * Settings.scale, Color.WHITE.cpy());
+        FontHelper.cardTitleFont.getData().setScale(1.0f);
+        FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, Integer.toString(RiskOfSpire.lunarCoinAmount), this.x + (this.hb_w / 2), this.y + 16f * Settings.scale, Color.WHITE.cpy());
 
-        if(this.getHitbox().hovered) {
+        if (this.getHitbox().hovered) {
             TipHelper.renderGenericTip(this.x, tipYpos, UIStrings.TEXT[0], UIStrings.TEXT[1]);
         }
 
@@ -71,11 +72,11 @@ public class LunarCoinDisplay extends TopPanelItem {
         sb.setBlendFunction(770, 1);
         sb.setColor(new Color(1.0F, 1.0F, 1.0F, flashTimer * FLASH_ANIM_TIME));
 
-        float halfWidth = (float)this.image.getWidth() / 2.0F;
-        float halfHeight = (float)this.image.getHeight() / 2.0F;
-        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float)this.image.getWidth(), (float)this.image.getHeight(), Settings.scale+tmp, Settings.scale+tmp, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
-        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float)this.image.getWidth(), (float)this.image.getHeight(), Settings.scale+tmp* 0.66F, Settings.scale+tmp* 0.66F, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
-        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float)this.image.getWidth(), (float)this.image.getHeight(), Settings.scale+tmp/ 3.0F, Settings.scale+tmp/ 3.0F, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
+        float halfWidth = (float) this.image.getWidth() / 2.0F;
+        float halfHeight = (float) this.image.getHeight() / 2.0F;
+        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float) this.image.getWidth(), (float) this.image.getHeight(), Settings.scale + tmp, Settings.scale + tmp, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
+        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float) this.image.getWidth(), (float) this.image.getHeight(), Settings.scale + tmp * 0.66F, Settings.scale + tmp * 0.66F, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
+        sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float) this.image.getWidth(), (float) this.image.getHeight(), Settings.scale + tmp / 3.0F, Settings.scale + tmp / 3.0F, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
 
         sb.setBlendFunction(770, 771);
     }

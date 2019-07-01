@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
@@ -21,8 +22,7 @@ public class RenderMeterPatch {
 
     private static class Locator extends SpireInsertLocator {
         public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
-            Matcher finalMatcher = new Matcher.FieldAccessMatcher(
-                    AbstractDungeon.class, "dynamicButton");
+            Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractRoom.class, "render");
             return LineFinder.findInOrder(ctMethodToPatch, new ArrayList<Matcher>(), finalMatcher);
         }
     }
