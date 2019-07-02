@@ -1,5 +1,6 @@
 package riskOfSpire.relics.Usable;
 
+import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
@@ -33,6 +34,7 @@ public class ForeignFruit extends UsableRelic {
     public void onRightClickInCombat() {
         if (this.counter == 0 && AbstractDungeon.player.currentBlock>0) {
             this.flash();
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("EVENT_VAMP_BITE"));
             AbstractDungeon.actionManager.addToBottom(new ReplaceBlockWithTHPAction(AbstractDungeon.player, AbstractDungeon.player));
             this.activateCooldown();
             this.stopPulse();
