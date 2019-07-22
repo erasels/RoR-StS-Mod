@@ -197,20 +197,20 @@ public class RiskOfRainRelicHelper {
     private static boolean addToPool(AbstractRelic.RelicTier tier)
     {
         ArrayList<String> targetPool;
-        ArrayList<String> sourcePool;
+        ArrayList<String> sourcePool = new ArrayList<>();
 
         switch (tier)
         {
             case UNCOMMON:
-                sourcePool = RiskOfSpire.rorUncommonRelics;
+                sourcePool.addAll(RiskOfSpire.rorUncommonRelics);
                 targetPool = RiskOfSpire.rorUncommonRelicPool;
                 break;
             case RARE:
-                sourcePool = RiskOfSpire.rorRareRelics;
+                sourcePool.addAll(RiskOfSpire.rorRareRelics);
                 targetPool = RiskOfSpire.rorRareRelicPool;
                 break;
             default:
-                sourcePool = RiskOfSpire.rorCommonRelics;
+                sourcePool.addAll(RiskOfSpire.rorCommonRelics);
                 targetPool = RiskOfSpire.rorCommonRelicPool;
                 break;
         }
