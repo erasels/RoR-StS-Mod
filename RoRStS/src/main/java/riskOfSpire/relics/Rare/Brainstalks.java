@@ -13,7 +13,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class Brainstalks extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("Brainstalks");
-    private static final int AMT = 4;
+    private static final int AMT = 3;
 
     public Brainstalks() {
         super(ID, "Brainstalks.png", RelicTier.RARE, LandingSound.MAGICAL);
