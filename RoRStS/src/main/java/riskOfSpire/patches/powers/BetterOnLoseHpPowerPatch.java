@@ -52,7 +52,7 @@ public class BetterOnLoseHpPowerPatch {
     private static class PostPowerFinalLocator extends SpireInsertLocator {
         public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
             Matcher finalMatcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "relics");
-            return new int[]{LineFinder.findAllInOrder(ctMethodToPatch, finalMatcher)[2]};
+            return new int[]{LineFinder.findAllInOrder(ctMethodToPatch, finalMatcher)[4]};
 
         }
     }
