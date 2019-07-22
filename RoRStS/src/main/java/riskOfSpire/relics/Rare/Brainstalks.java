@@ -6,13 +6,14 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.MinionPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class Brainstalks extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("Brainstalks");
-    private static final int AMT = 4;
+    private static final int AMT = 3;
 
     public Brainstalks() {
         super(ID, "Brainstalks.png", RelicTier.RARE, LandingSound.MAGICAL);
@@ -46,7 +47,7 @@ public class Brainstalks extends StackableRelic {
 
     @Override
     public void onMonsterDeath(AbstractMonster m) {
-        if (m.currentHealth == 0) {
+        if (m.currentHealth == 0 && !m.hasPower(MinionPower.POWER_ID)) {
             flash();
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             setCounter(counter + getVal());
