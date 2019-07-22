@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class MilkyChrysalis extends UsableRelic {
     public static final String ID = RiskOfSpire.makeID("MilkyChrysalis");
-    private static final int FLIGHT_AMT = 3;
+    private static final int FLIGHT_AMT = 2;
     private static final int COOLDOWN = 15;
 
     public MilkyChrysalis() {
