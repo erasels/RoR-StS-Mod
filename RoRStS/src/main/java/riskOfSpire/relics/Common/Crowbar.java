@@ -18,7 +18,7 @@ public class Crowbar extends StackableRelic implements ModifyDamageRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + MathUtils.round(getVal()*100f) + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + MathUtils.round(getVal()) + DESCRIPTIONS[1];
     }
 
     @Override
