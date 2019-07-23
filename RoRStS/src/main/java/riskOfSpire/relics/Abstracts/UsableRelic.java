@@ -42,11 +42,11 @@ public abstract class UsableRelic extends BaseRelic {
             outlineImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relics/outline/" + imgName));
         }
 
-        if(coolDownBased) {
-            this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
+        this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
 
-            this.counter = 0; //cooldown.
-        }
+        //if (coolDownBased) { //This is no good, because the usable relic tip is important as it explains that they are right clicked to use.
+        this.counter = 0; //cooldown.
+        //}
         this.beginLongPulse();
     }
 
@@ -126,7 +126,7 @@ public abstract class UsableRelic extends BaseRelic {
                 cooldown = r.modifyCooldown(cooldown);
             }
         }
-        if (cooldown < 1)
+        if (cooldown < 1 && getBaseCooldown() > 0)
             return 1;
         return MathUtils.floor(cooldown);
     }
