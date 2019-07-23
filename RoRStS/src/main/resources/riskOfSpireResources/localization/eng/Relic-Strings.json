@@ -41,6 +41,13 @@
       "Put a card from your draw pile into your hand. NL "
     ]
   },
+  "riskOfSpire:EccentricVase": {
+    "NAME": "Eccentric Vase",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Teleport to a random room in this act. Cannot be used in combat. NL "
+    ]
+  },
   "riskOfSpire:Corpsebloom": {
     "NAME": "Corpsebloom",
     "FLAVOR": "TODO",
@@ -373,7 +380,7 @@
       "Lose #b",
       " #yGold and deal #b",
       " damage #b",
-      " times to the targeted enemy."
+      " times to the targeted enemy. NL "
     ]
   },
   "riskOfSpire:HappiestMask": {

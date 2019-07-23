@@ -21,16 +21,16 @@ public class TheCrowdfunder extends UsableRelic {
     private static final int GOLD_COST = 35;
     private boolean targeting;
 
-    private static final int COOLDOWN = 1;
+    private static final int COOLDOWN = 0;
 
     public TheCrowdfunder() {
-        super(ID, "TheCrowdfunder.png", RelicTier.COMMON, LandingSound.HEAVY, false);
-        counter = -1;
+        super(ID, "TheCrowdfunder.png", RelicTier.COMMON, LandingSound.HEAVY);
+        this.counter = -1;
     }
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + GOLD_COST + DESCRIPTIONS[1] + DAMAGE_PER + DESCRIPTIONS[2] + MISSILE_COUNT + DESCRIPTIONS[3];
+        return DESCRIPTIONS[0] + GOLD_COST + DESCRIPTIONS[1] + DAMAGE_PER + DESCRIPTIONS[2] + MISSILE_COUNT + DESCRIPTIONS[3] + getCooldownString();
     }
 
     @Override
@@ -72,8 +72,15 @@ public class TheCrowdfunder extends UsableRelic {
     @Override
     public void update() {
         super.update();
-        if (!pulse && AbstractDungeon.player.gold >= GOLD_COST) {
-            beginLongPulse();
+        if (AbstractDungeon.player != null) //no compendium crash.
+        {
+            if (!pulse && AbstractDungeon.player.gold >= GOLD_COST) {
+                beginLongPulse();
+            }
+            else if (pulse && AbstractDungeon.player.gold < GOLD_COST)
+            {
+                stopPulse();
+            }
         }
     }
 
