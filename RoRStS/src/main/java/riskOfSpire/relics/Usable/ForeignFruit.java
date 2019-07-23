@@ -32,7 +32,7 @@ public class ForeignFruit extends UsableRelic {
 
     @Override
     public void onRightClickInCombat() {
-        if (this.counter == 0 && AbstractDungeon.player.currentBlock>0) {
+        if (this.counter == 0 && AbstractDungeon.player.currentBlock > 0) {
             this.flash();
             AbstractDungeon.actionManager.addToBottom(new SFXAction("EVENT_VAMP_BITE"));
             AbstractDungeon.actionManager.addToBottom(new ReplaceBlockWithTHPAction(AbstractDungeon.player, AbstractDungeon.player));
