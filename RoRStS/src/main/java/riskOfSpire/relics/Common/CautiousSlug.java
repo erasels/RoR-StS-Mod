@@ -7,12 +7,14 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
+import riskOfSpire.util.RiskOfRainRelicHelper;
 
 public class CautiousSlug extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("CautiousSlug");
 
     public CautiousSlug() {
         super(ID, "CautiousSlug.png", RelicTier.COMMON, LandingSound.FLAT);
+        isTempHP = true;
     }
 
     @Override
@@ -54,6 +56,11 @@ public class CautiousSlug extends StackableRelic {
 
     public int getVal() {
         return relicStack*2;
+    }
+
+    @Override
+    public boolean canSpawn() {
+        return RiskOfRainRelicHelper.hasTempHPRelic();
     }
 
     public AbstractRelic makeCopy() {

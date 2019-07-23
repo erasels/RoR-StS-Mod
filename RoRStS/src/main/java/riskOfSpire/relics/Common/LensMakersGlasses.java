@@ -21,6 +21,7 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
     public LensMakersGlasses() {
         super(ID, "LensMakersGlasses.png", RelicTier.COMMON, LandingSound.CLINK);
         setCounter(CARD_AMT);
+        isCritical = true;
     }
 
     @Override
@@ -80,6 +81,15 @@ public class LensMakersGlasses extends StackableRelic implements OnAfterUseCardR
         } else {
             setCounter(1);
             beginLongPulse();
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
+        }
+    }
+
+    public void decreaseCharge(int amt) {
+        setCounter(counter - amt);
+        if(counter <= 1) {
+            counter = 1;
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new CriticalPower(AbstractDungeon.player, fullCrit)));
         }
     }

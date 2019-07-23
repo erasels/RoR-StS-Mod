@@ -1,4 +1,4 @@
-package riskOfSpire.relics.Uncommon;
+package riskOfSpire.relics.Rare;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
@@ -12,7 +12,7 @@ public class HopooFeather extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("HopooFeather");
 
     public HopooFeather() {
-        super(ID, "HopooFeather.png", RelicTier.UNCOMMON, LandingSound.MAGICAL);
+        super(ID, "HopooFeather.png", RelicTier.RARE, LandingSound.MAGICAL);
     }
 
     @Override
@@ -24,13 +24,6 @@ public class HopooFeather extends StackableRelic {
     public void atPreBattle() {
         AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlayerFlightPower(AbstractDungeon.player, relicStack), relicStack));
-    }
-
-    @Override
-    public void onVictory() {
-        if (AbstractDungeon.player.hasPower(PlayerFlightPower.POWER_ID)) {
-            AbstractDungeon.player.getPower(PlayerFlightPower.POWER_ID).onRemove();
-        }
     }
 
     public AbstractRelic makeCopy() {

@@ -11,17 +11,15 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.PowerTip;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RelicOffsetXPatch;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public abstract class StackableRelic extends AbstractRelic implements CustomSavable<Integer> {
+public abstract class StackableRelic extends BaseRelic implements CustomSavable<Integer> {
     private static final int START_CHARGE = 1;
     public int relicStack = START_CHARGE;
-    public boolean isLunar = false;
 
     public static final float STACK_FONT_SIZE = 20;
     public static BitmapFont STACK_FONT;
@@ -38,6 +36,14 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         }
 
         updateDescriptionOnStack(false); //Description is constructed in super before stack value is set to 1, so values will be incorrect if this is not done.
+    }
+
+    @Override
+    public void loadLargeImg()
+    {
+        if (this.largeImg == null) {
+            largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgUrl));
+        }
     }
 
     //For mods that use CustomRelics
@@ -152,9 +158,6 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
         }
     }
 
-    public void onRelicGet(AbstractRelic r) {
-    }
-
     @Override
     public int getPrice() {
         switch(this.tier) {
@@ -170,16 +173,6 @@ public abstract class StackableRelic extends AbstractRelic implements CustomSava
             case BOSS:
             default:
                 return 999;
-        }
-    }
-
-    public void notifyRelicGet() {
-        for(AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic)r).onRelicGet(this);
-            } else if(r instanceof UsableRelic) {
-                ((UsableRelic)r).onRelicGet(this);
-            }
         }
     }
 

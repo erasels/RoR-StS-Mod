@@ -46,5 +46,38 @@
       " the afflicted creature loses #b",
       " HP and Block."
     ]
+  },
+  "riskOfSpire:Overloading": {
+    "NAME": "Overloading",
+    "DESCRIPTIONS": [
+      "Currently only looks cool."
+    ]
+  },
+  "riskOfSpire:Glacial": {
+    "NAME": "Glacial",
+    "DESCRIPTIONS": [
+      "Currently only looks cool."
+    ]
+  },
+  "riskOfSpire:Blazing": {
+    "NAME": "Blazing",
+    "DESCRIPTIONS": [
+      "Currently only looks cool."
+    ]
+  },
+  "riskOfSpire:AblativeThorns": {
+    "NAME": "Ablative Thorns",
+    "DESCRIPTIONS": [
+      "When attacked, deal #b",
+      " damage back. Losing HP from an attack reduces this power by #b1."
+    ]
+  },
+  "riskOfSpire:Surrounded": {
+    "NAME": "Surrounded",
+    "DESCRIPTIONS": [
+      "Receives #b",
+      " [REMOVE_SPACE]% more and deals #b",
+      " [REMOVE_SPACE]% less damage."
+    ]
   }
 }

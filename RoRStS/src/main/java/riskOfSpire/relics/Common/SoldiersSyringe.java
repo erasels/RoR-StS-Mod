@@ -84,8 +84,20 @@ public class SoldiersSyringe extends StackableRelic implements OnAfterUseCardRel
         }
     }
 
+    public void decreaseCharge(int amt) {
+        setCounter(counter - amt);
+        if(counter <= 1) {
+            counter = 1;
+            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DoubleAttackPower(AbstractDungeon.player, fullSpeed)));
+        }
+    }
+
     private void manipCharge(int amt) {
         setCounter(counter + amt);
+        if(counter <= 0) {
+            counter = 0;
+        }
     }
 
     public AbstractRelic makeCopy() {

@@ -28,11 +28,10 @@ import riskOfSpire.util.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
 
-public abstract class UsableRelic extends AbstractRelic {
+public abstract class UsableRelic extends BaseRelic {
     private static RelicStrings usableRelicStrings = CardCrawlGame.languagePack.getRelicStrings(RiskOfSpire.makeID("UsableRelic"));
-    public boolean isLunar = false;
 
-    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
+    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx, boolean coolDownBased) {
         super(setId, "", tier, sfx);
 
         imgUrl = imgName;
@@ -43,10 +42,25 @@ public abstract class UsableRelic extends AbstractRelic {
             outlineImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relics/outline/" + imgName));
         }
 
-        this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
+        if(coolDownBased) {
+            this.tips.add(new PowerTip(usableRelicStrings.NAME, usableRelicStrings.DESCRIPTIONS[0]));
 
-        this.counter = 0; //cooldown.
+            this.counter = 0; //cooldown.
+        }
         this.beginLongPulse();
+    }
+
+    public UsableRelic(String setId, String imgName, RelicTier tier, LandingSound sfx) {
+        this(setId, imgName, tier, sfx, true);
+    }
+
+
+        @Override
+    public void loadLargeImg()
+    {
+        if (this.largeImg == null) {
+            largeImg = ImageMaster.loadImage(RiskOfSpire.assetPath("images/relicsBig/" + imgUrl));
+        }
     }
 
     public UsableRelic(String setId, Texture img, Texture outline, RelicTier tier, LandingSound sfx) {
@@ -152,6 +166,16 @@ public abstract class UsableRelic extends AbstractRelic {
         if (this.counter > 0) {
             counter--;
             if (this.counter == 0) {
+                this.beginLongPulse();
+            }
+        }
+    }
+
+    public void reduceCooldown(int cd) {
+        if (this.counter > 0) {
+            counter-=cd;
+            if (this.counter <= 0) {
+                counter = 0;
                 this.beginLongPulse();
             }
         }
@@ -287,18 +311,9 @@ public abstract class UsableRelic extends AbstractRelic {
         notifyRelicGet();
     }
 
+    @Override
     public void onRelicGet(AbstractRelic r) {
         updateDescriptionWhenNeeded();
-    }
-
-    public void notifyRelicGet() {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof StackableRelic) {
-                ((StackableRelic) r).onRelicGet(this);
-            } else if (r instanceof UsableRelic) {
-                ((UsableRelic) r).onRelicGet(this);
-            }
-        }
     }
 
     private static float START_X = 64.0F * Settings.scale;

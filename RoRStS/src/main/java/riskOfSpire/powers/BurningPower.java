@@ -64,8 +64,7 @@ public class BurningPower extends RoRStSPower implements CloneablePowerInterface
 
     @Override
     public void stackPower(int i) {
-        this.fontScale = 8.0F;
-        this.amount2 *= i;
+        super.stackPower(i);
         updateDescription();
     }
 

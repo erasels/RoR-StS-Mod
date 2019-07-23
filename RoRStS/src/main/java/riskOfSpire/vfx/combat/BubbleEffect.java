@@ -37,6 +37,11 @@ public class BubbleEffect extends AbstractGameEffect {
             CardCrawlGame.sound.play(soundKey, 0f);
         }
         this.duration -= Gdx.graphics.getDeltaTime();
+        if (this.duration > this.startingDuration / 2.0F) {
+            this.color.a = (Interpolation.fade.apply(1.0F, 0.01F, this.duration - this.startingDuration / 2.0F) * Settings.scale);
+        } else {
+            this.color.a = (Interpolation.fade.apply(0.01F, 1.0F, this.duration / (this.startingDuration / 2.0F)) * Settings.scale);
+        }
         this.scale = (Interpolation.elasticIn.apply(4.0F, 0.01F, this.duration / this.startingDuration) * Settings.scale);
         if (this.duration < 0.0F) {
             this.isDone = true;

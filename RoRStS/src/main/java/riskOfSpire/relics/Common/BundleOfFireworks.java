@@ -3,6 +3,7 @@ package riskOfSpire.relics.Common;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
@@ -27,8 +28,11 @@ public class BundleOfFireworks extends StackableRelic {
 
     @Override
     public void onRelicGet(AbstractRelic r){
-        this.flash();
-        this.counter += DAMAGE_COUNT * relicStack;
+        //if((!(r instanceof StackableRelic) && !AbstractDungeon.player.hasRelic(r.relicId)) || (r instanceof StackableRelic && ((StackableRelic) r).relicStack == 1)) {
+        if (!CardCrawlGame.loadingSave) {
+            this.flash();
+            this.counter += DAMAGE_COUNT * relicStack;
+        }
     }
 
     @Override

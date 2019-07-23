@@ -75,7 +75,7 @@
     "NAME": "War Banner",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you smith a card, gain #b",
+      "Whenever you smith a card at a Rest Site, gain #b",
       " #yStrength and #yDexterity at the start of the next combat."
     ]
   },
@@ -339,6 +339,151 @@
       " HP and #yBlock at the start of the next #b",
       " turns.",
       " turn."
+    ]
+  },
+  "riskOfSpire:RoseBuckler": {
+    "NAME": "Rose Buckler",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you play #b",
+      " or more cards during your turn, gain #b",
+      " #yBlock at the end of it."
+    ]
+  },
+  "riskOfSpire:RejuvenationRack": {
+    "NAME": "Rejuvenation Rack",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Healing is #b",
+      " [REMOVE_SPACE]% more effective. (Includes #yTemporary_HP [REMOVE_SPACE])"
+    ]
+  },
+  "riskOfSpire:WillOWisp": {
+    "NAME": "Will-o'-the-Wisp",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, deal damage equal to #b",
+      " [REMOVE_SPACE]% of its Max HP to ALL enemies."
+    ]
+  },
+  "riskOfSpire:TheCrowdfunder": {
+    "NAME": "The Crowdfunder",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Lose #b",
+      " #yGold and deal #b",
+      " damage #b",
+      " times to the targeted enemy."
+    ]
+  },
+  "riskOfSpire:HappiestMask": {
+    "NAME": "Happiest Mask",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, all enemies between it and you will receive #b",
+      " [REMOVE_SPACE]% more and deal #b",
+      " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:BrittleCrown": {
+    "NAME": "Brittle Crown",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies for the first time, gain #b",
+      " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
+      " [REMOVE_SPACE]% of your current #yGold [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:HarvesterScythe": {
+    "NAME": "Harvester Scythe",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "#yriskofspire:Critical attacks deal an additional #b",
+      " [REMOVE_SPACE]% damage and heal #b",
+      " HP."
+    ]
+  },
+  "riskOfSpire:PredatoryInstincts": {
+    "NAME": "Predatory Instincts",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you use the #ycritical power ( [REMOVE_SPACE]#gLens-Maker's #gGlasses [REMOVE_SPACE]), decrease the counter for the next #ydouble #yattack power ( [REMOVE_SPACE]#gSoldier's #gSyringe [REMOVE_SPACE]) by #b",
+      " turns and vice versa."
+    ]
+  },
+  "riskOfSpire:Crowbar": {
+    "NAME": "Crowbar",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Attacks against enemies at full HP deal #b",
+      " [REMOVE_SPACE]% more damage."
+    ]
+  },
+  "riskOfSpire:HeadStv2": {
+    "NAME": "H3AD-5T v2",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Each combat, until your #yBlock is broken for the first ",
+      "time",
+      "#b",
+      " times",
+      ", you do not lose #yBlock at the start of your turn."
+    ]
+  },
+  "riskOfSpire:Transcendence": {
+    "NAME": "Transcendence",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "At the start of each combat, replace your HP with #yTemporary_HP equal to #b",
+      " [REMOVE_SPACE]% of your Max HP."
+    ]
+  },
+  "riskOfSpire:FiftySevenLeafClover": {
+    "NAME": "57 Leaf Clover",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
+      " [REMOVE_SPACE]%."
+    ]
+  },
+  "riskOfSpire:ForeignFruit": {
+    "NAME": "Foreign Fruit",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Replace your #yBlock with #yTemporary_HP [REMOVE_SPACE]. NL "
+    ]
+  },
+  "riskOfSpire:MilkyChrysalis": {
+    "NAME": "Milky Chrysalis",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " #yFlight [REMOVE_SPACE]. NL "
+    ]
+  },
+  "riskOfSpire:SoulboundCatalyst": {
+    "NAME": "Soulbound Catalyst",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you receive unblocked attack damage, reduce the cooldown of your usable relic by #b",
+      " [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:Brainstalks": {
+    "NAME": "Brainstalks",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever a non-minion enemy dies, the next #b",
+      " cards you play have #yRefund #b1 [REMOVE_SPACE]."
+    ]
+  },
+  "riskOfSpire:TitanicKnurl": {
+    "NAME": "Titanic Knurl",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Upon pickup, raise your Max HP by #b",
+      " [REMOVE_SPACE]. At the start of every turn, heal #b",
+      " HP."
     ]
   }
 }

@@ -9,6 +9,8 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
+import riskOfSpire.relics.Abstracts.BaseRelic;
+import riskOfSpire.relics.Interfaces.BonusRorRelicChanceRelic;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
@@ -19,6 +21,8 @@ import java.util.List;
 public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
+
+    public static float FINAL_COST_MOD = 0.5f;
 
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
@@ -146,9 +150,6 @@ public class RiskOfRainRelicHelper {
             toCopy = validPool.get(RiskOfRainRelicRng.random(validPool.size() - 1));
         }
 
-        RiskOfRainRelicRng.counter -= 1;
-        incrementLater += 1;
-
         return toCopy.makeCopy();
     }
 
@@ -177,25 +178,39 @@ public class RiskOfRainRelicHelper {
                 __instance.rewards.set(indexOf, replaceReward);
             }
         }
+
+        float bonusRelicChance = 0.01f;
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if(r instanceof BonusRorRelicChanceRelic) {
+                bonusRelicChance = ((BonusRorRelicChanceRelic) r).flatBonusRelicChanceModifier(bonusRelicChance);
+                bonusRelicChance = ((BonusRorRelicChanceRelic) r).bonusRelicChanceModifier(bonusRelicChance, __instance);
+            }
+        }
+
+        if(RiskOfRainRelicRng.randomBoolean(bonusRelicChance>1.0f?1.0f:bonusRelicChance)) {
+            __instance.rewards.add(new RewardItem(getRandomRelic(false, true)));
+        }
+        RiskOfRainRelicRng.counter--;
+        incrementLater++; //Save and loading thing
     }
 
     private static boolean addToPool(AbstractRelic.RelicTier tier)
     {
         ArrayList<String> targetPool;
-        ArrayList<String> sourcePool;
+        ArrayList<String> sourcePool = new ArrayList<>();
 
         switch (tier)
         {
             case UNCOMMON:
-                sourcePool = RiskOfSpire.rorUncommonRelics;
+                sourcePool.addAll(RiskOfSpire.rorUncommonRelics);
                 targetPool = RiskOfSpire.rorUncommonRelicPool;
                 break;
             case RARE:
-                sourcePool = RiskOfSpire.rorRareRelics;
+                sourcePool.addAll(RiskOfSpire.rorRareRelics);
                 targetPool = RiskOfSpire.rorRareRelicPool;
                 break;
             default:
-                sourcePool = RiskOfSpire.rorCommonRelics;
+                sourcePool.addAll(RiskOfSpire.rorCommonRelics);
                 targetPool = RiskOfSpire.rorCommonRelicPool;
                 break;
         }
@@ -247,5 +262,32 @@ public class RiskOfRainRelicHelper {
             }
         }
         return mod;
+    }
+
+    public static boolean hasCritRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isCritical)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasLunarRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasTempHPRelic() {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if ((r instanceof BaseRelic && ((BaseRelic) r).isTempHP)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

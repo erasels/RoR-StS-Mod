@@ -1,6 +1,7 @@
 package riskOfSpire.powers;
 
 import basemod.interfaces.CloneablePowerInterface;
+import com.badlogic.gdx.Gdx;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -12,8 +13,9 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
+import riskOfSpire.powers.interfaces.PostOnLoseHpPower;
 
-public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInterface {
+public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInterface, PostOnLoseHpPower {
     public static final String POWER_ID = RiskOfSpire.makeID("PlayerFlight");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
@@ -21,6 +23,10 @@ public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInte
 
     private static final float DMG_MULTI = 0.5F;
     private static final float FLY_HEIGHT = 0.1F;
+    private static final float HOVER_THRESHOLD = 30f;
+    private float hover_test = HOVER_THRESHOLD;
+    private static final float COOLDOWN_AMT = 0.01F;
+    private float cooldown = COOLDOWN_AMT;
 
     private float initialPlayerHeight;
 
@@ -59,6 +65,11 @@ public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInte
     }
 
     @Override
+    public void onVictory() {
+        onRemove();
+    }
+
+    @Override
     public float atDamageFinalReceive(float damage, DamageInfo.DamageType type) {
         return calculateDamageTakenAmount(damage, type);
     }
@@ -71,8 +82,8 @@ public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInte
     }
 
     @Override
-    public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+    public int postOnLoseHp(DamageInfo info, int damageAmount) {
+        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS) {
             flash();
             decreasePower();
         }
@@ -90,6 +101,25 @@ public class PlayerFlightPower extends RoRStSPower implements CloneablePowerInte
 
     public void updateDescription() {
         this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1];
+    }
+
+    public static String getDesc() {
+        return DESCRIPTIONS[0] + "X" + DESCRIPTIONS[1];
+    }
+
+    @Override
+    public void update(int slot) {
+        super.update(slot);
+
+        cooldown -= Gdx.graphics.getDeltaTime();
+        if (cooldown < 0.0f) {
+            cooldown = COOLDOWN_AMT;
+            owner.drawY += hover_test*0.05f;
+            hover_test -= 1f;
+            if (hover_test < -HOVER_THRESHOLD) {
+                hover_test = HOVER_THRESHOLD;
+            }
+        }
     }
 
     @Override
