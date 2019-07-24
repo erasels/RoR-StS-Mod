@@ -43,14 +43,11 @@ public class SpinelTonic extends UsableRelic {
 
     @Override
     public void atPreBattle() {
-        System.out.println("P: " + pulse);
         beginLongPulse();
-        System.out.println("P: " + pulse);
     }
 
     @Override
     public void onRightClickInCombat() {
-        System.out.println("Clicked");
         if (pulse && AbstractDungeon.player.maxHealth > HP_COST) {
             stopPulse();
             flash();
@@ -66,7 +63,6 @@ public class SpinelTonic extends UsableRelic {
     @Override
     public void onVictory() {
         stopPulse();
-        System.out.println("SP");
     }
 
     @Override
