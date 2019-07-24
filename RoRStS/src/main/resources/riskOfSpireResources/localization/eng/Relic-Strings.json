@@ -377,8 +377,8 @@
     "NAME": "Shattering Justice",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Vulnerable now stacks additively on enemies for up to 250% increased damage. The first time an enemy takes damage from an attack each turn, apply ",
-      " Vulnerable."
+      "#yVulnerable now stacks additively on enemies for up to #b250 [REMOVE_SPACE]% increased damage. The first time an enemy takes damage from an attack each turn, apply #b",
+      " #yVulnerable."
     ]
   },
   "riskOfSpire:TheCrowdfunder": {
