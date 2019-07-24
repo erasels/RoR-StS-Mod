@@ -21,7 +21,7 @@ import static riskOfSpire.RiskOfSpire.logger;
 public class EccentricVase extends UsableRelic {
     public static final String ID = RiskOfSpire.makeID("EccentricVase");
 
-    private static final int COOLDOWN = 20;
+    private static final int COOLDOWN = 16;
 
     public EccentricVase() {
         super(ID, "EccentricVase.png", RelicTier.SHOP, LandingSound.CLINK);

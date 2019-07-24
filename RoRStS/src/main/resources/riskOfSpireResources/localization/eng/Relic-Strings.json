@@ -373,6 +373,14 @@
       " [REMOVE_SPACE]% of its Max HP to ALL enemies."
     ]
   },
+  "riskOfSpire:ShatteringJustice": {
+    "NAME": "Shattering Justice",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Vulnerable now stacks additively on enemies for up to 250% increased damage. The first time an enemy takes damage from an attack each turn, apply ",
+      " Vulnerable."
+    ]
+  },
   "riskOfSpire:TheCrowdfunder": {
     "NAME": "The Crowdfunder",
     "FLAVOR": "TODO",
