@@ -492,5 +492,14 @@
       " [REMOVE_SPACE]. At the start of every turn, heal #b",
       " HP."
     ]
+  },
+  "riskOfSpire:SpinelTonic": {
+    "NAME": "Spinel Tonic",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Once per combat, lose #r",
+      " Max HP and gain #b",
+      " #yStrength [REMOVE_SPACE], #yDexterity and #yFocus [REMOVE_SPACE]. NL "
+    ]
   }
 }

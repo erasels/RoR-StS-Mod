@@ -18,7 +18,7 @@ public class Crowbar extends StackableRelic implements ModifyDamageRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + MathUtils.round(getVal()*100f) + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + MathUtils.round(getValDesc()) + DESCRIPTIONS[1];
     }
 
     @Override
@@ -32,6 +32,10 @@ public class Crowbar extends StackableRelic implements ModifyDamageRelic {
 
     public float getVal() {
         return 1f+ (DINC*relicStack);
+    }
+
+    public float getValDesc() {
+        return (DINC*relicStack)*100f;
     }
 
     public AbstractRelic makeCopy() {
