@@ -2,13 +2,12 @@ package riskOfSpire.patches.relics;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.UsableRelic;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;

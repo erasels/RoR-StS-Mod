@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 public class ExpensiveLinkedReward extends LinkedRewardItem {
     private static final float GOLD_TEXT_X = 1135.0F * Settings.scale;

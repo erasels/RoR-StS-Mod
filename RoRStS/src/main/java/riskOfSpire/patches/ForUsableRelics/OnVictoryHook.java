@@ -1,11 +1,10 @@
-package riskOfSpire.patches.relics.usableHooks;
+package riskOfSpire.patches.ForUsableRelics;
 
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
-import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 
 import java.util.ArrayList;
 

@@ -46,7 +46,7 @@ import riskOfSpire.ui.DifficultyMeter;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
 import riskOfSpire.vfx.titlescreen.CustomSlowTitleCloud;
 import riskOfSpire.vfx.titlescreen.CustomTitleCloud;

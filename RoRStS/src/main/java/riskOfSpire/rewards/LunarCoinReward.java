@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
-import riskOfSpire.util.LunarCoinHelper;
+import riskOfSpire.util.helpers.LunarCoinHelper;
 import riskOfSpire.util.TextureLoader;
 
 

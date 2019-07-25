@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import riskOfSpire.util.RiskOfSpireSavedata;
 
 import java.util.ArrayList;

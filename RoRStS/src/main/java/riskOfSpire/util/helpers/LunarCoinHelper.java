@@ -1,4 +1,4 @@
-package riskOfSpire.util;
+package riskOfSpire.util.helpers;
 
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;

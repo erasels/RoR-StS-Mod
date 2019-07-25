@@ -1,4 +1,4 @@
-package riskOfSpire.util;
+package riskOfSpire.util.helpers;
 
 import basemod.ReflectionHacks;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;

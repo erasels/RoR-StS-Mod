@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 public class RustyKey extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("RustyKey");
