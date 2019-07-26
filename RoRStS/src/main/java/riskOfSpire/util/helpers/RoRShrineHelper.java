@@ -23,6 +23,11 @@ public class RoRShrineHelper {
         return createShrineList();
     }
 
+    public static AbstractShrineEvent getRandomShrine() {
+        WeightedList<AbstractShrineEvent> tmp = getShrines().returnSubList(AbstractShrineEvent::canSpawn);
+        return tmp.getRandom(AbstractDungeon.eventRng).makeCopy();
+    }
+
     private static WeightedList<AbstractShrineEvent> createShrineList() {
         rorShrines = new WeightedList<>();
 

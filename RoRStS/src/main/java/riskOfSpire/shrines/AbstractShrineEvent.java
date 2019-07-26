@@ -24,4 +24,8 @@ public abstract class AbstractShrineEvent extends AbstractImageEvent {
     }
 
     public abstract AbstractShrineEvent makeCopy();
+
+    public boolean canSpawn() {
+        return true;
+    }
 }

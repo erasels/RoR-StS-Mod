@@ -45,7 +45,7 @@ public class AlternateShrineSystemPatches {
 
         public void onPlayerEntry() {
             AbstractDungeon.overlayMenu.proceedButton.hide();
-            event = RoRShrineHelper.getShrines().getRandom(AbstractDungeon.eventRng).makeCopy();
+            event = RoRShrineHelper.getRandomShrine();
             ((AbstractShrineEvent) event).originalRoom = originalRoom;
             event.onEnterRoom();
         }
