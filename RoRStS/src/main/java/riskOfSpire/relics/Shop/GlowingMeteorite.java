@@ -20,7 +20,6 @@ public class GlowingMeteorite extends StackableRelic {
     private static final int TURN_AMT = 3;
     private static final int DMG_AMT = 15;
 
-    //TODO: What to do about Shop relics, these don't spawn like normal. New merchant? Or just readd them and make them scale really fast
     public GlowingMeteorite() {
         super(ID, "GlowingMeteorite.png", RelicTier.SHOP, LandingSound.HEAVY);
     }

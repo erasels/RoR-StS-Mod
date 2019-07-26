@@ -19,6 +19,11 @@ public abstract class AbstractShrineEvent extends AbstractImageEvent {
         AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
         AbstractDungeon.currMapNode.room = originalRoom;
         GenericEventDialog.hide();
-        AbstractDungeon.fadeOut();
+        //AbstractDungeon.fadeOut();
+        openMap();
+    }
+
+    public AbstractShrineEvent makeCopy() {
+        return null;
     }
 }

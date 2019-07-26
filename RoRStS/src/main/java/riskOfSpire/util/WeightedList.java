@@ -1,22 +1,30 @@
 package riskOfSpire.util;
 
 import com.megacrit.cardcrawl.random.Random;
+
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: Make sure this isn't bogus decompiled code
 public class WeightedList<T> {
-    private int totalWeight = 0;
-
-    private final List<Item> items = new ArrayList();
-
     public static final int WEIGHT_RARE = 1;
-
     public static final int WEIGHT_UNCOMMON = 3;
-
     public static final int WEIGHT_COMMON = 6;
 
-    public int size() { return this.items.size(); }
+    private final List<Item> items;
+    private int totalWeight;
+
+    public WeightedList() {
+        totalWeight = 0;
+        items = new ArrayList<>();
+    }
+
+    public int size() {
+        return items.size();
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
 
     public void add(T object, int weight) {
         totalWeight += weight;
@@ -24,29 +32,37 @@ public class WeightedList<T> {
     }
 
     public void addAll(ArrayList<T> objects, int weight) {
-        totalWeight += weight * objects.size();
+        totalWeight += (weight * objects.size());
         objects.forEach(o -> items.add(new Item(o, weight)));
     }
 
-    public T getRandom(Random rng) { return getRandom(rng, false); }
+    public T getRandom(Random rng) {
+        return getRandom(rng, false);
+    }
 
     public T getRandom(Random rng, boolean remove) {
         int r = rng.random(totalWeight);
         int currentWeight = 0;
+
         Item selected = null;
         for (Item item : items) {
-            if (currentWeight + item.weight >= r) {
+            if ((currentWeight + item.weight) >= r) {
                 selected = item;
+
                 break;
             }
             currentWeight += item.weight;
         }
+
         if (selected != null) {
-            if (remove)
+            if (remove) {
                 remove(selected);
+            }
+
             return selected.object;
+        } else {
+            return null;
         }
-        return null;
     }
 
     private void remove(Item item) {
@@ -54,13 +70,8 @@ public class WeightedList<T> {
         items.remove(item);
     }
 
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
-
     private class Item {
         final int weight;
-
         final T object;
 
         private Item(T object, int weight) {
@@ -69,4 +80,3 @@ public class WeightedList<T> {
         }
     }
 }
-

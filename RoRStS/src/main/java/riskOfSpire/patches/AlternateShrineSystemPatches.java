@@ -14,9 +14,7 @@ public class AlternateShrineSystemPatches {
     public static class PostCombatRewardScreenShrine {
         @SpireInsertPatch(locator = Locator.class)
         public static SpireReturn Insert(ProceedButton __instance) {
-            //TODO: ShrineHelper to manage chances
-            //if(AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance())) {
-            if(true) {
+            if(AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance())) {
                 AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.currMapNode.room);
                 AbstractDungeon.getCurrRoom().onPlayerEntry();
                 AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
@@ -47,7 +45,7 @@ public class AlternateShrineSystemPatches {
 
         public void onPlayerEntry() {
             AbstractDungeon.overlayMenu.proceedButton.hide();
-            event = RoRShrineHelper.getShrines().getRandom(AbstractDungeon.eventRng);
+            event = RoRShrineHelper.getShrines().getRandom(AbstractDungeon.eventRng).makeCopy();
             ((AbstractShrineEvent) event).originalRoom = originalRoom;
             event.onEnterRoom();
         }
