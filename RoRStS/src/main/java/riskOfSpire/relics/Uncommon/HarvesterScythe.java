@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Interfaces.ModifyCritDamageRelic;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 public class HarvesterScythe extends StackableRelic implements ModifyCritDamageRelic {
     public static final String ID = RiskOfSpire.makeID("HarvesterScythe");

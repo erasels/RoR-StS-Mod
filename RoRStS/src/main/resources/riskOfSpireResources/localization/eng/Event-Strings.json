@@ -1,21 +1,15 @@
 {
-  "riskOfSpire:IdentityCrisisEvent": {
-    "NAME": "Identity Crisis",
+  "riskOfSpire:BloodShrine": {
+    "NAME": "Blood Shrine",
     "DESCRIPTIONS": [
-      "As you move through ~The~ ~City~ you come across a #pPurple #pMirror. NL You look at it, but you see no reflection.",
-      "You see no one but #g~You~ #g~wish~ #g~to~ #g~become~ #g~someone.~",
-      "#r@YOU@ #r@EXIST@ #r@AND@ #r@ARE@ #r@VALID!@",
-      "#yYou #yare #yat #ypeace #ywith #yyour #ypresence.",
-      "You have no hands."
+      "A shrine modelled after flowing #r~blood~ stands before you, it promises #y~great~ #y~rewards~ if you let yours flow freely.",
+      "You offered your #rblood but it @thirsts@ for more."
     ],
     "OPTIONS": [
-      "[Inspiration] #gGain #ga #gRandom #gStarting #gRelic.",
-      "[Denial] #rLose #r",
-      " #rMax #rHP. #gRemove #ga #gCard #gfrom #gyour #gdeck.",
-      "[Acceptance] #gGain #gApotheosis.",
-      "[TOUCH THE MIRROR] TOUCH TOUCH TO#C# TOUCH TO UCH TOUCH #rTOUCH TOUCH",
-      "[Leave]",
-      "Select card to remove."
+      "[Leave] You don't have enough to share",
+      "[Accept] #rLose #r",
+      " #rHP and #ggain #y",
+      " #yGold"
     ]
   }
 }

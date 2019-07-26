@@ -1,4 +1,4 @@
-package riskOfSpire.patches.relics.usableHooks;
+package riskOfSpire.patches.ForUsableRelics;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

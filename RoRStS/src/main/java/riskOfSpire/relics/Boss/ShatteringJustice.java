@@ -20,7 +20,7 @@ public class ShatteringJustice extends StackableRelic {
     private ArrayList<AbstractCreature> triggeredList = new ArrayList<>();
 
     public ShatteringJustice() {
-        super(ID, "BrilliantBehemoth.png", RelicTier.BOSS, LandingSound.HEAVY);
+        super(ID, "ShatteringJustice.png", RelicTier.BOSS, LandingSound.HEAVY);
     }
 
     @Override

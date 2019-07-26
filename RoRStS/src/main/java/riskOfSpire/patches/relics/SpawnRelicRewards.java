@@ -3,8 +3,8 @@ package riskOfSpire.patches.relics;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import javassist.CtBehavior;
-import riskOfSpire.util.LunarCoinHelper;
-import riskOfSpire.util.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.LunarCoinHelper;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 @SpirePatch(
         clz = CombatRewardScreen.class,

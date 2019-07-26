@@ -5,7 +5,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.monsters.ending.CorruptHeart;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.util.LunarCoinHelper;
+import riskOfSpire.util.helpers.LunarCoinHelper;
 
 import static org.apache.commons.lang3.math.NumberUtils.max;
 
