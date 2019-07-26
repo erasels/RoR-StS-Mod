@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.ForUsableRelics.UsableRelicSlot;
 import riskOfSpire.relics.Abstracts.BaseRelic;
+import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Interfaces.BonusRorRelicChanceRelic;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
@@ -28,7 +29,11 @@ public class RiskOfRainRelicHelper {
         return getRandomRelic(rare, changeCounter, 1.0f);
     }
 
-    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier)
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, float rateModifier) {
+        return getRandomRelic(rare, changeCounter, false, rateModifier);
+    }
+
+    public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter, boolean onlyStackable, float rateModifier)
     {
         int rolls = 0;
         rateModifier *= getFinalRateModifier();
@@ -38,7 +43,7 @@ public class RiskOfRainRelicHelper {
         if (rare) {
             for (String s : RiskOfSpire.rorRareRelicPool) {
                 AbstractRelic r = RelicLibrary.getRelic(s);
-                if (r != null && r.canSpawn())
+                if (r != null && r.canSpawn() && (!onlyStackable || r instanceof StackableRelic))
                     validPool.add(r);
             }
 
@@ -86,7 +91,7 @@ public class RiskOfRainRelicHelper {
             {
                 AbstractRelic r = RelicLibrary.getRelic(s);
                 if (r != null) {
-                    if (r.canSpawn())
+                    if (r.canSpawn()  && (!onlyStackable || r instanceof StackableRelic))
                         validPool.add(r);
                 }
             }
@@ -292,4 +297,5 @@ public class RiskOfRainRelicHelper {
         }
         return false;
     }
+
 }
