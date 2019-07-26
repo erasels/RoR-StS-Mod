@@ -23,7 +23,5 @@ public abstract class AbstractShrineEvent extends AbstractImageEvent {
         openMap();
     }
 
-    public AbstractShrineEvent makeCopy() {
-        return null;
-    }
+    public abstract AbstractShrineEvent makeCopy();
 }
