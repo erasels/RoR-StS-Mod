@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class WeightedList<T> {
     public static final int WEIGHT_RARE = 1;
@@ -65,10 +66,27 @@ public class WeightedList<T> {
         }
     }
 
+    public WeightedList<T> returnSubList(Predicate<T> condition) {
+        WeightedList<T> tmp = new WeightedList<>();
+        for(Item i : items) {
+            if(condition.test(i.object)) {
+                tmp.add(i.object, i.weight);
+            }
+        }
+        return tmp;
+    }
+
+    public ArrayList<T> getObjects() {
+        ArrayList<T> tmp = new ArrayList<>();
+        items.forEach(i -> tmp.add(i.object));
+        return tmp;
+    }
+
     private void remove(Item item) {
         totalWeight -= item.weight;
         items.remove(item);
     }
+
 
     private class Item {
         final int weight;
