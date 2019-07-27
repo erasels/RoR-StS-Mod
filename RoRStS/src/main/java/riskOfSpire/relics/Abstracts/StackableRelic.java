@@ -123,12 +123,11 @@ public abstract class StackableRelic extends BaseRelic implements CustomSavable<
 
     public void onUnstack() {
         this.relicStack--;
-        if(relicStack <= 1) {
+        if(relicStack < 1) {
             AbstractDungeon.player.loseRelic(this.relicId);
         } else {
-            this.relicStack--;
+            updateDescriptionOnStack(true);
         }
-        updateDescriptionOnStack(true);
     }
 
     @Override
