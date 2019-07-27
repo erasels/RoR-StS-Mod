@@ -11,5 +11,17 @@
       " #rHP and #ggain #y",
       " #yGold"
     ]
+  },
+  "riskOfSpire:ThreeDPrinter": {
+    "NAME": "3D Printer",
+    "DESCRIPTIONS": [
+      "A strange machine ~hums~ before you, within it, you see an item of great power, asking only for an item of similar power in exchange.",
+      " and it spit out the item, for you to own, however another copy still resides within, will you offer another of your possessions?",
+      "You insert "
+    ],
+    "OPTIONS": [
+      "[Leave] You don't have enough to share",
+      "[Insert] #rLose a random stackable relic and #gobtain: "
+    ]
   }
 }
