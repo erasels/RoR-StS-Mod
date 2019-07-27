@@ -158,6 +158,30 @@ public class RiskOfRainRelicHelper {
         return toCopy.makeCopy();
     }
 
+    public static StackableRelic loseRelicStack(Random rng, AbstractRelic.RelicTier tier) {
+        ArrayList<StackableRelic> tmp = new ArrayList<>();
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if(r instanceof  StackableRelic && r.tier == tier) {
+                tmp.add((StackableRelic)r);
+            }
+        }
+        StackableRelic unstacked = tmp.get(rng.random(tmp.size()-1));
+        unstacked.onUnstack();
+        return unstacked;
+    }
+
+    public static StackableRelic loseRelicStack(Random rng, StackableRelic replacerRelic) {
+        ArrayList<StackableRelic> tmp = new ArrayList<>();
+        for(AbstractRelic r : AbstractDungeon.player.relics) {
+            if(r instanceof  StackableRelic && r.tier == replacerRelic.tier && !r.relicId.equals(replacerRelic.relicId)) {
+                tmp.add((StackableRelic)r);
+            }
+        }
+        StackableRelic unstacked = tmp.get(rng.random(tmp.size()-1));
+        unstacked.onUnstack();
+        return unstacked;
+    }
+
     public static void modifyCombatRewards(CombatRewardScreen __instance) {
         List<RewardItem> cardRewards = new ArrayList<>();
         for (RewardItem reward : __instance.rewards) {
@@ -235,6 +259,7 @@ public class RiskOfRainRelicHelper {
         }
         return false;
     }
+
     public static void removeFromPool(AbstractRelic r)
     {
         switch (r.tier)
