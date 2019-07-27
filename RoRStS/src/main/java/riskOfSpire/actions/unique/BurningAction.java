@@ -1,6 +1,5 @@
 package riskOfSpire.actions.unique;
 
-import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -33,8 +32,8 @@ public class BurningAction extends AbstractGameAction {
         tickDuration();
         if (this.isDone) {
             if (target.currentHealth > 0) {
-                target.tint.color = Color.ORANGE.cpy();
-                target.tint.changeColor(Color.FIREBRICK.cpy());
+                //target.tint.color = Color.ORANGE.cpy();
+                //target.tint.changeColor(Color.FIREBRICK.cpy());
                 target.damage(new DamageInfo(source, amount, DamageInfo.DamageType.HP_LOSS));
                 target.loseBlock(amount);
 
