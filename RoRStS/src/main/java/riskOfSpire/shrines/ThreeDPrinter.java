@@ -1,11 +1,11 @@
 package riskOfSpire.shrines;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
@@ -22,7 +22,7 @@ public class ThreeDPrinter extends AbstractShrineEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
 
     private static final int MIN_RELIC_AMT = 3;
-    private static final float RELIC_X = Settings.WIDTH * 0.25f;
+    private static final float RELIC_X = Settings.WIDTH * 0.275f;
     private static final float RELIC_Y = Settings.HEIGHT * 0.45f;
 
     private CurrentScreen curScreen = CurrentScreen.INTRO;
@@ -37,6 +37,7 @@ public class ThreeDPrinter extends AbstractShrineEvent {
         printerRelic = getPrinterRelic();
         printerRelic.currentX = RELIC_X;
         printerRelic.currentY = RELIC_Y;
+        printerRelic.relicStack = 0;
         imageEventText.setDialogOption(OPTIONS[1] + FontHelper.colorString(printerRelic.name, "g"));
         imageEventText.setDialogOption(OPTIONS[0]); //Leave
     }
@@ -48,7 +49,7 @@ public class ThreeDPrinter extends AbstractShrineEvent {
             case INTRO:
                 switch (buttonPressed) {
                     case 0:
-                        AbstractDungeon.getCurrRoom().spawnRelicAndObtain(RELIC_X, RELIC_Y, printerRelic.makeCopy());
+                        AbstractDungeon.getCurrRoom().spawnRelicAndObtain(RELIC_X, RELIC_Y, RelicLibrary.getRelic(printerRelic.relicId));
                         StackableRelic lost = RiskOfRainRelicHelper.loseRelicStack(RiskOfRainRelicHelper.RiskOfRainRelicRng, printerRelic);
                         imageEventText.updateBodyText(DESCRIPTIONS[2] + FontHelper.colorString(lost.name, "r") + DESCRIPTIONS[1]);
                         //Check if no relics available and disable option
@@ -134,14 +135,13 @@ public class ThreeDPrinter extends AbstractShrineEvent {
         return c > MIN_RELIC_AMT || u > MIN_RELIC_AMT || r > MIN_RELIC_AMT;
     }
 
+
     @Override
-    public void render(SpriteBatch sb) {
-        super.render(sb);
+    public void renderText(SpriteBatch sb) {
+        super.renderText(sb);
         if (printerRelic != null) {
-            //printerRelic.renderOutline(sb, false);
-            //printerRelic.render(sb);
-            sb.setColor(Color.WHITE);
-            sb.draw(printerRelic.img, RELIC_X - 64.0F, RELIC_Y - 64.0F, 64.0F, 64.0F, 128.0F, 128.0F, printerRelic.scale, printerRelic.scale, 0, 0, 0, 128, 128, false, false);
+            printerRelic.renderOutline(sb, false);
+            printerRelic.render(sb);
         }
     }
 }
