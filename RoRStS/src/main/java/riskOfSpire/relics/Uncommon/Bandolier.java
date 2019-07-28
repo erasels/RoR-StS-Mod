@@ -31,14 +31,18 @@ public class Bandolier extends StackableRelic {
     //Whenever you shuffle your discard pile, reduce the cost of a random card in your hand by 1 until played.
      @Override
      public void onShuffle() {
-         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-         AbstractDungeon.actionManager.addToTop(new ReduceRandomCostAction(this.relicStack, REDUCTION, true));
+         AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+         AbstractDungeon.actionManager.addToBottom(new ReduceRandomCostAction(getValue(), REDUCTION, true));
          this.flash();
      }
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + relicStack + (relicStack == 1 ? DESCRIPTIONS[1] : DESCRIPTIONS[2]);
+        return DESCRIPTIONS[0] + getValue() + DESCRIPTIONS[2];
+    }
+
+    public int getValue() {
+         return relicStack+1;
     }
 
     public AbstractRelic makeCopy() {
