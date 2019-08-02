@@ -490,7 +490,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Whenever a non-minion enemy dies, the next #b",
-      " cards you play have #yRefund #b1 [REMOVE_SPACE]."
+      " cards you spend Energy on have #yRefund #b1 [REMOVE_SPACE]."
     ]
   },
   "riskOfSpire:TitanicKnurl": {
