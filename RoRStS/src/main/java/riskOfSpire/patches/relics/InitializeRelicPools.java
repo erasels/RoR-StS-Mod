@@ -18,8 +18,7 @@ import java.util.Collections;
 )
 public class InitializeRelicPools {
     @SpirePostfixPatch
-    public static void init(AbstractDungeon __instance)
-    {
+    public static void init(AbstractDungeon __instance) {
         RiskOfSpire.rorCommonRelicPool.clear();
         RiskOfSpire.rorUncommonRelicPool.clear();
         RiskOfSpire.rorRareRelicPool.clear();
@@ -28,10 +27,8 @@ public class InitializeRelicPools {
 
         ArrayList<String> cpy = new ArrayList<>(RiskOfSpire.rorCommonRelics);
         Collections.shuffle(cpy, new java.util.Random(RiskOfRainRelicHelper.RiskOfRainRelicRng.randomLong()));
-        for (int i = 0; i < Math.min(RiskOfSpire.BASE_COMMONS, cpy.size()); ++i)
-        {
-            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic)
-            {
+        for (int i = 0; i < Math.min(RiskOfSpire.BASE_COMMONS, cpy.size()); ++i) {
+            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic) {
                 hasUsable = true;
             }
             RiskOfSpire.rorCommonRelicPool.add(cpy.get(i));
@@ -40,10 +37,8 @@ public class InitializeRelicPools {
         cpy.clear();
         cpy.addAll(RiskOfSpire.rorUncommonRelics);
         Collections.shuffle(cpy, new java.util.Random(RiskOfRainRelicHelper.RiskOfRainRelicRng.randomLong()));
-        for (int i = 0; i < Math.min(RiskOfSpire.BASE_UNCOMMONS, cpy.size()); ++i)
-        {
-            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic)
-            {
+        for (int i = 0; i < Math.min(RiskOfSpire.BASE_UNCOMMONS, cpy.size()); ++i) {
+            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic) {
                 hasUsable = true;
             }
             RiskOfSpire.rorUncommonRelicPool.add(cpy.get(i));
@@ -52,10 +47,8 @@ public class InitializeRelicPools {
         cpy.clear();
         cpy.addAll(RiskOfSpire.rorRareRelics);
         Collections.shuffle(cpy, new java.util.Random(RiskOfRainRelicHelper.RiskOfRainRelicRng.randomLong()));
-        for (int i = 0; i < Math.min(RiskOfSpire.BASE_RARES, cpy.size()); ++i)
-        {
-            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic)
-            {
+        for (int i = 0; i < Math.min(RiskOfSpire.BASE_RARES, cpy.size()); ++i) {
+            if (RelicLibrary.getRelic(cpy.get(i)) instanceof UsableRelic) {
                 hasUsable = true;
             }
             RiskOfSpire.rorRareRelicPool.add(cpy.get(i));
@@ -64,8 +57,7 @@ public class InitializeRelicPools {
         if (!hasUsable) //ensure there's always at least one usable relic in pool at start
         {
             AbstractRelic r = getRandomUsableRelic();
-            switch (r.tier)
-            {
+            switch (r.tier) {
                 case COMMON:
                     RiskOfSpire.rorCommonRelicPool.add(r.relicId);
                     break;
@@ -81,8 +73,7 @@ public class InitializeRelicPools {
 
     }
 
-    private static AbstractRelic getRandomUsableRelic()
-    {
+    private static AbstractRelic getRandomUsableRelic() {
         return RelicLibrary.getRelic(RiskOfSpire.rorUsableRelics.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(RiskOfSpire.rorUsableRelics.size() - 1))).makeCopy();
     }
 }
