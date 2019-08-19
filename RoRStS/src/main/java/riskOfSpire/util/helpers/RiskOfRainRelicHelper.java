@@ -18,6 +18,7 @@ import riskOfSpire.rewards.LinkedRewardItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
@@ -158,6 +159,18 @@ public class RiskOfRainRelicHelper {
         return toCopy.makeCopy();
     }
 
+    private static AbstractRelic getRandomUsableRelic() {
+        return RelicLibrary.getRelic(RiskOfSpire.rorUsableRelics.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(RiskOfSpire.rorUsableRelics.size() - 1))).makeCopy();
+    }
+
+    private static AbstractRelic getRandomUsableRelic(AbstractRelic.RelicTier tier) {
+        return RiskOfSpire.rorUsableRelics.stream()
+                .filter(t -> RelicLibrary.getRelic(t).tier == tier)
+                .map(RelicLibrary::getRelic)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(RiskOfSpire.rorUsableRelics.size() - 1)).makeCopy();
+    }
+
     public static StackableRelic loseRelicStack(Random rng, AbstractRelic.RelicTier tier) {
         ArrayList<StackableRelic> tmp = new ArrayList<>();
         for(AbstractRelic r : AbstractDungeon.player.relics) {
@@ -216,7 +229,7 @@ public class RiskOfRainRelicHelper {
             }
         }
 
-        if (RiskOfRainRelicRng.randomBoolean(bonusRelicChance > 1.0f ? 1.0f : bonusRelicChance)) {
+        if (RiskOfRainRelicRng.randomBoolean(Math.min(bonusRelicChance, 1.0f))) {
             __instance.rewards.add(new RewardItem(getRandomRelic(false, false)));
         }
     }

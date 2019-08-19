@@ -46,8 +46,8 @@ import riskOfSpire.ui.DifficultyMeter;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
-import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import riskOfSpire.vfx.titlescreen.CustomSlowTitleCloud;
 import riskOfSpire.vfx.titlescreen.CustomTitleCloud;
 
@@ -201,24 +201,25 @@ public class RiskOfSpire implements
             }
 
             AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
-            switch (r.tier) {
-                case COMMON:
-                    rorCommonRelics.add(r.relicId);
-                    break;
-                case UNCOMMON:
-                    rorUncommonRelics.add(r.relicId);
-                    break;
-                case RARE:
-                    rorRareRelics.add(r.relicId);
-                    break;
-                case SPECIAL:
-                    if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
-                        rorLunarRelics.add(r.relicId);
-                    }
-                    break;
-            }
             if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE)) {
                 rorUsableRelics.add(r.relicId);
+            } else {
+                switch (r.tier) {
+                    case COMMON:
+                        rorCommonRelics.add(r.relicId);
+                        break;
+                    case UNCOMMON:
+                        rorUncommonRelics.add(r.relicId);
+                        break;
+                    case RARE:
+                        rorRareRelics.add(r.relicId);
+                        break;
+                    case SPECIAL:
+                        if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+                            rorLunarRelics.add(r.relicId);
+                        }
+                        break;
+                }
             }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
 
