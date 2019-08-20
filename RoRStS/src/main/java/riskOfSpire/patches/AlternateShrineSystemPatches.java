@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import javassist.CtBehavior;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.util.helpers.RoRShrineHelper;
 
@@ -18,9 +19,10 @@ public class AlternateShrineSystemPatches {
         public static SpireReturn Insert(ProceedButton __instance) {
             //Can't spawn after Boss and Boss Treasure because of the insert location
             boolean wasElite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
-            RoRShrineHelper.shrineSpawnMiss++;
             if(!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite)))
             {
+                RoRShrineHelper.shrineSpawnMiss = 0;
+                RiskOfSpire.clearPowers = true;
                 AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.currMapNode.room);
                 AbstractDungeon.getCurrRoom().onPlayerEntry();
                 AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
@@ -29,6 +31,7 @@ public class AlternateShrineSystemPatches {
                 AbstractDungeon.closeCurrentScreen();
                 return SpireReturn.Return(null);
             }
+            RoRShrineHelper.shrineSpawnMiss++;
             return SpireReturn.Continue();
         }
     }

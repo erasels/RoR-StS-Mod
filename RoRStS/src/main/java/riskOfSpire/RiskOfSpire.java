@@ -102,6 +102,7 @@ public class RiskOfSpire implements
     public static int lunarCoinAmount = 0;
     public static LunarCoinDisplay lCD;
     public static boolean lCacheTrigger = false;
+    public static boolean clearPowers = false;
     private static String modID;
 
     public static final String DIFFICULTY_RELIC_COST_MOD_SETTING = "diffMoneyMod";
@@ -369,6 +370,10 @@ public class RiskOfSpire implements
                 AbstractDungeon.combatRewardScreen.rewards.add(new RewardItem(RiskOfRainRelicHelper.getRandomLunarRelic()));
                 AbstractDungeon.combatRewardScreen.positionRewards();
             }
+        }
+        if(clearPowers) {
+            clearPowers = false;
+            AbstractDungeon.player.powers.clear();
         }
     }
 
