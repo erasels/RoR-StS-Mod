@@ -180,7 +180,7 @@ public class RiskOfRainRelicHelper {
 
     private static AbstractRelic getRandomUsableRelic(AbstractRelic.RelicTier tier) {
         ArrayList<AbstractRelic> tmp = RiskOfSpire.rorUsableRelics.stream()
-                .filter(t -> RelicLibrary.getRelic(t).tier == tier)
+                .filter(t -> RelicLibrary.getRelic(t).tier == tier && RelicLibrary.getRelic(t).canSpawn())
                 .map(RelicLibrary::getRelic)
                 .collect(Collectors.toCollection(ArrayList::new));
         return tmp.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(tmp.size() - 1)).makeCopy();
@@ -248,7 +248,6 @@ public class RiskOfRainRelicHelper {
             __instance.rewards.add(new RewardItem(getRandomRelic(false, false)));
         }
 
-        //TODO: Fix this not showing up on save and load, obviously.
         if(dropUsable) {
             __instance.rewards.add(new RewardItem(getRandomUsableRelic()));
             //Is set to false in RoomTransitionDropUsableReset
