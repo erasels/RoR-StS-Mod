@@ -56,7 +56,8 @@ public class ThreeDPrinter extends AbstractShrineEvent {
                         imageEventText.updateBodyText(DESCRIPTIONS[2] + FontHelper.colorString(lost.name, "r") + DESCRIPTIONS[1]);
                         //Check if no relics available and disable option
                         if(!checkDisableCondition()) {
-                            imageEventText.setDialogOption(imageEventText.optionList.get(0).msg, true);
+                            //imageEventText.optionList.set(0, new LargeDialogOptionButton(imageEventText.optionList.size(), imageEventText.optionList.get(0).msg, true));
+                            imageEventText.optionList.get(0).isDisabled = true;
                         }
                         break;
                     case 1:
