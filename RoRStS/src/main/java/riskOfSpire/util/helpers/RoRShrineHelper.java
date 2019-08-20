@@ -10,12 +10,16 @@ public class RoRShrineHelper {
     private static WeightedList<AbstractShrineEvent> rorShrines;
     private static final float BASE_SHRINE_CHANCE = 0.1f;
     private static final float ELITE_BONUS_CHANCE = 0.1f;
-    private static final float MAX_BASESHRINE_CHANCE = 0.4f;
+    private static final float MAX_BASESHRINE_CHANCE = 0.75f;
+    private static final float MISS_CHANCE_INCREASE = 0.05f;
+
+    public static int shrineSpawnMiss = 0;
 
     public static float getCurrentShrineChance(boolean elite) {
         //can add shrine chance modifying relics hooks here
-        float calcChance = BASE_SHRINE_CHANCE * AbstractDungeon.actNum;
-        return Math.min(calcChance, MAX_BASESHRINE_CHANCE) + (elite?ELITE_BONUS_CHANCE:0);
+        float calcChance = BASE_SHRINE_CHANCE + ((float)AbstractDungeon.floorNum * 0.01f) + (elite?ELITE_BONUS_CHANCE:0);
+        calcChance += MISS_CHANCE_INCREASE*shrineSpawnMiss;
+        return Math.min(calcChance, MAX_BASESHRINE_CHANCE);
     }
 
     public static float getCurrentShrineChance() {

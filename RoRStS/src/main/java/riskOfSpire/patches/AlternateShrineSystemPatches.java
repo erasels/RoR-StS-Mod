@@ -18,6 +18,7 @@ public class AlternateShrineSystemPatches {
         public static SpireReturn Insert(ProceedButton __instance) {
             //Can't spawn after Boss and Boss Treasure because of the insert location
             boolean wasElite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
+            RoRShrineHelper.shrineSpawnMiss++;
             if(!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite)))
             {
                 AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.currMapNode.room);

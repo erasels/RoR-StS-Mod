@@ -48,6 +48,7 @@ import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
 import riskOfSpire.util.TextureLoader;
 import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RoRShrineHelper;
 import riskOfSpire.vfx.titlescreen.CustomSlowTitleCloud;
 import riskOfSpire.vfx.titlescreen.CustomTitleCloud;
 
@@ -343,7 +344,17 @@ public class RiskOfSpire implements
             }
         });
 
+        BaseMod.addSaveField("RoRShrineSpawnMisses", new CustomSavable<Integer>() {
+            @Override
+            public Integer onSave() {
+                return RoRShrineHelper.shrineSpawnMiss;
+            }
 
+            @Override
+            public void onLoad(Integer i) {
+                RoRShrineHelper.shrineSpawnMiss = i;
+            }
+        });
 
         logger.info("Done loading badge Image and mod options");
     }
@@ -376,6 +387,21 @@ public class RiskOfSpire implements
     @Override
     public void receivePreStartGame() {
         DifficultyMeter.setDifficulty(0);
+        RiskOfRainRelicHelper.dropUsable = false;
+        RoRShrineHelper.shrineSpawnMiss = 0;
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
+        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
+        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        if (DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
     }
 
     public static String makeCardPath(String resourcePath) {
@@ -437,21 +463,6 @@ public class RiskOfSpire implements
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
-
-    @Override
-    public void receivePostDungeonInitialize() {
-        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
-        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
-        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        if (DifficultyMeter.getDifficultyMod() == 0f) {
-            DifficultyMeter.hideHitbox();
-        } else {
-            DifficultyMeter.unhideHitbox();
-        }
-
-        RiskOfRainRelicHelper.dropUsable = false;
-    }
 
     public static String assetPath(String path) {
         return getModID() + "Resources/" + path;
