@@ -250,8 +250,8 @@ public class RiskOfRainRelicHelper {
 
         //TODO: Fix this not showing up on save and load, obviously.
         if(dropUsable) {
-            dropUsable = false;
             __instance.rewards.add(new RewardItem(getRandomUsableRelic()));
+            //Is set to false in RoomTransitionDropUsableReset
         }
     }
 

@@ -288,7 +288,7 @@ public class RiskOfSpire implements
             @Override
             public JsonElement onSaveRaw() {
                 Gson coolG = new Gson();
-                logger.info("Saved Shit");
+                logger.info("Risk of Spire successfully saved run values.");
                 return coolG.toJsonTree(DifficultyMeter.getDifficulty());
             }
 
@@ -297,7 +297,7 @@ public class RiskOfSpire implements
                 if (jsonElement != null) {
                     Gson coolG = new Gson();
                     DifficultyMeter.setDifficulty(coolG.fromJson(jsonElement, Integer.class));
-                    logger.info("Loaded Shit");
+                    logger.info("Risk of Spire successfully loaded run values.");
                 }
             }
         });
@@ -328,15 +328,29 @@ public class RiskOfSpire implements
             BgChanges.SlowVfxClouds.add(new CustomSlowTitleCloud((Settings.WIDTH / 9) * i - 400 * Settings.scale));
         }
         GlacialShader = new ShaderProgram(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString(), Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
-        logger.info(GlacialShader.getLog());
+        /*logger.info(GlacialShader.getLog());
         RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString());
-        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
+        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());*/
+        BaseMod.addSaveField("RoRUsableDrop", new CustomSavable<Boolean>() {
+            @Override
+            public Boolean onSave() {
+                return RiskOfRainRelicHelper.dropUsable;
+            }
+
+            @Override
+            public void onLoad(Boolean b) {
+                RiskOfRainRelicHelper.dropUsable = b;
+            }
+        });
+
+
+
         logger.info("Done loading badge Image and mod options");
     }
 
     @Override
     public void receivePostUpdate() {
-        if (AbstractDungeon.player == null) return;
+        if (!CardCrawlGame.isInARun()) return;
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
             if (lCacheTrigger) {
                 lCacheTrigger = false;

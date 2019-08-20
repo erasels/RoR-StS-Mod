@@ -8,17 +8,14 @@ import riskOfSpire.util.WeightedList;
 
 public class RoRShrineHelper {
     private static WeightedList<AbstractShrineEvent> rorShrines;
-    private static final float BASE_SHRINE_CHANCE = 0.075f;
+    private static final float BASE_SHRINE_CHANCE = 0.1f;
     private static final float ELITE_BONUS_CHANCE = 0.1f;
-    private static final float MAX_SHRINE_CHANCE = 0.33f;
+    private static final float MAX_BASESHRINE_CHANCE = 0.4f;
 
     public static float getCurrentShrineChance(boolean elite) {
         //can add shrine chance modifying relics hooks here
         float calcChance = BASE_SHRINE_CHANCE * AbstractDungeon.actNum;
-        if(elite) {
-            calcChance += ELITE_BONUS_CHANCE;
-        }
-        return Math.min(calcChance, MAX_SHRINE_CHANCE);
+        return Math.min(calcChance, MAX_BASESHRINE_CHANCE) + (elite?ELITE_BONUS_CHANCE:0);
     }
 
     public static float getCurrentShrineChance() {
