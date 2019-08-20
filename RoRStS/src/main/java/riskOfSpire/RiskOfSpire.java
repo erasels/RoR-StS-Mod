@@ -435,6 +435,8 @@ public class RiskOfSpire implements
         } else {
             DifficultyMeter.unhideHitbox();
         }
+
+        RiskOfRainRelicHelper.dropUsable = false;
     }
 
     public static String assetPath(String path) {

@@ -25,6 +25,7 @@ public class RiskOfRainRelicHelper {
     private static int incrementLater = 0;
 
     public static float FINAL_COST_MOD = 0.5f;
+    public static boolean dropUsable;
 
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
@@ -160,7 +161,21 @@ public class RiskOfRainRelicHelper {
     }
 
     private static AbstractRelic getRandomUsableRelic() {
-        return RelicLibrary.getRelic(RiskOfSpire.rorUsableRelics.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(RiskOfSpire.rorUsableRelics.size() - 1))).makeCopy();
+        float rateModifier = getFinalRateModifier();
+        AbstractRelic.RelicTier tier;
+        int pool = RiskOfRainRelicRng.random(100);
+
+        if (pool >= 90 * rateModifier) {
+            tier = AbstractRelic.RelicTier.RARE;
+        }
+        else if (pool > 60 * rateModifier) {
+            tier = AbstractRelic.RelicTier.UNCOMMON;
+        }
+        else {
+            tier = AbstractRelic.RelicTier.COMMON;
+        }
+
+        return getRandomUsableRelic(tier);
     }
 
     private static AbstractRelic getRandomUsableRelic(AbstractRelic.RelicTier tier) {
@@ -231,6 +246,12 @@ public class RiskOfRainRelicHelper {
 
         if (RiskOfRainRelicRng.randomBoolean(Math.min(bonusRelicChance, 1.0f))) {
             __instance.rewards.add(new RewardItem(getRandomRelic(false, false)));
+        }
+
+        //TODO: Fix this not showing up on save and load, obviously.
+        if(dropUsable) {
+            dropUsable = false;
+            __instance.rewards.add(new RewardItem(getRandomUsableRelic()));
         }
     }
 
