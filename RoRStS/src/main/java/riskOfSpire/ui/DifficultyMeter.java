@@ -122,7 +122,7 @@ public class DifficultyMeter {
     }
 
     public void UpgradeMonsterHealth(AbstractMonster m) {
-        if(getDifficultyMod() > 0f) {
+        if (getDifficultyMod() > 0f) {
             float modifier = 1f; //To nerf the health gain on high health enemies as to not make it too crazy
             if (m.type == AbstractMonster.EnemyType.BOSS) {
                 modifier = 0.4f;
@@ -135,9 +135,9 @@ public class DifficultyMeter {
     }
 
     public void SetElite(AbstractMonster m) {
-        int r = AbstractDungeon.miscRng.random(1, 100);
-        if (r <= 40 - 40 / (getDifficulty() / 100 + 1)) {
-            r = AbstractDungeon.miscRng.random(0, 2);
+        int r = AbstractDungeon.monsterRng.random(1, 100);
+        if ((getDifficultyMod() == 0f && r <= 5) || r <= 40 - (40 / Math.max((getDifficulty() / 100 + 1), 1))) {
+            r = r % 3;
             switch (r) {
                 case 0:
                     AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new OverloadingPower(m)));
@@ -145,7 +145,6 @@ public class DifficultyMeter {
                 case 1:
                     AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new GlacialPower(m)));
                     break;
-
                 default:
                     AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, null, new BlazingPower(m)));
                     break;
