@@ -17,7 +17,7 @@ public class RoRShrineHelper {
 
     public static float getCurrentShrineChance(boolean elite) {
         //can add shrine chance modifying relics hooks here
-        float calcChance = BASE_SHRINE_CHANCE + ((float)AbstractDungeon.floorNum * 0.01f) + (elite?ELITE_BONUS_CHANCE:0);
+        float calcChance = BASE_SHRINE_CHANCE + ((float)AbstractDungeon.floorNum * 0.002f) + (elite?ELITE_BONUS_CHANCE:0);
         calcChance += MISS_CHANCE_INCREASE*shrineSpawnMiss;
         return Math.min(calcChance, MAX_BASESHRINE_CHANCE);
     }
