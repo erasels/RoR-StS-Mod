@@ -165,10 +165,10 @@ public class RiskOfRainRelicHelper {
         AbstractRelic.RelicTier tier;
         int pool = RiskOfRainRelicRng.random(100);
 
-        if (pool >= 90 * rateModifier) {
+        if (pool >= 85 * rateModifier) {
             tier = AbstractRelic.RelicTier.RARE;
         }
-        else if (pool > 60 * rateModifier) {
+        else if (pool > 50 * rateModifier) {
             tier = AbstractRelic.RelicTier.UNCOMMON;
         }
         else {
