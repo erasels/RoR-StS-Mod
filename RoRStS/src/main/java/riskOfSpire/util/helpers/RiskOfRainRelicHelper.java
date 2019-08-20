@@ -179,11 +179,11 @@ public class RiskOfRainRelicHelper {
     }
 
     private static AbstractRelic getRandomUsableRelic(AbstractRelic.RelicTier tier) {
-        return RiskOfSpire.rorUsableRelics.stream()
+        ArrayList<AbstractRelic> tmp = RiskOfSpire.rorUsableRelics.stream()
                 .filter(t -> RelicLibrary.getRelic(t).tier == tier)
                 .map(RelicLibrary::getRelic)
-                .collect(Collectors.toCollection(ArrayList::new))
-                .get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(RiskOfSpire.rorUsableRelics.size() - 1)).makeCopy();
+                .collect(Collectors.toCollection(ArrayList::new));
+        return tmp.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(tmp.size() - 1)).makeCopy();
     }
 
     public static StackableRelic loseRelicStack(Random rng, AbstractRelic.RelicTier tier) {
