@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.PlayerFlightPower;
+import riskOfSpire.powers.relicPowers.PlayerFlightPower;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 import java.util.ArrayList;

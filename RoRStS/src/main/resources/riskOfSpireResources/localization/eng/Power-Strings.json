@@ -85,7 +85,17 @@
     "NAME": "Regain Dexterity",
     "DESCRIPTIONS": [
       "At the end of its turn, gains #b",
-      " #Dexterity."
+      " #yDexterity."
+    ]
+  },
+  "riskOfSpire:DynamicDrawReduction": {
+    "NAME": "Draw Reduction",
+    "DESCRIPTIONS": [
+      "Draw #b",
+      " less card for the next #b",
+      " less cards for the next #b",
+      " turn.",
+      " turns."
     ]
   }
 }

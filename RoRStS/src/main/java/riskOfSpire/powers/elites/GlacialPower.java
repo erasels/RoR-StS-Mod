@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.DrawReductionPower;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.powers.DynamicDrawReductionPower;
 import riskOfSpire.powers.GainDexPower;
 
 public class GlacialPower extends AbstractElitePower implements CloneablePowerInterface {
@@ -38,7 +38,7 @@ public class GlacialPower extends AbstractElitePower implements CloneablePowerIn
         if (target != this.owner && info.type == DamageInfo.DamageType.NORMAL) {
             flash();
             if(damageAmount > 0) {
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new DrawReductionPower(AbstractDungeon.player, DRAW_DOWN), DRAW_DOWN));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new DynamicDrawReductionPower(AbstractDungeon.player, 1, DRAW_DOWN), 1));
             } else {
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new DexterityPower(AbstractDungeon.player, -1), -1));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new GainDexPower(AbstractDungeon.player, 1), 1));
