@@ -12,9 +12,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.BlazingPower;
-import riskOfSpire.powers.GlacialPower;
-import riskOfSpire.powers.OverloadingPower;
+import riskOfSpire.powers.elites.BlazingPower;
+import riskOfSpire.powers.elites.GlacialPower;
+import riskOfSpire.powers.elites.OverloadingPower;
 
 import java.util.ArrayList;
 
