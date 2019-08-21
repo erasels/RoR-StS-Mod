@@ -64,7 +64,7 @@
   "riskOfSpire:Blazing": {
     "NAME": "Blazing",
     "DESCRIPTIONS": [
-      "The first time every turn you deal unblocked attack damage to this enemy, add #b",
+      "Once per turn when you deal unblocked attack damage to this enemy, add #b",
       " #yBurn to your discard pile. Whenever this enemy deals unblocked attack damage, #yExhaust all your #yBurns and take #b",
       " damage for each."
     ]
