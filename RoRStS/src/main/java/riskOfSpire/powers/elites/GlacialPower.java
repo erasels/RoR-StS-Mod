@@ -34,8 +34,9 @@ public class GlacialPower extends AbstractElitePower implements CloneablePowerIn
     }
 
     @Override
-    public void onInflictDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (info.type == DamageInfo.DamageType.NORMAL) {
+    public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
+        if (target != this.owner && info.type == DamageInfo.DamageType.NORMAL) {
+            flash();
             if(damageAmount > 0) {
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new DrawReductionPower(AbstractDungeon.player, DRAW_DOWN), DRAW_DOWN));
             } else {

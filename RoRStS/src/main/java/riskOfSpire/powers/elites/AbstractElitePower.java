@@ -20,6 +20,6 @@ public abstract class AbstractElitePower extends RoRStSPower {
     @Override
     public void onInitialApplication() {
         owner.name = mName + " " + owner.name;
-        AbstractDungeon.actionManager.addToBottom(new VFXAction(AbstractDungeon.player, new RoomTintEffect(tC, 0.3f, 999f, true), 0.0F));
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(AbstractDungeon.player, new RoomTintEffect(tC, 0.2f, 999f, true), 0.0F));
     }
 }

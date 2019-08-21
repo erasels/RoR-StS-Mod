@@ -2,10 +2,13 @@ package riskOfSpire.powers.elites;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Color;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
 import riskOfSpire.RiskOfSpire;
 
 public class BlazingPower extends AbstractElitePower implements CloneablePowerInterface {
@@ -27,6 +30,11 @@ public class BlazingPower extends AbstractElitePower implements CloneablePowerIn
 
     public void updateDescription() {
         this.description = DESCRIPTIONS[0];
+    }
+
+    public void onInitialApplication() {
+        super.onInitialApplication();
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(owner, new ScreenOnFireEffect(), 1.0F));
     }
 
     @Override

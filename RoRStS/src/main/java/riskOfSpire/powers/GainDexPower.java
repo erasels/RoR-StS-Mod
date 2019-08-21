@@ -16,6 +16,8 @@ public class GainDexPower extends AbstractPower {
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
+    private boolean justApplied = true;
+
     public GainDexPower(AbstractCreature owner, int newAmount) {
         this.name = NAME;
         this.ID = POWER_ID;
@@ -57,6 +59,10 @@ public class GainDexPower extends AbstractPower {
     public void updateDescription() { description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1]; }
 
     public void atEndOfTurn(boolean isPlayer) {
+        if(justApplied) {
+            justApplied = false;
+            return;
+        }
         flash();
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(owner, owner, new DexterityPower(owner, amount), amount));
         AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(owner, owner, this));
