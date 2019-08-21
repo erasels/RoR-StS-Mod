@@ -83,7 +83,7 @@ public class UpgradeMonstersPatch {
         @SpirePrefixPatch
         public static void patch(AbstractMonster __instance, SpriteBatch sb) {
             if (__instance.hasPower(OverloadingPower.POWER_ID)) {
-                __instance.tint.changeColor(new Color(0.3F, 0.3F, 1.0F, 1.0F));
+                __instance.tint.changeColor(new Color(1.0F, 1.0F, 0.3F, 1.0F));
             } else if (__instance.hasPower(GlacialPower.POWER_ID)) {
                 CardCrawlGame.psb.setShader(RiskOfSpire.GlacialShader);
                 //ShaderHelper.setShader(CardCrawlGame.psb, ShaderHelper.Shader.GRAYSCALE);

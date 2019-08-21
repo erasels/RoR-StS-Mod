@@ -45,7 +45,7 @@ public class BlazingPower extends AbstractElitePower implements CloneablePowerIn
 
     public void onInitialApplication() {
         super.onInitialApplication();
-        AbstractDungeon.actionManager.addToBottom(new VFXAction(owner, new ScreenOnFireEffect(), 0.75F));
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(owner, new ScreenOnFireEffect(), 0.25F));
     }
 
     @Override

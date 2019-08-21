@@ -18,7 +18,7 @@ public class OverloadingAction extends AbstractGameAction {
     }
 
     public void update() {
-        int maxTempHp = MathUtils.floor(target.maxHealth* OverloadingPower.OVERLOAD_PERCENTAGE);
+        int maxTempHp = Math.max(MathUtils.floor(target.maxHealth* OverloadingPower.OVERLOAD_PERCENTAGE), 1);
         if (!target.isDeadOrEscaped() && duration == DUR && TempHPField.tempHp.get(target) < maxTempHp) {
             int tmp = maxTempHp - TempHPField.tempHp.get(target);
             AbstractDungeon.actionManager.addToTop(new AddTemporaryHPAction(target, source, tmp));

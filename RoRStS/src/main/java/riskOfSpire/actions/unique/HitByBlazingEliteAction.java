@@ -47,7 +47,7 @@ public class HitByBlazingEliteAction extends AbstractGameAction {
         } else if (as.equals(AbstractDungeon.player.drawPile.group)) {
             return AbstractDungeon.player.drawPile;
         } else if (as.equals(AbstractDungeon.player.discardPile.group)) {
-            return AbstractDungeon.player.exhaustPile;
+            return AbstractDungeon.player.discardPile;
         } else {
             return new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
         }

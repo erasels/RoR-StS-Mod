@@ -183,6 +183,9 @@ public class RiskOfRainRelicHelper {
                 .filter(t -> RelicLibrary.getRelic(t).tier == tier && RelicLibrary.getRelic(t).canSpawn())
                 .map(RelicLibrary::getRelic)
                 .collect(Collectors.toCollection(ArrayList::new));
+        if(tmp.isEmpty()) {
+            return getRandomUsableRelic();
+        }
         return tmp.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(tmp.size() - 1)).makeCopy();
     }
 

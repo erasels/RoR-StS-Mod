@@ -20,7 +20,7 @@ public class OverloadingPower extends AbstractElitePower implements CloneablePow
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public static final float OVERLOAD_PERCENTAGE = 0.1f;
+    public static final float OVERLOAD_PERCENTAGE = 0.2f;
 
     public OverloadingPower(AbstractCreature owner) {
         this.name = NAME;

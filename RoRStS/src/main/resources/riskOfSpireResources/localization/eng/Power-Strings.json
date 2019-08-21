@@ -50,8 +50,8 @@
   "riskOfSpire:Overloading": {
     "NAME": "Overloading",
     "DESCRIPTIONS": [
-      "Lost #b50% of its max HP but gains up tp #b",
-      "% of its max HP as #yTemporary_HP and the end of its turn."
+      "Lost #b50% of its max HP but gains up to #b",
+      "% of its max HP as #yTemporary #yHP at the end of its turn."
     ]
   },
   "riskOfSpire:Glacial": {
