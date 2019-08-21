@@ -16,9 +16,9 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import riskOfSpire.powers.BlazingPower;
-import riskOfSpire.powers.GlacialPower;
-import riskOfSpire.powers.OverloadingPower;
+import riskOfSpire.powers.elites.BlazingPower;
+import riskOfSpire.powers.elites.GlacialPower;
+import riskOfSpire.powers.elites.OverloadingPower;
 import riskOfSpire.util.TextureLoader;
 
 public class DifficultyMeter {
@@ -135,8 +135,10 @@ public class DifficultyMeter {
     }
 
     public void SetElite(AbstractMonster m) {
+        if (m.type == AbstractMonster.EnemyType.BOSS) return;
+
         int r = AbstractDungeon.monsterRng.random(1, 100);
-        if ((getDifficultyMod() == 0f && r <= (5+(AbstractDungeon.floorNum*0.001f))) || (getDifficultyMod() > 0f && r <= 40 - (40 / Math.max((getDifficulty() / 100 + 1), 1)))) {
+        if ((getDifficultyMod() == 0f && r <= (5 + MathUtils.floor(AbstractDungeon.floorNum * 0.1f))) || (getDifficultyMod() > 0f && r <= 40 - (40 / Math.max((getDifficulty() / 100 + 1), 1)))) {
             r = r % 3;
             switch (r) {
                 case 0:
