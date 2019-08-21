@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import riskOfSpire.actions.unique.WobblyMissileAction;
+import riskOfSpire.actions.unique.relicEffects.WobblyMissileAction;
 
 public class WobblyMissileEffect extends AbstractGameEffect {
     private static final float EFFECT_DUR = 1.0f;

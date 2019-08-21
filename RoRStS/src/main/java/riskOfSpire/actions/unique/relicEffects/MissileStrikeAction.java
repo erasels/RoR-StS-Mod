@@ -1,4 +1,4 @@
-package riskOfSpire.actions.unique;
+package riskOfSpire.actions.unique.relicEffects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;

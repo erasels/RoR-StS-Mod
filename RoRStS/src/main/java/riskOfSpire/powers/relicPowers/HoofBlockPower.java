@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.ModifiedGainBlockAction;
+import riskOfSpire.actions.unique.relicEffects.ModifiedGainBlockAction;
 import riskOfSpire.powers.abstracts.RoRStSPower;
 
 public class HoofBlockPower extends RoRStSPower implements CloneablePowerInterface {

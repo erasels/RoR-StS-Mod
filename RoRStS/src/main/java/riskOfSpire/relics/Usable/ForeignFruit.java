@@ -4,7 +4,7 @@ import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.ReplaceBlockWithTHPAction;
+import riskOfSpire.actions.unique.relicEffects.ReplaceBlockWithTHPAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 public class ForeignFruit extends UsableRelic {

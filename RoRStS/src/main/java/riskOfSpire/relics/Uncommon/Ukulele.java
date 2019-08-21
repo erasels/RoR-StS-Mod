@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.RandomLightningStrikesAction;
+import riskOfSpire.actions.unique.relicEffects.RandomLightningStrikesAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 import java.util.ArrayList;
