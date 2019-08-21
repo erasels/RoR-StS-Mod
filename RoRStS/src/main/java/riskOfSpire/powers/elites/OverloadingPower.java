@@ -2,6 +2,7 @@ package riskOfSpire.powers.elites;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -47,7 +48,7 @@ public class OverloadingPower extends AbstractElitePower implements CloneablePow
     }
 
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + OVERLOAD_PERCENTAGE*100 + DESCRIPTIONS[1];
+        this.description = DESCRIPTIONS[0] + MathUtils.floor(OVERLOAD_PERCENTAGE*100) + DESCRIPTIONS[1];
     }
 
     @Override
