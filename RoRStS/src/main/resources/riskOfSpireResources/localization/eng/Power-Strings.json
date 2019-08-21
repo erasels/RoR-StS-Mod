@@ -56,7 +56,8 @@
   "riskOfSpire:Glacial": {
     "NAME": "Glacial",
     "DESCRIPTIONS": [
-      "Currently only looks cool."
+      "Whenever this monster deals unblocked damage, draw #b",
+      " cards less next turn. Whenever this monster's attacks are blocked, you lose #b1 #yDexterity until the end of your next turn."
     ]
   },
   "riskOfSpire:Blazing": {
@@ -78,6 +79,13 @@
       "Receives #b",
       " [REMOVE_SPACE]% more and deals #b",
       " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:GainDex": {
+    "NAME": "Regain Dexterity",
+    "DESCRIPTIONS": [
+      "At the end of its turn, gains #b",
+      " #Dexterity."
     ]
   }
 }
