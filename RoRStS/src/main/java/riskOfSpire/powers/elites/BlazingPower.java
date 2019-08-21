@@ -22,8 +22,9 @@ public class BlazingPower extends AbstractElitePower implements CloneablePowerIn
         this.ID = POWER_ID;
         this.owner = owner;
         updateDescription();
-        loadRegion("confusion");
+        setImage("84_Blazing.png", "32_Blazing.png");
         this.type = AbstractPower.PowerType.BUFF;
+        priority = 0;
         mName = NAME;
         tC = Color.FIREBRICK.cpy();
     }

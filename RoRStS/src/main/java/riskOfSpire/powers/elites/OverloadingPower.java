@@ -19,8 +19,9 @@ public class OverloadingPower extends AbstractElitePower implements CloneablePow
         this.ID = POWER_ID;
         this.owner = owner;
         updateDescription();
-        loadRegion("confusion");
+        setImage("84_Overloading.png", "32_Overloading.png");
         this.type = AbstractPower.PowerType.BUFF;
+        priority = 0;
         mName = NAME;
         tC = Color.YELLOW.cpy();
     }

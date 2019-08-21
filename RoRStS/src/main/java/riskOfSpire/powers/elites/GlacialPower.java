@@ -20,15 +20,16 @@ public class GlacialPower extends AbstractElitePower implements CloneablePowerIn
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public static final int DRAW_DOWN = 2;
+    private static final int DRAW_DOWN = 2;
 
     public GlacialPower(AbstractCreature owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
         updateDescription();
-        loadRegion("confusion");
+        setImage("84_Glacial.png", "32_Glacial.png");
         this.type = AbstractPower.PowerType.BUFF;
+        priority = 0;
         mName = NAME;
         tC = Color.SKY.cpy();
     }
