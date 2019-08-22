@@ -50,8 +50,8 @@
   "riskOfSpire:Overloading": {
     "NAME": "Overloading",
     "DESCRIPTIONS": [
-      "Lost #b50% of its max HP but gains up to #b",
-      "% of its max HP as #yTemporary #yHP at the end of its turn."
+      "This enemy has 50% of its max HP converted to #yTemporary #yHP. At the start of your turn, if this enemy did not lose #yTemporary #yHP the previous turn, it regains #b",
+      "% of its #yTemporary #yHP (up to its current max HP)."
     ]
   },
   "riskOfSpire:Glacial": {
