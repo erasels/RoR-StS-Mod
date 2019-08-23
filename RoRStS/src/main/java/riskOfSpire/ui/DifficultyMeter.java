@@ -137,7 +137,7 @@ public class DifficultyMeter {
     public void SetElite(AbstractMonster m) {
         if (m.type == AbstractMonster.EnemyType.BOSS) return;
 
-        int r = AbstractDungeon.monsterRng.random(1, 100);
+        int r = AbstractDungeon.monsterHpRng.random(1, 100);
         if ((getDifficultyMod() == 0f && r <= (5 + MathUtils.floor(AbstractDungeon.floorNum * 0.1f))) || (getDifficultyMod() > 0f && r <= 40 - (40 / Math.max((getDifficulty() / 100 + 1), 1)))) {
             r = r % 3;
             switch (r) {

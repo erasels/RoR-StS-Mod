@@ -11,7 +11,6 @@ public abstract class AbstractShrineEvent extends AbstractImageEvent {
     public AbstractShrineEvent(String title, String body, String imgUrl) {
         super(title, body, imgUrl);
     }
-    //TODO: Set originalRoom to AD:room again (look at FOrkInTheRoad event
 
     //Call super.butonEffect to call this after buttonEffect is done
     @Override

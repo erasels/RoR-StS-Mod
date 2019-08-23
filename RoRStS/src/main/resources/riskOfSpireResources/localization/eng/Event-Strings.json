@@ -23,5 +23,20 @@
       "[Leave] You don't have enough to share",
       "[Insert] #rLose a random stackable relic and #gobtain: "
     ]
+  },
+  "riskOfSpire:ChanceShrine": {
+    "NAME": "Shrine of Chance",
+    "DESCRIPTIONS": [
+      "You've come across what appears to be a statue of some kind of stony goliath. There seems to be a hole into which #y~gold~ could be placed.",
+      "The inserted #ggold disappeared but the statue continues to stare. NL NL You know it wants #r@more@ .",
+      "The inserted #ggold disappeared and the statue spit out a ",
+      ", what a great find! NL NL However, you know, you could get more."
+    ],
+    "OPTIONS": [
+      "[Leave] You don't have enough to share",
+      "[Accept] #rLose #r",
+      " #rHP and #ggain #y",
+      " #yGold"
+    ]
   }
 }
