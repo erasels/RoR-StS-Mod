@@ -13,7 +13,7 @@ import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import java.util.Random;
 
 public class ChanceShrine extends AbstractShrineEvent {
-    public static final String ID = RiskOfSpire.makeID("BloodShrine");
+    public static final String ID = RiskOfSpire.makeID("ChanceShrine");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
     private static final String NAME = eventStrings.NAME;
     private static final String[] DESCRIPTIONS = eventStrings.DESCRIPTIONS;
