@@ -34,7 +34,7 @@ public class ChanceShrine extends AbstractShrineEvent {
 
     public ChanceShrine() {
         super(NAME, DESCRIPTIONS[0], RiskOfSpire.makeEventPath("ChanceShrine.jpg"));
-        imageEventText.setDialogOption(getDialog());
+        imageEventText.setDialogOption(getDialog(), false);
         imageEventText.setDialogOption(OPTIONS[0]); //Leave
     }
 
@@ -56,7 +56,8 @@ public class ChanceShrine extends AbstractShrineEvent {
                             imageEventText.updateBodyText(DESCRIPTIONS[1]);
                         }
                         amount_pressed++;
-                        imageEventText.updateDialogOption(0, getDialog());
+                        g = getGoldCost();
+                        imageEventText.updateDialogOption(0, getDialog(), AbstractDungeon.player.gold < g || getRelicChance(g) <= 0);
                         break;
                     case 1:
                         imageEventText.clearRemainingOptions();
@@ -67,18 +68,18 @@ public class ChanceShrine extends AbstractShrineEvent {
 
     private String getDialog() {
         int tmp = getGoldCost();
-        return OPTIONS[1] + tmp + OPTIONS[2] + getRelicChance(tmp) + OPTIONS[3];
+        return OPTIONS[1] + tmp + OPTIONS[2] + MathUtils.floor(getRelicChance(tmp)*100f) + OPTIONS[3];
     }
 
     private int getGoldCost() {
         return MathUtils.floor(MIN_COST + (MIN_COST*amount_pressed));
     }
 
-    private int getRelicChance(int goldCost) {
+    private float getRelicChance(int goldCost) {
         //TODO:Refine this formula
-        float tmp = (MAX_CHANCE) - (MAX_CHANCE - (goldCost/200f));
-        if (AbstractDungeon.ascensionLevel >= 15) tmp -= Math.min(ASC_CHANCE_DECREASE, 0.0f);
-        return MathUtils.floor(tmp*100f);
+        float tmp = (MAX_CHANCE) - (goldCost/700f);
+        if (AbstractDungeon.ascensionLevel >= 15) tmp -= ASC_CHANCE_DECREASE;
+        return Math.max(tmp, 0.0f);
     }
 
     @Override

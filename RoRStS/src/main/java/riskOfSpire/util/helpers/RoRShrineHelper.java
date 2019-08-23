@@ -3,6 +3,7 @@ package riskOfSpire.util.helpers;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.shrines.BloodShrine;
+import riskOfSpire.shrines.ChanceShrine;
 import riskOfSpire.shrines.ThreeDPrinter;
 import riskOfSpire.util.WeightedList;
 
@@ -44,6 +45,7 @@ public class RoRShrineHelper {
         //TODO: Add all shrines once they're done
         rorShrines.add(new BloodShrine(), WeightedList.WEIGHT_COMMON);
         rorShrines.add(new ThreeDPrinter(), WeightedList.WEIGHT_COMMON);
+        rorShrines.add(new ChanceShrine(), WeightedList.WEIGHT_COMMON);
 
         return rorShrines;
     }
