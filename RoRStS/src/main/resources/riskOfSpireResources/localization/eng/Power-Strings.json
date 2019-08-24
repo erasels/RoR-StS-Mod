@@ -50,19 +50,23 @@
   "riskOfSpire:Overloading": {
     "NAME": "Overloading",
     "DESCRIPTIONS": [
-      "Currently only looks cool."
+      "This enemy has 50% of its max HP converted to #yTemporary #yHP. At the start of your turn, if this enemy did not lose #yTemporary #yHP the previous turn, it regains #b",
+      "% of its #yTemporary #yHP (up to its current max HP)."
     ]
   },
   "riskOfSpire:Glacial": {
     "NAME": "Glacial",
     "DESCRIPTIONS": [
-      "Currently only looks cool."
+      "Whenever this monster deals unblocked damage, draw #b",
+      " cards less next turn. Whenever this monster's attacks are blocked, you lose #b1 #yDexterity until the end of your next turn."
     ]
   },
   "riskOfSpire:Blazing": {
     "NAME": "Blazing",
     "DESCRIPTIONS": [
-      "Currently only looks cool."
+      "Once per turn when you deal unblocked attack damage to this enemy, add #b",
+      " #yBurn to your discard pile. Whenever this enemy deals unblocked attack damage, #yExhaust all your #yBurns and take #b",
+      " damage for each."
     ]
   },
   "riskOfSpire:AblativeThorns": {
@@ -78,6 +82,23 @@
       "Receives #b",
       " [REMOVE_SPACE]% more and deals #b",
       " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:GainDex": {
+    "NAME": "Regain Dexterity",
+    "DESCRIPTIONS": [
+      "At the end of its turn, gains #b",
+      " #yDexterity."
+    ]
+  },
+  "riskOfSpire:DynamicDrawReduction": {
+    "NAME": "Draw Reduction",
+    "DESCRIPTIONS": [
+      "Draw #b",
+      " less card for the next #b",
+      " less cards for the next #b",
+      " turn.",
+      " turns."
     ]
   }
 }

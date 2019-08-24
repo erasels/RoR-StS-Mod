@@ -6,8 +6,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.ModifiedGainBlockAction;
-import riskOfSpire.powers.HoofBlockPower;
+import riskOfSpire.actions.unique.relicEffects.ModifiedGainBlockAction;
+import riskOfSpire.powers.relicPowers.HoofBlockPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class PaulsHoof extends StackableRelic {

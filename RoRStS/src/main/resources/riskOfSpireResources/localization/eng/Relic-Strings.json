@@ -132,7 +132,7 @@
     "NAME": "Bandolier",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Every time you shuffle your deck, reduce the cost of #b",
+      "Every time you shuffle your draw pile, reduce the cost of #b",
       " random card in your hand by #b1 until played.",
       " random cards in your hand by #b1 until played."
     ]
@@ -165,7 +165,7 @@
     "NAME": "Backup Magazine",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "The first time you play an Attack each combat, add #b",
+      "The first time you play an #yAttack each combat, add #b",
       " copy of it to your hand.",
       " copies of it to your hand."
     ]
@@ -281,7 +281,8 @@
     "NAME": "Medkit",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you take unblocked attack damage, gain #b",
+      "Whenever you take more than #b",
+      " unblocked attack damage, gain #b",
       " #yTemporary_HP [REMOVE_SPACE]."
     ]
   },
@@ -489,7 +490,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Whenever a non-minion enemy dies, the next #b",
-      " cards you play have #yRefund #b1 [REMOVE_SPACE]."
+      " cards you spend Energy on have #yRefund #b1 [REMOVE_SPACE]."
     ]
   },
   "riskOfSpire:TitanicKnurl": {

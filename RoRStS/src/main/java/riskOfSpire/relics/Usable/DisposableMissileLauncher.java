@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.TargetedMissileAction;
+import riskOfSpire.actions.unique.relicEffects.TargetedMissileAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 public class DisposableMissileLauncher extends UsableRelic {

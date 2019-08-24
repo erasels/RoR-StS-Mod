@@ -16,15 +16,10 @@ import static riskOfSpire.RiskOfSpire.lunarCoinAmount;
 
 public class LunarCoinHelper {
     public static float RANDOM_LUNAR_COIN_CHANCE = 0.04f;
-    public static float RANDOM_LUNAR_COIN_CHANCE_BOSS = 0.08f;
-    public static float RANDOM_LUNAR_CACHE_CHANCE = 0.10f;
+    public static float RANDOM_LUNAR_COIN_CHANCE_BOSS = 0.15f;
+    public static float RANDOM_LUNAR_CACHE_CHANCE = 0.25f;
     public static int BASE_LUNAR_COIN_AMT = 1;
-    public static int BOSS_MOD = 3;
-    public static int RAND_MOD = 1;
     public static int HEART_ENTER_COIN_AMT = 5;
-
-    public static int MIN_COST = 4;
-    public static int MAX_COST = 10;
     public static int LUNAR_CACHE_BASE_COST = 1;
 
     public static void modifyCombatRewards(CombatRewardScreen cRS) {
@@ -46,7 +41,7 @@ public class LunarCoinHelper {
                         tmpChance = ((BonusRorRelicChanceRelic) r).lunarCacheChanceModifier(tmpChance);
                     }
                 }
-                if (AbstractDungeon.miscRng.randomBoolean(tmpChance>1.0f?1.0f:tmpChance)) {
+                if (AbstractDungeon.miscRng.randomBoolean(Math.min(tmpChance, 1.0f))) {
                     cRS.rewards.add(new LunarCacheReward());
                 }
             }

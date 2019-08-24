@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import com.megacrit.cardcrawl.vfx.combat.VerticalAuraEffect;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.AblativeThornsPower;
+import riskOfSpire.powers.relicPowers.AblativeThornsPower;
 
 import static riskOfSpire.RiskOfSpire.makeCardPath;
 

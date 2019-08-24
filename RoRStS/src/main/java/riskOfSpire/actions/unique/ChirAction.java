@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import riskOfSpire.powers.ChirPower;
+import riskOfSpire.powers.relicPowers.ChirPower;
 
 public class ChirAction extends AbstractGameAction {
     private AbstractPlayer p;

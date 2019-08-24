@@ -1,4 +1,4 @@
-package riskOfSpire.actions.unique;
+package riskOfSpire.actions.unique.relicEffects;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;

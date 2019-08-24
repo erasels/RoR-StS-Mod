@@ -10,6 +10,8 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 public class Medkit extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("Medkit");
 
+    private static final int DAMAGE_GATE = 5;
+
     public Medkit() {
         super(ID, "Medkit.png", RelicTier.COMMON, LandingSound.SOLID);
         isTempHP = true;
@@ -17,12 +19,12 @@ public class Medkit extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + relicStack + DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + DAMAGE_GATE + DESCRIPTIONS[1] + relicStack + DESCRIPTIONS[2];
     }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.type == DamageInfo.DamageType.NORMAL && (damageAmount > 0 || (info.output > 0 && AbstractDungeon.player.currentBlock == 0)) &&info.owner != AbstractDungeon.player) {
+        if (info.type == DamageInfo.DamageType.NORMAL && (damageAmount > DAMAGE_GATE || (info.output > DAMAGE_GATE && AbstractDungeon.player.currentBlock == 0)) &&info.owner != AbstractDungeon.player) {
             flash();
             AbstractDungeon.actionManager.addToBottom(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, relicStack));
         }

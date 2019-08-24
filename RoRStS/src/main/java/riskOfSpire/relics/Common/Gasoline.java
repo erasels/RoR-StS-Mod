@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.BurningPower;
+import riskOfSpire.powers.relicPowers.BurningPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class Gasoline extends StackableRelic implements OnAfterUseCardRelic {

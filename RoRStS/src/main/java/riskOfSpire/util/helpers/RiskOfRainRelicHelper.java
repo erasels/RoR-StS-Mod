@@ -18,12 +18,14 @@ import riskOfSpire.rewards.LinkedRewardItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RiskOfRainRelicHelper {
     public static Random RiskOfRainRelicRng = new Random(); //This is saved and loaded in patches in RelicData class.
     private static int incrementLater = 0;
 
     public static float FINAL_COST_MOD = 0.5f;
+    public static boolean dropUsable;
 
     public static AbstractRelic getRandomRelic(boolean rare, boolean changeCounter) {
         return getRandomRelic(rare, changeCounter, 1.0f);
@@ -74,11 +76,11 @@ public class RiskOfRainRelicHelper {
             int pool = RiskOfRainRelicRng.random(100);
             rolls += 1;
 
-            if (pool >= 95 * rateModifier) {
+            if (pool >= 90 * rateModifier) {
                 sourceList = RiskOfSpire.rorRareRelicPool;
                 tier = AbstractRelic.RelicTier.RARE;
             }
-            else if (pool > 75 * rateModifier) {
+            else if (pool > 65 * rateModifier) {
                 sourceList = RiskOfSpire.rorUncommonRelicPool;
                 tier = AbstractRelic.RelicTier.UNCOMMON;
             }
@@ -158,6 +160,35 @@ public class RiskOfRainRelicHelper {
         return toCopy.makeCopy();
     }
 
+    private static AbstractRelic getRandomUsableRelic() {
+        float rateModifier = getFinalRateModifier();
+        AbstractRelic.RelicTier tier;
+        int pool = RiskOfRainRelicRng.random(100);
+
+        if (pool >= 85 * rateModifier) {
+            tier = AbstractRelic.RelicTier.RARE;
+        }
+        else if (pool > 50 * rateModifier) {
+            tier = AbstractRelic.RelicTier.UNCOMMON;
+        }
+        else {
+            tier = AbstractRelic.RelicTier.COMMON;
+        }
+
+        return getRandomUsableRelic(tier);
+    }
+
+    private static AbstractRelic getRandomUsableRelic(AbstractRelic.RelicTier tier) {
+        ArrayList<AbstractRelic> tmp = RiskOfSpire.rorUsableRelics.stream()
+                .filter(t -> RelicLibrary.getRelic(t).tier == tier && RelicLibrary.getRelic(t).canSpawn())
+                .map(RelicLibrary::getRelic)
+                .collect(Collectors.toCollection(ArrayList::new));
+        if(tmp.isEmpty()) {
+            return getRandomUsableRelic();
+        }
+        return tmp.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(tmp.size() - 1)).makeCopy();
+    }
+
     public static StackableRelic loseRelicStack(Random rng, AbstractRelic.RelicTier tier) {
         ArrayList<StackableRelic> tmp = new ArrayList<>();
         for(AbstractRelic r : AbstractDungeon.player.relics) {
@@ -216,8 +247,13 @@ public class RiskOfRainRelicHelper {
             }
         }
 
-        if (RiskOfRainRelicRng.randomBoolean(bonusRelicChance > 1.0f ? 1.0f : bonusRelicChance)) {
+        if (RiskOfRainRelicRng.randomBoolean(Math.min(bonusRelicChance, 1.0f))) {
             __instance.rewards.add(new RewardItem(getRandomRelic(false, false)));
+        }
+
+        if(dropUsable) {
+            __instance.rewards.add(new RewardItem(getRandomUsableRelic()));
+            //Is set to false in RoomTransitionDropUsableReset
         }
     }
 

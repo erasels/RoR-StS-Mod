@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.patches.relics.HappiestMaskPatches;
-import riskOfSpire.powers.SurroundedPower;
+import riskOfSpire.powers.relicPowers.SurroundedPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Interfaces.OnMonsterSpawn;
 

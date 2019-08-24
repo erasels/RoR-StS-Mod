@@ -18,7 +18,7 @@ public class BloodShrine extends AbstractShrineEvent {
     private int amount_pressed = 0;
 
     private static final float PERDAMAGE = 0.1f;
-    private static final float DAMAGE_MULTI = 0.05f;
+    private static final float DAMAGE_MULTI = 0.075f;
     private static final int GOLD_MULTI = 6;
     private static final int ASC_GOLD_MULTI = 4;
 
@@ -62,7 +62,7 @@ public class BloodShrine extends AbstractShrineEvent {
     }
 
     private int getHealthCost() {
-        return MathUtils.floor(AbstractDungeon.player.maxHealth * (PERDAMAGE + (amount_pressed > 0 ? (PERDAMAGE + (DAMAGE_MULTI * (float)amount_pressed)) : 0)));
+        return MathUtils.floor(AbstractDungeon.player.maxHealth * (PERDAMAGE + (amount_pressed > 0 ? (DAMAGE_MULTI * (float)amount_pressed) : 0)));
     }
 
     private int getMoneyReward(int hpCost) {

@@ -1,4 +1,4 @@
-package riskOfSpire.powers;
+package riskOfSpire.powers.relicPowers;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.math.MathUtils;

@@ -28,8 +28,6 @@ public class Brainstalks extends StackableRelic {
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
         if (counter > 0) {
-            flash();
-            setCounter(counter - 1);
             int tmp;
             if (card.freeToPlayOnce) {
                 tmp = 0;
@@ -40,6 +38,8 @@ public class Brainstalks extends StackableRelic {
             }
 
             if (tmp > 0) {
+                flash();
+                setCounter(counter - 1);
                 AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
             }
         }

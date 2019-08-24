@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.actions.unique.WobblyMissileAction;
+import riskOfSpire.actions.unique.relicEffects.WobblyMissileAction;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class CeremonialDagger extends StackableRelic implements BetterOnLoseHpRelic {

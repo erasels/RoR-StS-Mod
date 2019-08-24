@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.general.TargetAction;
-import riskOfSpire.actions.unique.MissileStrikeAction;
+import riskOfSpire.actions.unique.relicEffects.MissileStrikeAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 
 public class TheCrowdfunder extends UsableRelic {

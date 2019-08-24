@@ -46,8 +46,9 @@ import riskOfSpire.ui.DifficultyMeter;
 import riskOfSpire.ui.LunarCoinDisplay;
 import riskOfSpire.util.IDCheckDontTouchPls;
 import riskOfSpire.util.RelicFilter;
-import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 import riskOfSpire.util.TextureLoader;
+import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
+import riskOfSpire.util.helpers.RoRShrineHelper;
 import riskOfSpire.vfx.titlescreen.CustomSlowTitleCloud;
 import riskOfSpire.vfx.titlescreen.CustomTitleCloud;
 
@@ -101,6 +102,7 @@ public class RiskOfSpire implements
     public static int lunarCoinAmount = 0;
     public static LunarCoinDisplay lCD;
     public static boolean lCacheTrigger = false;
+    public static boolean clearPowers = false;
     private static String modID;
 
     public static final String DIFFICULTY_RELIC_COST_MOD_SETTING = "diffMoneyMod";
@@ -201,24 +203,25 @@ public class RiskOfSpire implements
             }
 
             AbstractRelic r = (AbstractRelic) Loader.getClassPool().toClass(cls).newInstance();
-            switch (r.tier) {
-                case COMMON:
-                    rorCommonRelics.add(r.relicId);
-                    break;
-                case UNCOMMON:
-                    rorUncommonRelics.add(r.relicId);
-                    break;
-                case RARE:
-                    rorRareRelics.add(r.relicId);
-                    break;
-                case SPECIAL:
-                    if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
-                        rorLunarRelics.add(r.relicId);
-                    }
-                    break;
-            }
             if (r instanceof UsableRelic && (r.tier == AbstractRelic.RelicTier.COMMON || r.tier == AbstractRelic.RelicTier.UNCOMMON || r.tier == AbstractRelic.RelicTier.RARE)) {
                 rorUsableRelics.add(r.relicId);
+            } else {
+                switch (r.tier) {
+                    case COMMON:
+                        rorCommonRelics.add(r.relicId);
+                        break;
+                    case UNCOMMON:
+                        rorUncommonRelics.add(r.relicId);
+                        break;
+                    case RARE:
+                        rorRareRelics.add(r.relicId);
+                        break;
+                    case SPECIAL:
+                        if ((r instanceof BaseRelic && ((BaseRelic) r).isLunar)) {
+                            rorLunarRelics.add(r.relicId);
+                        }
+                        break;
+                }
             }
             logger.info("Adding " + r.tier.name().toLowerCase() + " relic: " + r.name);
 
@@ -287,7 +290,7 @@ public class RiskOfSpire implements
             @Override
             public JsonElement onSaveRaw() {
                 Gson coolG = new Gson();
-                logger.info("Saved Shit");
+                logger.info("Risk of Spire successfully saved run values.");
                 return coolG.toJsonTree(DifficultyMeter.getDifficulty());
             }
 
@@ -296,7 +299,7 @@ public class RiskOfSpire implements
                 if (jsonElement != null) {
                     Gson coolG = new Gson();
                     DifficultyMeter.setDifficulty(coolG.fromJson(jsonElement, Integer.class));
-                    logger.info("Loaded Shit");
+                    logger.info("Risk of Spire successfully loaded run values.");
                 }
             }
         });
@@ -327,15 +330,39 @@ public class RiskOfSpire implements
             BgChanges.SlowVfxClouds.add(new CustomSlowTitleCloud((Settings.WIDTH / 9) * i - 400 * Settings.scale));
         }
         GlacialShader = new ShaderProgram(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString(), Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
-        logger.info(GlacialShader.getLog());
+        /*logger.info(GlacialShader.getLog());
         RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/vertexShader.vs").readString());
-        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());
+        RiskOfSpire.logger.info(Gdx.files.internal("riskOfSpireResources/rorstsshaders/GlacialShader/fragShader.fs").readString());*/
+        BaseMod.addSaveField("RoRUsableDrop", new CustomSavable<Boolean>() {
+            @Override
+            public Boolean onSave() {
+                return RiskOfRainRelicHelper.dropUsable;
+            }
+
+            @Override
+            public void onLoad(Boolean b) {
+                RiskOfRainRelicHelper.dropUsable = b;
+            }
+        });
+
+        BaseMod.addSaveField("RoRShrineSpawnMisses", new CustomSavable<Integer>() {
+            @Override
+            public Integer onSave() {
+                return RoRShrineHelper.shrineSpawnMiss;
+            }
+
+            @Override
+            public void onLoad(Integer i) {
+                RoRShrineHelper.shrineSpawnMiss = i;
+            }
+        });
+
         logger.info("Done loading badge Image and mod options");
     }
 
     @Override
     public void receivePostUpdate() {
-        if (AbstractDungeon.player == null) return;
+        if (!CardCrawlGame.isInARun()) return;
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
             if (lCacheTrigger) {
                 lCacheTrigger = false;
@@ -343,6 +370,10 @@ public class RiskOfSpire implements
                 AbstractDungeon.combatRewardScreen.rewards.add(new RewardItem(RiskOfRainRelicHelper.getRandomLunarRelic()));
                 AbstractDungeon.combatRewardScreen.positionRewards();
             }
+        }
+        if(clearPowers) {
+            clearPowers = false;
+            AbstractDungeon.player.powers.clear();
         }
     }
 
@@ -361,6 +392,21 @@ public class RiskOfSpire implements
     @Override
     public void receivePreStartGame() {
         DifficultyMeter.setDifficulty(0);
+        RiskOfRainRelicHelper.dropUsable = false;
+        RoRShrineHelper.shrineSpawnMiss = 0;
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
+        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
+        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
+
+        if (DifficultyMeter.getDifficultyMod() == 0f) {
+            DifficultyMeter.hideHitbox();
+        } else {
+            DifficultyMeter.unhideHitbox();
+        }
     }
 
     public static String makeCardPath(String resourcePath) {
@@ -422,19 +468,6 @@ public class RiskOfSpire implements
     public static String getModID() { // NO
         return modID; // DOUBLE NO
     } // NU-UH
-
-    @Override
-    public void receivePostDungeonInitialize() {
-        AbstractDungeon.commonRelicPool.removeAll(rorCommonRelics);
-        AbstractDungeon.uncommonRelicPool.removeAll(rorUncommonRelics);
-        AbstractDungeon.rareRelicPool.removeAll(rorRareRelics);
-
-        if (DifficultyMeter.getDifficultyMod() == 0f) {
-            DifficultyMeter.hideHitbox();
-        } else {
-            DifficultyMeter.unhideHitbox();
-        }
-    }
 
     public static String assetPath(String path) {
         return getModID() + "Resources/" + path;

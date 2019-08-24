@@ -13,6 +13,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.helpers.RiskOfRainRelicHelper;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ThreeDPrinter extends AbstractShrineEvent {
     public static final String ID = RiskOfSpire.makeID("ThreeDPrinter");
@@ -38,7 +39,8 @@ public class ThreeDPrinter extends AbstractShrineEvent {
         printerRelic.currentX = RELIC_X;
         printerRelic.currentY = RELIC_Y;
         printerRelic.relicStack = 0;
-        imageEventText.setDialogOption(OPTIONS[1] + FontHelper.colorString(printerRelic.name, "g"));
+        printerRelic.counter = -1;
+        imageEventText.setDialogOption(OPTIONS[1] + FontHelper.colorString(printerRelic.name, "g"), false);
         imageEventText.setDialogOption(OPTIONS[0]); //Leave
     }
 
@@ -53,6 +55,10 @@ public class ThreeDPrinter extends AbstractShrineEvent {
                         StackableRelic lost = RiskOfRainRelicHelper.loseRelicStack(RiskOfRainRelicHelper.RiskOfRainRelicRng, printerRelic);
                         imageEventText.updateBodyText(DESCRIPTIONS[2] + FontHelper.colorString(lost.name, "r") + DESCRIPTIONS[1]);
                         //Check if no relics available and disable option
+                        if(!checkDisableCondition()) {
+                            //imageEventText.optionList.set(0, new LargeDialogOptionButton(imageEventText.optionList.size(), imageEventText.optionList.get(0).msg, true));
+                            imageEventText.optionList.get(0).isDisabled = true;
+                        }
                         break;
                     case 1:
                         imageEventText.clearRemainingOptions();
@@ -101,12 +107,25 @@ public class ThreeDPrinter extends AbstractShrineEvent {
         }
     }
 
-    private boolean checkRelicAmt(ArrayList<StackableRelic> rl) {
+    private boolean checkRelicAmt(ArrayList<StackableRelic> rl, int chkAmt) {
         int counter = 0;
         for (StackableRelic r : rl) {
             counter += r.relicStack;
         }
-        return counter >= MIN_RELIC_AMT;
+        return counter >= chkAmt;
+    }
+
+    private boolean checkRelicAmt(ArrayList<StackableRelic> rl) {
+        return checkRelicAmt(rl, MIN_RELIC_AMT);
+    }
+
+    private boolean checkDisableCondition() {
+        return checkRelicAmt(AbstractDungeon.player.relics
+                .stream()
+                .filter(r -> r.tier == printerRelic.tier && r instanceof StackableRelic && !r.relicId.equals(printerRelic.relicId))
+                .map(r -> (StackableRelic)r)
+                .collect(Collectors.toCollection(ArrayList::new)),
+                1);
     }
 
     @Override

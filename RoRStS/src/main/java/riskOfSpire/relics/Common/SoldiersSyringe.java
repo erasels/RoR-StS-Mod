@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
-import riskOfSpire.powers.DoubleAttackPower;
+import riskOfSpire.powers.relicPowers.DoubleAttackPower;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.util.StringManipulationUtilities;
 
