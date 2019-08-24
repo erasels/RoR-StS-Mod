@@ -37,7 +37,7 @@ public class HappiestMaskPatches {
     public static class RenderNormallyPls {
         @SpirePostfixPatch
         public static void Postfix(AbstractMonster __instance, SpriteBatch sb) throws NoSuchFieldException, IllegalAccessException {
-            if (!victoryMet && (__instance.isDead || __instance.isDying) && !nonPhantomList.contains(__instance) && !__instance.id.equals(SlimeBoss.ID) && !__instance.id.equals(AcidSlime_L.ID) && !__instance.id.equals(SpikeSlime_L.ID)) {
+            if (!victoryMet && (__instance.isDead || __instance.isDying) && !nonPhantomList.contains(__instance)) {
                 if (hasHM) {
                     if (skelField == null) {
                         skelField = getField(AbstractMonster.class, "skeleton");//AbstractCreature.class.getDeclaredField("skeleton");
@@ -86,7 +86,10 @@ public class HappiestMaskPatches {
     @SpirePatch(clz = AbstractMonster.class, method = "die", paramtypez = {boolean.class})
     public static class NonMinionStacking {
         public static void Prefix(AbstractMonster __instance, boolean triggerRelics) {
-            if (__instance.hasPower(MinionPower.POWER_ID)) {
+            if (__instance.hasPower(MinionPower.POWER_ID) ||
+                    __instance.id.equals(SlimeBoss.ID) ||
+                    __instance.id.equals(AcidSlime_L.ID) ||
+                    __instance.id.equals(SpikeSlime_L.ID))  {
                 nonPhantomList.add(__instance);
             }
         }
