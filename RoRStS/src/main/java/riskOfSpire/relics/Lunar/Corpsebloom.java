@@ -10,7 +10,7 @@ import riskOfSpire.relics.Interfaces.OnFinalHealRelic;
 
 public class Corpsebloom extends StackableRelic implements OnFinalHealRelic {
     public static final String ID = RiskOfSpire.makeID("Corpsebloom");
-    private static final float HEAL_PER_ROOM = 0.05f;
+    private static final float HEAL_PER_ROOM = 0.1f;
 
     private boolean isCorpsebloomHeal;
 
