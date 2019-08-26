@@ -3,9 +3,7 @@ package riskOfSpire.util.helpers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ShaderHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
@@ -13,6 +11,8 @@ import riskOfSpire.powers.elites.AbstractElitePower;
 import riskOfSpire.powers.elites.BlazingPower;
 import riskOfSpire.powers.elites.GlacialPower;
 import riskOfSpire.powers.elites.OverloadingPower;
+
+import static com.megacrit.cardcrawl.core.CardCrawlGame.psb;
 
 public class EliteHelper {
     public static void SetElite(AbstractMonster m) {
@@ -50,8 +50,7 @@ public class EliteHelper {
             if (pow.ID.equals(OverloadingPower.POWER_ID)) {
                 m.tint.changeColor(new Color(1.0F, 1.0F, 0.3F, 1.0F));
             } else if (pow.ID.equals(GlacialPower.POWER_ID)) {
-                CardCrawlGame.psb.setShader(RiskOfSpire.GlacialShader);
-                //ShaderHelper.setShader(CardCrawlGame.psb, ShaderHelper.Shader.GRAYSCALE);
+                psb.setShader(RiskOfSpire.GlacialShader);
             } else if (pow.ID.equals(BlazingPower.POWER_ID)) {
                 m.tint.changeColor(new Color(1.0F, 0.3F, 0.3F, 1.0F));
             }
@@ -59,6 +58,11 @@ public class EliteHelper {
     }
 
     public static void resetColorChange() {
-        ShaderHelper.setShader(CardCrawlGame.psb, ShaderHelper.Shader.DEFAULT);
+        if (psb.isDrawing()) {
+            psb.end();
+        }
+        psb.setShader(null);
+        //ShaderHelper.setShader(psb, ShaderHelper.Shader.DEFAULT);
+        psb.begin();
     }
 }
