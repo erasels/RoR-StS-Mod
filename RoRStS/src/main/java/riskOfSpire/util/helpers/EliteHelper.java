@@ -21,7 +21,7 @@ public class EliteHelper {
         int r = AbstractDungeon.monsterHpRng.random(1, 100);
         if ((RiskOfSpire.DifficultyMeter.getDifficultyMod() == 0f && r <= (5 + MathUtils.floor(AbstractDungeon.floorNum * 0.1f))) ||
                 (RiskOfSpire.DifficultyMeter.getDifficultyMod() > 0f && r <= 40 - (40 / Math.max((RiskOfSpire.DifficultyMeter.getDifficultyMod() / 100 + 1), 1)))) {
-            m.increaseMaxHp(MathUtils.floor(m.maxHealth*0.2f), false);
+            m.increaseMaxHp(MathUtils.floor(m.maxHealth * 0.2f), false);
             r = r % 3;
             switch (r) {
                 case 0:
@@ -39,14 +39,14 @@ public class EliteHelper {
 
     public static void eliteColorChange(AbstractMonster m) {
         AbstractPower pow = null;
-        for(AbstractPower p : m.powers) {
-            if(p instanceof AbstractElitePower) {
+        for (AbstractPower p : m.powers) {
+            if (p instanceof AbstractElitePower) {
                 pow = p;
                 break;
             }
         }
 
-        if(pow != null) {
+        if (pow != null) {
             if (pow.ID.equals(OverloadingPower.POWER_ID)) {
                 m.tint.changeColor(new Color(1.0F, 1.0F, 0.3F, 1.0F));
             } else if (pow.ID.equals(GlacialPower.POWER_ID)) {
@@ -58,11 +58,15 @@ public class EliteHelper {
     }
 
     public static void resetColorChange() {
+        boolean triggered = false;
         if (psb.isDrawing()) {
             psb.end();
+            triggered = true;
         }
         psb.setShader(null);
         //ShaderHelper.setShader(psb, ShaderHelper.Shader.DEFAULT);
-        psb.begin();
+        if (triggered) {
+            psb.begin();
+        }
     }
 }

@@ -24,6 +24,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
@@ -373,6 +374,7 @@ public class RiskOfSpire implements
         }
         if(clearPowers) {
             clearPowers = false;
+            AbstractDungeon.player.powers.forEach(AbstractPower::onRemove);
             AbstractDungeon.player.powers.clear();
         }
     }
