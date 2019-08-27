@@ -9,7 +9,7 @@ import riskOfSpire.util.StringManipulationUtilities;
 public class AlienHead extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("AlienHead");
 
-    private static final int RED_AMT = 2;
+    private static final int RED_AMT = 1;
     private static final int CARD_AMT = 11;
 
     public AlienHead() {
