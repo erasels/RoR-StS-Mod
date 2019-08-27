@@ -44,7 +44,7 @@ public class ShatteringJusticeVulnerable {
         @SpirePrefixPatch
         public static SpireReturn LOTSOFJUSTICE(VulnerablePower __instance)
         {
-            if (!__instance.owner.isPlayer && AbstractDungeon.player.hasRelic(ShatteringJustice.ID))
+            if (__instance.owner != null && !__instance.owner.isPlayer && AbstractDungeon.player.hasRelic(ShatteringJustice.ID))
             {
                 float mult = __instance.atDamageReceive(1.0f, DamageInfo.DamageType.NORMAL); //will use altered calculation
                 mult -= 1;
