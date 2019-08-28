@@ -12,7 +12,7 @@ import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.util.helpers.RoRShrineHelper;
 
 public class AlternateShrineSystemPatches {
-    @SpirePatch(clz = AbstractRoom.class, method = SpirePatch.CONSTRUCTOR)
+    @SpirePatch(clz= AbstractRoom.class, method=SpirePatch.CLASS)
     public static class ShrineFields {
         public static SpireField<Boolean> rolledShrineChance = new SpireField<>(() -> false);
     }
@@ -29,7 +29,7 @@ public class AlternateShrineSystemPatches {
                     RoRShrineHelper.shrineSpawnMiss = 0;
                     //RiskOfSpire.clearPowers = true;
                     AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
-                    AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.currMapNode.room);
+                    AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.getCurrRoom());
                     AbstractDungeon.getCurrRoom().onPlayerEntry();
                     AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
                     AbstractDungeon.combatRewardScreen.clear();
