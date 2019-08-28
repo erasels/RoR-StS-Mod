@@ -34,6 +34,7 @@ import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
+import riskOfSpire.cards.DebugCard;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.patches.StartingScreen.BgChanges;
@@ -150,6 +151,8 @@ public class RiskOfSpire implements
         BaseMod.addCard(new ImpYggo());
         BaseMod.addCard(new ImpUgorn());
         BaseMod.addCard(new ImpChir());
+
+        BaseMod.addCard(new DebugCard());
     }
 
     @Override
