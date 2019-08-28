@@ -3,9 +3,7 @@ package riskOfSpire.util.helpers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ShaderHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
@@ -60,8 +58,8 @@ public class EliteHelper {
     }
 
     public static void resetColorChange() {
-        ShaderHelper.setShader(CardCrawlGame.psb, ShaderHelper.Shader.DEFAULT);
-        /*boolean triggered = false;
+        //ShaderHelper.setShader(CardCrawlGame.psb, ShaderHelper.Shader.DEFAULT);
+        boolean triggered = false;
         if (psb.isDrawing()) {
             psb.end();
             triggered = true;
@@ -70,6 +68,6 @@ public class EliteHelper {
         //ShaderHelper.setShader(psb, ShaderHelper.Shader.DEFAULT);
         if (triggered) {
             psb.begin();
-        }*/
+        }
     }
 }
