@@ -12,7 +12,7 @@ import riskOfSpire.relics.Abstracts.StackableRelic;
 
 public class BerzerkersPauldron extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BerzerkersPauldron");
-    private static final int DOUBLE_PLAY_AMT = 2;
+    private static final int DOUBLE_PLAY_AMT = 1;
 
     public BerzerkersPauldron() {
         super(ID, "BerzerkersPauldron.png", RelicTier.UNCOMMON, LandingSound.SOLID);
@@ -53,7 +53,7 @@ public class BerzerkersPauldron extends StackableRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0] + getVal()+  DESCRIPTIONS[1];
+        return DESCRIPTIONS[0] + (getVal() == 1? DESCRIPTIONS[1]:(getVal() + DESCRIPTIONS[2]));
     }
 
     public int getVal() {

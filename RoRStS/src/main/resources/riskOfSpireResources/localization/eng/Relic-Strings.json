@@ -516,6 +516,7 @@
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
       "Upon moving from a monster room to another monster room, the first #b",
+      " [REMOVE_SPACE] #yAttack and #ySkill are played twice.",
       " #yAttacks and #ySkills are played twice."
     ]
   }
