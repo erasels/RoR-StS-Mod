@@ -100,5 +100,23 @@
       " turn.",
       " turns."
     ]
+  },
+  "riskOfSpire:BPDAttack": {
+    "NAME": "Berzerker's Double Attack",
+    "DESCRIPTIONS": [
+      "Your next #b",
+      " #yAttack is ",
+      " #yAttacks are ",
+      "played twice."
+    ]
+  },
+  "riskOfSpire:BPDSkill": {
+    "NAME": "Berzerker's Double Skill",
+    "DESCRIPTIONS": [
+      "Your next #b",
+      " #ySkill is ",
+      " #ySkills are ",
+      "played twice."
+    ]
   }
 }

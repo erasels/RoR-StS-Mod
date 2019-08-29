@@ -510,5 +510,13 @@
       " Max HP and gain #b",
       " #yStrength [REMOVE_SPACE], #yDexterity and #yFocus [REMOVE_SPACE]. NL "
     ]
+  },
+  "riskOfSpire:BerzerkersPauldron": {
+    "NAME": "Berzerker's Pauldron",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Upon moving from a monster room to another monster room, the first #b",
+      " #yAttacks and #ySkills are played twice."
+    ]
   }
 }
