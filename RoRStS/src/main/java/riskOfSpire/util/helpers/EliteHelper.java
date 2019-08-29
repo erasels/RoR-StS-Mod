@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.MinionPower;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.elites.AbstractElitePower;
 import riskOfSpire.powers.elites.BlazingPower;
@@ -16,7 +17,7 @@ import static com.megacrit.cardcrawl.core.CardCrawlGame.psb;
 
 public class EliteHelper {
     public static void SetElite(AbstractMonster m) {
-        if (m.type == AbstractMonster.EnemyType.BOSS) return;
+        if (m.type == AbstractMonster.EnemyType.BOSS || m.hasPower(MinionPower.POWER_ID)) return;
 
         int r = AbstractDungeon.monsterHpRng.random(1, 100);
         if ((RiskOfSpire.DifficultyMeter.getDifficultyMod() == 0f && r <= (5 + MathUtils.floor(AbstractDungeon.floorNum * 0.1f))) ||
