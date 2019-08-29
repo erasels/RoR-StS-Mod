@@ -102,7 +102,7 @@
     ]
   },
   "riskOfSpire:BPDAttack": {
-    "NAME": "Berzerker's Double Attack",
+    "NAME": "Berzerker's Attack",
     "DESCRIPTIONS": [
       "Your next #b",
       " #yAttack is ",
@@ -111,7 +111,7 @@
     ]
   },
   "riskOfSpire:BPDSkill": {
-    "NAME": "Berzerker's Double Skill",
+    "NAME": "Berzerker's Skill",
     "DESCRIPTIONS": [
       "Your next #b",
       " #ySkill is ",
