@@ -24,7 +24,6 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
@@ -377,7 +376,9 @@ public class RiskOfSpire implements
         }
         if(clearPowers) {
             clearPowers = false;
-            AbstractDungeon.player.powers.forEach(AbstractPower::onRemove);
+            //onRemove is never actually called at the end of combat, only when the power removes itself manually with the rmeoveSpecificPowerAction
+            //Powers are cleared in prebattleprep and resetPlayer only, so you still have powers at the end of combat.
+            //AbstractDungeon.player.powers.forEach(AbstractPower::onRemove);
             AbstractDungeon.player.powers.clear();
         }
     }
