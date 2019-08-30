@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import javassist.CtBehavior;
+import riskOfSpire.RiskOfSpire;
 import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.util.helpers.RoRShrineHelper;
 
@@ -27,7 +28,7 @@ public class AlternateShrineSystemPatches {
                 boolean wasElite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
                 if (!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite))) {
                     RoRShrineHelper.shrineSpawnMiss = 0;
-                    //RiskOfSpire.clearPowers = true;
+                    RiskOfSpire.clearPowers = true;
                     AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
                     AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.getCurrRoom());
                     AbstractDungeon.getCurrRoom().onPlayerEntry();
