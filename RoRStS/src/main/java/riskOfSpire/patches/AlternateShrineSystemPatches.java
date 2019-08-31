@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.util.helpers.RoRShrineHelper;
 
@@ -29,6 +30,12 @@ public class AlternateShrineSystemPatches {
                 if (!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite))) {
                     RoRShrineHelper.shrineSpawnMiss = 0;
                     RiskOfSpire.clearPowers = true;
+
+                    BundleOfFireworks fw = (BundleOfFireworks)AbstractDungeon.player.getRelic(BundleOfFireworks.ID);
+                    if(fw != null) {
+                        fw.onTrigger();
+                    }
+
                     AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
                     AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.getCurrRoom());
                     AbstractDungeon.getCurrRoom().onPlayerEntry();
