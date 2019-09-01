@@ -52,9 +52,7 @@ public class BrittleCrown extends StackableRelic {
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (damageAmount > 0 && info.type == DamageInfo.DamageType.NORMAL) {
             flash();
-            for(int i = 0; i<10; i++) {
-                AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_FROST_EVOKE", MathUtils.random(0.75f, 1.5f)));
-            }
+            AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_FROST_EVOKE", MathUtils.random(0.75f, 1.5f)));
             AbstractDungeon.player.loseGold(getLoss());
             AbstractDungeon.effectsQueue.add(new LoseGoldEffect(getLoss()));
         }
