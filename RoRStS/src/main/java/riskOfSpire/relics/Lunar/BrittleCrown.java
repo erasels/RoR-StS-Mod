@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BrittleCrown extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BrittleCrown");
-    private static final float CONVERT_PERC = 0.5f;
+    private static final float CONVERT_PERC = 0.3f;
     private static final float LOSE_PERC = 0.15f;
 
     private ArrayList<AbstractMonster> antiScumList = new ArrayList<>();
@@ -73,7 +73,7 @@ public class BrittleCrown extends StackableRelic {
     }
 
     public float getConvertPerc() {
-        return (CONVERT_PERC / 2) + ((CONVERT_PERC / 2) * relicStack);
+        return (CONVERT_PERC / 2f) + ((CONVERT_PERC / 2f) * relicStack);
     }
 
     public int getConvert(AbstractMonster m) {
