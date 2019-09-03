@@ -80,8 +80,8 @@
     "NAME": "Surrounded",
     "DESCRIPTIONS": [
       "Receives #b",
-      " [REMOVE_SPACE]% more and deals #b",
-      " [REMOVE_SPACE]% less damage."
+      "% more and deals #b",
+      "% less damage."
     ]
   },
   "riskOfSpire:GainDex": {
@@ -117,6 +117,14 @@
       " #ySkill is ",
       " #ySkills are ",
       "played twice."
+    ]
+  },
+  "riskOfSpire:Chronostasis": {
+    "NAME": "Chronostasis",
+    "DESCRIPTIONS": [
+      "Whenever this monster is attacked, it receives #b",
+      "% more damage from #yAttacks this turn. Stacks decay by half at the end of the monster's turn. NL (Receives #b",
+      "% more damage)"
     ]
   }
 }

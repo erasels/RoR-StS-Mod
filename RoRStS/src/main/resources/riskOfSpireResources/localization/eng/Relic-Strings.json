@@ -519,5 +519,13 @@
       " [REMOVE_SPACE] #yAttack and #ySkill are played twice.",
       " #yAttacks and #ySkills are played twice."
     ]
+  },
+  "riskOfSpire:Chronobauble": {
+    "NAME": "Chronobauble",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you attack a monster, it takes #b",
+      "% additional damage from #yAttacks [REMOVE_SPACE], decaying by half at the end of its turn."
+    ]
   }
 }
