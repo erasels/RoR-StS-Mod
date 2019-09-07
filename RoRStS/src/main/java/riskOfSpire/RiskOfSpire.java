@@ -76,8 +76,7 @@ public class RiskOfSpire implements
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
         PreStartGameSubscriber,
-        OnPlayerLoseBlockSubscriber,
-        PostDeathSubscriber {
+        OnPlayerLoseBlockSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
@@ -402,6 +401,7 @@ public class RiskOfSpire implements
         DifficultyMeter.setDifficulty(0);
         RiskOfRainRelicHelper.dropUsable = false;
         RoRShrineHelper.shrineSpawnMiss = 0;
+        TranscendencePatches.TranscendenceField.hasTranscendence.set(AbstractDungeon.topPanel, false);
     }
 
     @Override
@@ -415,11 +415,6 @@ public class RiskOfSpire implements
         } else {
             DifficultyMeter.unhideHitbox();
         }
-    }
-
-    @Override
-    public void receivePostDeath() {
-        TranscendencePatches.TranscendenceField.hasTranscendence.set(AbstractDungeon.topPanel, false);
     }
 
     public static String makeCardPath(String resourcePath) {
