@@ -151,7 +151,7 @@ public class ThreeDPrinter extends AbstractShrineEvent {
                 }
             }
         }
-        return c > MIN_RELIC_AMT || u > MIN_RELIC_AMT || r > MIN_RELIC_AMT;
+        return c >= MIN_RELIC_AMT || u >= MIN_RELIC_AMT || r >= MIN_RELIC_AMT;
     }
 
 
