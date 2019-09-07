@@ -37,6 +37,7 @@ import riskOfSpire.cards.DebugCard;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.patches.StartingScreen.BgChanges;
+import riskOfSpire.patches.relics.TranscendencePatches;
 import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.relics.Interfaces.OnBlockClearRelic;
@@ -75,7 +76,8 @@ public class RiskOfSpire implements
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
         PreStartGameSubscriber,
-        OnPlayerLoseBlockSubscriber{
+        OnPlayerLoseBlockSubscriber,
+        PostDeathSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
@@ -374,7 +376,7 @@ public class RiskOfSpire implements
                 AbstractDungeon.combatRewardScreen.positionRewards();
             }
         }
-        if(clearPowers) {
+        if (clearPowers) {
             clearPowers = false;
             //onRemove is never actually called at the end of combat, only when the power removes itself manually with the rmeoveSpecificPowerAction
             //Powers are cleared in prebattleprep and resetPlayer only, so you still have powers at the end of combat.
@@ -413,6 +415,11 @@ public class RiskOfSpire implements
         } else {
             DifficultyMeter.unhideHitbox();
         }
+    }
+
+    @Override
+    public void receivePostDeath() {
+        TranscendencePatches.TranscendenceField.hasTranscendence.set(AbstractDungeon.topPanel, false);
     }
 
     public static String makeCardPath(String resourcePath) {
