@@ -75,7 +75,7 @@ public class DifficultyMeter {
             } else {
                 sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, HEIGHT * Settings.scale, HEIGHT * Settings.scale);
             }
-            FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
+            FontHelper.renderFontCentered(sb, FontHelper.speech_font, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
         }
     }
 
