@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Ectoplasm;
+import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.vfx.combat.LoseGoldEffect;
@@ -40,7 +41,7 @@ public class BrittleCrown extends StackableRelic {
             AbstractDungeon.player.gainGold(getConvert(m));
             AbstractPlayer p = AbstractDungeon.player;
             if (!AbstractDungeon.player.hasRelic(Ectoplasm.ID)) {
-                for (int i = 0; i < getConvert(m); i++) {
+                for (int i = 0; i < NumberUtils.min(getConvert(m), 5000); i++) {
                     AbstractDungeon.effectList.add(new QuietGainPennyEffect(p, m.hb.cX, m.hb.cY, p.hb.cX, p.hb.cY, true));
                 }
             }
