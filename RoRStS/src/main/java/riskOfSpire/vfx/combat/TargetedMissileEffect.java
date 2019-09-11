@@ -132,8 +132,6 @@ public class TargetedMissileEffect extends AbstractGameEffect {
                 this.isDone = true;
 
                 AbstractDungeon.effectsQueue.add(new FlashAtkImgEffect(tX, tY, AbstractGameAction.AttackEffect.FIRE, false));
-                this.target.damageFlash = true;
-                this.target.damageFlashFrames = 4;
                 this.target.tint.color = Color.RED.cpy();
                 this.target.tint.changeColor(Color.WHITE.cpy());
             }

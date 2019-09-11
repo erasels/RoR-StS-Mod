@@ -45,8 +45,6 @@ public class RandomLightningStrikesAction extends AbstractGameAction {
         }
 
         if(!isDone) {
-            target.damageFlash = true;
-            target.damageFlashFrames = 4;
             AbstractDungeon.effectList.add(new FlashAtkImgEffect(target.hb.cX, target.hb.cY, attackEffect));
             AbstractDungeon.effectList.add(new LightningEffect(target.drawX, target.drawY));
             CardCrawlGame.sound.play("ORB_LIGHTNING_EVOKE", 0.1F);

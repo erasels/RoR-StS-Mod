@@ -46,8 +46,6 @@ public class MissileStrikeAction extends AbstractGameAction {
                 } else {
                     AbstractDungeon.effectsQueue.add(new MissileStrikeEffect(target.hb.cX, target.hb.cY, Color.ORANGE, soundKey));
                 }
-                target.damageFlash = true;
-                target.damageFlashFrames = 4;
                 AbstractDungeon.effectList.add(new FlashAtkImgEffect(target.hb.cX, target.hb.cY, attackEffect));
             }
 
