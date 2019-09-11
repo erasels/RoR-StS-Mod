@@ -18,15 +18,17 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import riskOfSpire.util.TextureLoader;
 
 public class DifficultyMeter {
-
+    //TODO: Make this smaller
     public static Texture DifficultyMeter = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyMeter.png");
     public static Texture DifficultyFrame = TextureLoader.getTexture("riskOfSpireResources/images/ui/DifficultyFrame.png");
     private static final TutorialStrings tutorialStrings = CardCrawlGame.languagePack.getTutorialString("DifficultyMeter");
+    private static final float WIDTH = 400;
+    private static final float HEIGHT = 44;
     public static final String[] MSG = tutorialStrings.TEXT;
     public static final String[] LABEL = tutorialStrings.LABEL;
     private float XPosition = 32 * Settings.scale;
     private float YPosition = 700 * Settings.scale;
-    private Hitbox hb = new Hitbox(XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
+    private Hitbox hb = new Hitbox(XPosition, YPosition, WIDTH * Settings.scale, HEIGHT * Settings.scale);
     private int Difficulty = 0;
     private int DifficultyIndex;
     private float DifficultyMod = 1;
@@ -67,11 +69,11 @@ public class DifficultyMeter {
     public void render(SpriteBatch sb) {
         if (!(getDifficultyMod() == 0.0f)) {
             sb.setColor(Color.WHITE);
-            sb.draw(DifficultyMeter, XPosition, YPosition, 400 * Settings.scale, 44 * Settings.scale);
+            sb.draw(DifficultyMeter, XPosition, YPosition, WIDTH * Settings.scale, HEIGHT * Settings.scale);
             if (Difficulty <= 356) {
-                sb.draw(DifficultyFrame, XPosition - 2 * Settings.scale + (Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
+                sb.draw(DifficultyFrame, XPosition - 2 * Settings.scale + (Difficulty - (Difficulty % 2/*Attempt to fix strange wobbling*/)) * Settings.scale, YPosition, HEIGHT * Settings.scale, HEIGHT * Settings.scale);
             } else {
-                sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, 44 * Settings.scale, 44 * Settings.scale);
+                sb.draw(DifficultyFrame, XPosition + 354 * Settings.scale, YPosition, HEIGHT * Settings.scale, HEIGHT * Settings.scale);
             }
             FontHelper.renderFontCentered(sb, FontHelper.deckCountFont, MSG[DifficultyIndex], XPosition + 200 * Settings.scale, YPosition - 40 * Settings.scale, Color.WHITE.cpy());
         }
