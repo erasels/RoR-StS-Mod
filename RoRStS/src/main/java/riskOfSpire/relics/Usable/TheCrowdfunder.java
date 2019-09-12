@@ -3,7 +3,6 @@ package riskOfSpire.relics.Usable;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -11,10 +10,10 @@ import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.general.TargetAction;
 import riskOfSpire.actions.unique.relicEffects.MissileStrikeAction;
 import riskOfSpire.relics.Abstracts.UsableRelic;
+import riskOfSpire.relics.Interfaces.TargetingRelic;
 
-public class TheCrowdfunder extends UsableRelic {
+public class TheCrowdfunder extends UsableRelic implements TargetingRelic {
     public static final String ID = RiskOfSpire.makeID("TheCrowdfunder");
-    public static final String STUPID_ID = "riskOfSpire:TheCrowdfunder";
 
     private static final int DAMAGE_PER = 4;
     private static final int MISSILE_COUNT = 5;
@@ -51,7 +50,8 @@ public class TheCrowdfunder extends UsableRelic {
         }
     }
 
-    public void unleashTheFunding(AbstractCreature m) {
+    @Override
+    public void targetAction(AbstractMonster m) {
         targeting = false;
         if (AbstractDungeon.player.gold >= GOLD_COST) {
             this.flash();
@@ -64,7 +64,7 @@ public class TheCrowdfunder extends UsableRelic {
 
             DamageInfo info = new DamageInfo(AbstractDungeon.player, DAMAGE_PER, DamageInfo.DamageType.THORNS);
             for (int i = 0; i < MISSILE_COUNT; i++) {
-                AbstractDungeon.actionManager.addToBottom(new MissileStrikeAction((AbstractMonster)m, info, AbstractGameAction.AttackEffect.NONE, Color.GOLD.cpy(), "GOLD_GAIN"));
+                AbstractDungeon.actionManager.addToBottom(new MissileStrikeAction(m, info, AbstractGameAction.AttackEffect.NONE, Color.GOLD.cpy(), "GOLD_GAIN"));
             }
         }
     }

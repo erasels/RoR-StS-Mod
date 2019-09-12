@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.Loader;
@@ -33,6 +34,7 @@ import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
+import riskOfSpire.actions.general.TargetAction;
 import riskOfSpire.cards.DebugCard;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
@@ -75,6 +77,7 @@ public class RiskOfSpire implements
         PostInitializeSubscriber,
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
+        PostRenderSubscriber,
         PreStartGameSubscriber,
         OnPlayerLoseBlockSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
@@ -105,6 +108,7 @@ public class RiskOfSpire implements
     public static LunarCoinDisplay lCD;
     public static boolean lCacheTrigger = false;
     public static boolean clearPowers = false;
+    public static TargetAction currentTargeting = null;
     private static String modID;
 
     public static final String DIFFICULTY_RELIC_COST_MOD_SETTING = "diffMoneyMod";
@@ -367,6 +371,11 @@ public class RiskOfSpire implements
     @Override
     public void receivePostUpdate() {
         if (!CardCrawlGame.isInARun()) return;
+
+        if(currentTargeting != null) {
+            currentTargeting.receivePostUpdate();
+        }
+
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
             if (lCacheTrigger) {
                 lCacheTrigger = false;
@@ -385,6 +394,15 @@ public class RiskOfSpire implements
     }
 
     @Override
+    public void receivePostRender(SpriteBatch spriteBatch) {
+        if (!CardCrawlGame.isInARun()) return;
+
+        if(currentTargeting != null) {
+            currentTargeting.receiveRender(spriteBatch);
+        }
+    }
+
+    @Override
     public int receiveOnPlayerLoseBlock(int i) {
         int tmp = i;
         for (AbstractRelic r : AbstractDungeon.player.relics) {
@@ -394,7 +412,6 @@ public class RiskOfSpire implements
         }
         return tmp;
     }
-
 
     @Override
     public void receivePreStartGame() {
@@ -414,6 +431,15 @@ public class RiskOfSpire implements
             DifficultyMeter.hideHitbox();
         } else {
             DifficultyMeter.unhideHitbox();
+        }
+    }
+
+    @Override
+    public void receiveRelicGet(AbstractRelic rel) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof BaseRelic) {
+                ((BaseRelic) r).onRelicGet(rel);
+            }
         }
     }
 
@@ -533,15 +559,6 @@ public class RiskOfSpire implements
     @SuppressWarnings("unused")
     public static void initialize() {
         RiskOfSpire riskOfSpire = new RiskOfSpire();
-    }
-
-    @Override
-    public void receiveRelicGet(AbstractRelic rel) {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof BaseRelic) {
-                ((BaseRelic) r).onRelicGet(rel);
-            }
-        }
     }
 
     public static void clearData() {
