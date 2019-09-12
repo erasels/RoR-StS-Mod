@@ -34,7 +34,7 @@ public class TargetAction {
     private Vector2[] points = new Vector2[20];
     private boolean isHidden;
 
-    private void close() {
+    private void hide() {
         this.isHidden = true;
     }
 
@@ -63,6 +63,7 @@ public class TargetAction {
                         ((TargetingRelic) r).targetAction((AbstractPlayer)m);
                     }
                 }
+                RiskOfSpire.currentTargeting = null;
             }
         }
     }
