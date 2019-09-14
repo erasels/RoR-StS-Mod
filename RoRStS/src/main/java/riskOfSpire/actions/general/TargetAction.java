@@ -9,17 +9,18 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Interfaces.TargetingRelic;
 
 public class TargetAction {
     private AbstractRelic r;
+    private boolean forced;
 
-    public TargetAction(AbstractRelic r) {
+    public TargetAction(AbstractRelic r, boolean forced) {
         this.r = r;
         this.isHidden = false;
+        this.forced = forced;
         com.megacrit.cardcrawl.core.GameCursor.hidden = true;
         for (int i = 0; i < this.points.length; i++) {
             this.points[i] = new Vector2();
@@ -51,18 +52,20 @@ public class TargetAction {
             this.hoveredCreature = m;
         }
 
-        if (InputHelper.justClickedLeft) {
-            InputHelper.justClickedLeft = false;
-            if (hoveredCreature != null) {
-                if(hoveredCreature instanceof AbstractMonster) {
-                    if (r instanceof TargetingRelic) {
-                        ((TargetingRelic) r).targetAction((AbstractMonster)m);
-                    }
-                } else {
-                    if (r instanceof TargetingRelic) {
-                        ((TargetingRelic) r).targetAction((AbstractPlayer)m);
-                    }
+        if(r instanceof TargetingRelic) {
+            if (InputHelper.justClickedLeft) {
+                InputHelper.justClickedLeft = false;
+                if (hoveredCreature != null) {
+                    ((TargetingRelic) r).targetAction(hoveredCreature, hoveredCreature instanceof AbstractPlayer);
+                    com.megacrit.cardcrawl.core.GameCursor.hidden = false;
+                    hide();
+                    RiskOfSpire.currentTargeting = null;
                 }
+            } else if (!forced && InputHelper.justClickedRight) {
+                InputHelper.justClickedRight = false;
+                ((TargetingRelic) r).onTargetingCancelled();
+                com.megacrit.cardcrawl.core.GameCursor.hidden = false;
+                hide();
                 RiskOfSpire.currentTargeting = null;
             }
         }

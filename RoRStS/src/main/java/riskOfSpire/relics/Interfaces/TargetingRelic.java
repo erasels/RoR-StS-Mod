@@ -1,9 +1,8 @@
 package riskOfSpire.relics.Interfaces;
 
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public interface TargetingRelic {
-    default void targetAction(AbstractPlayer p) {}
-    default void targetAction(AbstractMonster m) {}
+    default void targetAction(AbstractCreature c, boolean isPlayer) {}
+    default void onTargetingCancelled() {}
 }
