@@ -110,6 +110,13 @@
       " times. NL "
     ]
   },
+  "riskOfSpire:BlastShower": {
+    "NAME": "Blast Shower",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Remove all of your debuffs. NL "
+    ]
+  },
   "riskOfSpire:BundleOfFireworks": {
     "NAME": "Bundle of Fireworks",
     "FLAVOR": "TODO",
