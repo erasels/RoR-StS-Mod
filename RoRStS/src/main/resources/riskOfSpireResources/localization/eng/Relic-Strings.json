@@ -368,7 +368,7 @@
   },
   "riskOfSpire:WillOWisp": {
     "NAME": "Will-o'-the-Wisp",
-    "FLAVOR": "TODO",
+    "FLAVOR": "A small child which regularly visits its new family in the Spire.",
     "DESCRIPTIONS": [
       "Whenever an enemy dies, deal damage equal to #b",
       " [REMOVE_SPACE]% of its Max HP to ALL enemies."
@@ -376,7 +376,7 @@
   },
   "riskOfSpire:ShatteringJustice": {
     "NAME": "Shattering Justice",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Fortunately the floors were made to hold way more than the weight of such a weapon.",
     "DESCRIPTIONS": [
       "#yVulnerable now stacks additively on enemies for up to #b250 [REMOVE_SPACE]% increased damage. The first time an enemy takes damage from an attack each turn, apply #b",
       " #yVulnerable."
@@ -403,7 +403,7 @@
   },
   "riskOfSpire:BrittleCrown": {
     "NAME": "Brittle Crown",
-    "FLAVOR": "TODO",
+    "FLAVOR": "His name was Ozymandias. In the end, king of his own despair.",
     "DESCRIPTIONS": [
       "Whenever an enemy dies for the first time, gain #b",
       " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
@@ -456,7 +456,7 @@
   },
   "riskOfSpire:FiftySevenLeafClover": {
     "NAME": "57 Leaf Clover",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"Fifty seven leaves, I'm not on Earth yet, nasty creatures around and I don't want to hunt anything. Lucky, huh.\" - The Huntress.",
     "DESCRIPTIONS": [
       "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
       " [REMOVE_SPACE]%."
@@ -487,7 +487,7 @@
   },
   "riskOfSpire:Brainstalks": {
     "NAME": "Brainstalks",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"See what plants bring? Imagine the carnage of a world where they grow everywhere! No, child, we are safe in the Spire, don't worry.\" - Mystic.",
     "DESCRIPTIONS": [
       "Whenever a non-minion enemy dies, the next #b",
       " cards you spend Energy on have #yRefund #b1 [REMOVE_SPACE]."
@@ -504,7 +504,7 @@
   },
   "riskOfSpire:SpinelTonic": {
     "NAME": "Spinel Tonic",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"How unprofessional. MY potions don't kill those who drink them.\" - The Woman In Blue.",
     "DESCRIPTIONS": [
       "Once per combat, lose #r",
       " Max HP and gain #b",
