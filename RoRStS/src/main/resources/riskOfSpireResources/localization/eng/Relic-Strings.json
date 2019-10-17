@@ -456,7 +456,7 @@
   },
   "riskOfSpire:FiftySevenLeafClover": {
     "NAME": "57 Leaf Clover",
-    "FLAVOR": "\"Fifty seven leaves, I'm not on Earth yet, nasty creatures around and I don't want to hunt anything. Lucky, huh.\" - The Huntress.",
+    "FLAVOR": "\"I'm not on Earth yet, great game around and I'm done with hunting. Lucky clover, huh...\" - The Huntress.",
     "DESCRIPTIONS": [
       "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
       " [REMOVE_SPACE]%."
@@ -487,7 +487,7 @@
   },
   "riskOfSpire:Brainstalks": {
     "NAME": "Brainstalks",
-    "FLAVOR": "\"See what plants bring? Imagine the carnage of a world where they grow everywhere! No, child, we are safe in the Spire, don't worry.\" - Mystic.",
+    "FLAVOR": "\"Imagine, the outside world where such plants grew everywhere! No, child, we are safe in the Spire.\" - Mystic.",
     "DESCRIPTIONS": [
       "Whenever a non-minion enemy dies, the next #b",
       " cards you spend Energy on have #yRefund #b1 [REMOVE_SPACE]."
