@@ -17,6 +17,8 @@ import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.actions.unique.OverloadingAction;
 
+import java.util.Random;
+
 public class OverloadingPower extends AbstractElitePower implements CloneablePowerInterface, OnLoseTempHpPower {
     public static final String POWER_ID = RiskOfSpire.makeID("Overloading");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
@@ -43,6 +45,10 @@ public class OverloadingPower extends AbstractElitePower implements CloneablePow
         super.onInitialApplication();
         owner.decreaseMaxHealth(owner.maxHealth / 2);
         AbstractDungeon.actionManager.addToTop(new AddTemporaryHPAction(owner, owner, owner.maxHealth));
+        Random rng = new Random();
+        for(int i = 0; i< 20; i++) {
+            AbstractDungeon.actionManager.addToTop(new VFXAction(new LightningEffect(rng.nextFloat()*Settings.HEIGHT, rng.nextFloat()*Settings.WIDTH), Settings.FAST_MODE ? 0.0F : 0.01F));
+        }
         AbstractDungeon.actionManager.addToTop(new VFXAction(new LightningEffect(owner.drawX, owner.drawY), Settings.FAST_MODE ? 0.0F : 0.1F));
     }
 

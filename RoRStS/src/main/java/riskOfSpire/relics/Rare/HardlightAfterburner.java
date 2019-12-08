@@ -52,7 +52,7 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
         }
     }
 
-    @Override
+    /*@Override
     public void onEnterRoom(AbstractRoom room) {
         updateCounter();
     }
@@ -65,6 +65,12 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
     @Override
     public void onObtainCard(AbstractCard c) {
         updateCounter();
+    }*/
+    
+    @Override
+    public Integer onSave() {
+        this.updateCounter(); //onSave occurs before the relic counter values are saved, so just update it here.
+        return super.onSave();
     }
 
     private void updateCounter()
@@ -72,7 +78,7 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
         if (card != null)
         {
             this.counter = AbstractDungeon.player.masterDeck.group.indexOf(card);
-            if (this.counter >= 0)
+            if (this.counter >= 0) //from 0 to infinity
             {
                 this.counter *= -1; //from 0 to -infinity
                 this.counter -= 2; //from -2 to -infinity
@@ -126,6 +132,8 @@ public class HardlightAfterburner extends StackableRelic implements CustomBottle
             card = AbstractDungeon.gridSelectScreen.selectedCards.get(0);
             AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
+            
+            this.updateCounter();
             this.updateDescriptionOnStack(true);
         }
     }

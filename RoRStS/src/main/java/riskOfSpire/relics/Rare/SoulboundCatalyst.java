@@ -21,7 +21,7 @@ public class SoulboundCatalyst extends StackableRelic {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if ((info.owner != null) && (info.type != DamageInfo.DamageType.HP_LOSS) && (info.type != DamageInfo.DamageType.THORNS) && (damageAmount > 0)) {
+        if ((info.owner != null) && (info.type != DamageInfo.DamageType.HP_LOSS) && (info.type != DamageInfo.DamageType.THORNS) && (damageAmount > 0 || (info.output > 0 && AbstractDungeon.player.currentBlock == 0))) {
             AbstractDungeon.actionManager.addToTop(new ReduceUsableCooldownAction(AbstractDungeon.player, getVal(), true));
         }
         return damageAmount;

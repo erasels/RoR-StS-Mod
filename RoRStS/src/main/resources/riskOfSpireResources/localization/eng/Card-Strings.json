@@ -22,5 +22,9 @@
     "EXTENDED_DESCRIPTION": [
       "Pick the cards to put into your hand at the start of your next turn."
     ]
+  },
+  "riskOfSpire:DebugCard": {
+    "NAME": "Debug Elite",
+    "DESCRIPTION": "Apply Glacial."
   }
 }

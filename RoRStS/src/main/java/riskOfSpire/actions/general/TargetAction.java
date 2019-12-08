@@ -1,32 +1,31 @@
 package riskOfSpire.actions.general;
 
-import basemod.BaseMod;
-import basemod.interfaces.PostUpdateSubscriber;
-import basemod.interfaces.RenderSubscriber;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import riskOfSpire.relics.Usable.TheCrowdfunder;
+import riskOfSpire.RiskOfSpire;
+import riskOfSpire.relics.Interfaces.TargetingRelic;
 
-public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
+public class TargetAction {
     private AbstractRelic r;
+    private boolean forced;
 
-    public TargetAction(AbstractRelic r)
-    {
+    public TargetAction(AbstractRelic r, boolean forced) {
         this.r = r;
-        this.amount = amount;
-        BaseMod.subscribe(this);
         this.isHidden = false;
+        this.forced = forced;
         com.megacrit.cardcrawl.core.GameCursor.hidden = true;
         for (int i = 0; i < this.points.length; i++) {
             this.points[i] = new Vector2();
         }
+        RiskOfSpire.currentTargeting = this;
     }
 
     private AbstractCreature hoveredCreature;
@@ -35,15 +34,12 @@ public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
     private float arrowScaleTimer;
     private Vector2[] points = new Vector2[20];
     private boolean isHidden;
-    private int amount;
 
-    private void close()
-    {
+    private void hide() {
         this.isHidden = true;
     }
 
-    private void updateTargetMode()
-    {
+    private void updateTargetMode() {
         this.hoveredCreature = null;
         for (AbstractCreature m : AbstractDungeon.getMonsters().monsters) {
             if ((m.hb.hovered) && (!m.isDying)) {
@@ -56,29 +52,26 @@ public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
             this.hoveredCreature = m;
         }
 
-        if (InputHelper.justClickedLeft) {
-            InputHelper.justClickedLeft = false;
-            if (this.hoveredCreature != null && this.hoveredCreature != AbstractDungeon.player) {
-                switch (r.relicId) {
-                    case TheCrowdfunder.STUPID_ID:
-                        ((TheCrowdfunder)r).unleashTheFunding(this.hoveredCreature);
-                        com.megacrit.cardcrawl.core.GameCursor.hidden = false;
-                        close();
-                        break;
+        if(r instanceof TargetingRelic) {
+            if (InputHelper.justClickedLeft) {
+                InputHelper.justClickedLeft = false;
+                if (hoveredCreature != null) {
+                    ((TargetingRelic) r).targetAction(hoveredCreature, hoveredCreature instanceof AbstractPlayer);
+                    com.megacrit.cardcrawl.core.GameCursor.hidden = false;
+                    hide();
+                    RiskOfSpire.currentTargeting = null;
                 }
+            } else if (!forced && InputHelper.justClickedRight) {
+                InputHelper.justClickedRight = false;
+                ((TargetingRelic) r).onTargetingCancelled();
+                com.megacrit.cardcrawl.core.GameCursor.hidden = false;
+                hide();
+                RiskOfSpire.currentTargeting = null;
             }
         }
     }
 
-    @Override
-    public void receiveRender(SpriteBatch sb)
-    {
-        render(sb);
-
-    }
-
-    public void render(SpriteBatch sb)
-    {
+    public void render(SpriteBatch sb) {
         if (!this.isHidden) {
             renderTargetingUi(sb);
             if (this.hoveredCreature != null) {
@@ -87,8 +80,7 @@ public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
         }
     }
 
-    public void renderTargetingUi(SpriteBatch sb)
-    {
+    public void renderTargetingUi(SpriteBatch sb) {
         float x = InputHelper.mX;
         float y = InputHelper.mY;
         this.controlPoint = new Vector2(AbstractDungeon.player.animX - (x - AbstractDungeon.player.animX) / 4.0F, AbstractDungeon.player.animY + (y - AbstractDungeon.player.animY - 40.0F * Settings.scale) / 2.0F);
@@ -111,11 +103,9 @@ public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
         drawCurvedLine(sb, new Vector2(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY - 40.0F * Settings.scale), new Vector2(x, y), this.controlPoint);
 
         sb.draw(ImageMaster.TARGET_UI_ARROW, x - 128.0F, y - 128.0F, 128.0F, 128.0F, 256.0F, 256.0F, this.arrowScale, this.arrowScale, tmp.angle() + 90.0F, 0, 0, 256, 256, false, false);
-
     }
 
-    private void drawCurvedLine(SpriteBatch sb, Vector2 start, Vector2 end, Vector2 control)
-    {
+    private void drawCurvedLine(SpriteBatch sb, Vector2 start, Vector2 end, Vector2 control) {
         float radius = 7.0F * Settings.scale;
 
         for (int i = 0; i < this.points.length - 1; i++) {
@@ -136,10 +126,11 @@ public class TargetAction implements RenderSubscriber, PostUpdateSubscriber {
         }
     }
 
-    /*     */
-    @Override
-    public void receivePostUpdate()
-    {
+    public void receiveRender(SpriteBatch sb) {
+        render(sb);
+    }
+
+    public void receivePostUpdate() {
         if (!this.isHidden) {
             updateTargetMode();
         }

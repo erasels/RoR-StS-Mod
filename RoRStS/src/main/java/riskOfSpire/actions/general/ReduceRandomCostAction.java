@@ -88,7 +88,7 @@ public class ReduceRandomCostAction extends AbstractGameAction {
                 if (AbstractDungeon.player.hand.contains(copy))
                     copy.superFlash();
             } else {
-                copy.modifyCostForTurn(-reduction);
+                copy.setCostForTurn(copy.costForTurn-reduction);
                 ModifiedUntilPlayedSpireField.isCostModifiedUntilPlayed.set(copy, true);
                 if (AbstractDungeon.player.hand.contains(copy))
                     copy.superFlash();

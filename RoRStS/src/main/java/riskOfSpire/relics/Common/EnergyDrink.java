@@ -43,13 +43,16 @@ public class EnergyDrink extends StackableRelic {
             }
 
             if (GameActionManager.turn >= relicStack) {
-                flash();
-                AbstractDungeon.actionManager.addToBottom(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, AfterImagePower.POWER_ID, 1));
+                AfterImagePower aip = (AfterImagePower)AbstractDungeon.player.getPower(AfterImagePower.POWER_ID);
+                if(aip != null) {
+                    flash();
+                    AbstractDungeon.actionManager.addToBottom(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, aip, 1));
 
-                AbstractDungeon.player.getPower(AfterImagePower.POWER_ID).updateDescription();
+                    aip.updateDescription();
 
-                if (AbstractDungeon.player.getPower(AfterImagePower.POWER_ID).amount <= 0) {
-                    AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, AbstractDungeon.player.getPower(AfterImagePower.POWER_ID)));
+                    if (aip.amount <= 0) {
+                        AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, aip));
+                    }
                 }
                 triggered = true;
             }

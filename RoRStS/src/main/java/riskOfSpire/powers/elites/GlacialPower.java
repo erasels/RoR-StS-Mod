@@ -2,6 +2,7 @@ package riskOfSpire.powers.elites;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Color;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.vfx.combat.FallingIceEffect;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.DynamicDrawReductionPower;
 import riskOfSpire.powers.GainDexPower;
@@ -45,6 +47,12 @@ public class GlacialPower extends AbstractElitePower implements CloneablePowerIn
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, owner, new GainDexPower(AbstractDungeon.player, 1), 1));
             }
         }
+    }
+
+    public void onInitialApplication() {
+        super.onInitialApplication();
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(owner, new FallingIceEffect(25, false), 0F));
+        AbstractDungeon.actionManager.addToBottom(new VFXAction(owner, new FallingIceEffect(25, true), 0.25F));
     }
 
     public void updateDescription() {

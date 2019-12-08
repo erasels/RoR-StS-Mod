@@ -26,7 +26,6 @@ public class RoseBuckler extends StackableRelic {
     @Override
     public void onUseCard(AbstractCard card, UseCardAction uac) {
         counter++;
-        flash();
         if(counter >= CPTHRESHOLD) {
             beginLongPulse();
         }

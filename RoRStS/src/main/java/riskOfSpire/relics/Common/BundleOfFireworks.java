@@ -20,8 +20,9 @@ public class BundleOfFireworks extends StackableRelic {
         this.counter = 0;
     }
 
+    //Get's calle din AlternateShrineSystemPatch
     @Override
-    public void onChestOpen(boolean bossChest) {
+    public void onTrigger() {
         this.flash();
         this.counter += DAMAGE_COUNT * relicStack;
     }
@@ -30,8 +31,7 @@ public class BundleOfFireworks extends StackableRelic {
     public void onRelicGet(AbstractRelic r){
         //if((!(r instanceof StackableRelic) && !AbstractDungeon.player.hasRelic(r.relicId)) || (r instanceof StackableRelic && ((StackableRelic) r).relicStack == 1)) {
         if (!CardCrawlGame.loadingSave) {
-            this.flash();
-            this.counter += DAMAGE_COUNT * relicStack;
+            onTrigger();
         }
     }
 

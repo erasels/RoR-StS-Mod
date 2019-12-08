@@ -110,11 +110,18 @@
       " times. NL "
     ]
   },
+  "riskOfSpire:BlastShower": {
+    "NAME": "Blast Shower",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Remove all of your debuffs. NL "
+    ]
+  },
   "riskOfSpire:BundleOfFireworks": {
     "NAME": "Bundle of Fireworks",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Whenever you open a chest or obtain a relic, deal #b",
+      "Whenever you visit a post-combat shrine or obtain a relic, deal #b",
       " damage to a random enemy #b",
       " times at the start of the next combat."
     ]
@@ -509,6 +516,23 @@
       "Once per combat, lose #r",
       " Max HP and gain #b",
       " #yStrength [REMOVE_SPACE], #yDexterity and #yFocus [REMOVE_SPACE]. NL "
+    ]
+  },
+  "riskOfSpire:BerzerkersPauldron": {
+    "NAME": "Berzerker's Pauldron",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Upon moving from a monster room to another monster room, the first #b",
+      " [REMOVE_SPACE] #yAttack and #ySkill are played twice.",
+      " #yAttacks and #ySkills are played twice."
+    ]
+  },
+  "riskOfSpire:Chronobauble": {
+    "NAME": "Chronobauble",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you attack a monster, it takes #b",
+      "% additional damage from #yAttacks [REMOVE_SPACE], decaying by half at the end of its turn."
     ]
   }
 }

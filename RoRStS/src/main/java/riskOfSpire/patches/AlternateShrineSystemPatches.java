@@ -9,29 +9,44 @@ import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import javassist.CtBehavior;
 import riskOfSpire.RiskOfSpire;
+import riskOfSpire.relics.Common.BundleOfFireworks;
 import riskOfSpire.shrines.AbstractShrineEvent;
 import riskOfSpire.util.helpers.RoRShrineHelper;
 
 public class AlternateShrineSystemPatches {
+    @SpirePatch(clz= AbstractRoom.class, method=SpirePatch.CLASS)
+    public static class ShrineFields {
+        public static SpireField<Boolean> rolledShrineChance = new SpireField<>(() -> false);
+    }
+
     @SpirePatch(clz = ProceedButton.class, method = "update")
     public static class PostCombatRewardScreenShrine {
         @SpireInsertPatch(locator = Locator.class)
         public static SpireReturn Insert(ProceedButton __instance) {
-            //Can't spawn after Boss and Boss Treasure because of the insert location
-            boolean wasElite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
-            if(!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite)))
-            {
-                RoRShrineHelper.shrineSpawnMiss = 0;
-                RiskOfSpire.clearPowers = true;
-                AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.currMapNode.room);
-                AbstractDungeon.getCurrRoom().onPlayerEntry();
-                AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
-                AbstractDungeon.combatRewardScreen.clear();
-                AbstractDungeon.previousScreen = null;
-                AbstractDungeon.closeCurrentScreen();
-                return SpireReturn.Return(null);
+            if(!ShrineFields.rolledShrineChance.get(AbstractDungeon.getCurrRoom())) {
+                ShrineFields.rolledShrineChance.set(AbstractDungeon.getCurrRoom(), true);
+                //Can't spawn after Boss and Boss Treasure because of the insert location
+                boolean wasElite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
+                if (!(AbstractDungeon.getCurrRoom() instanceof TreasureRoom) && AbstractDungeon.eventRng.randomBoolean(RoRShrineHelper.getCurrentShrineChance(wasElite))) {
+                    RoRShrineHelper.shrineSpawnMiss = 0;
+                    RiskOfSpire.clearPowers = true;
+
+                    BundleOfFireworks fw = (BundleOfFireworks)AbstractDungeon.player.getRelic(BundleOfFireworks.ID);
+                    if(fw != null) {
+                        fw.onTrigger();
+                    }
+
+                    AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+                    AbstractDungeon.currMapNode.room = new PostCombatShrineRoom(AbstractDungeon.getCurrRoom());
+                    AbstractDungeon.getCurrRoom().onPlayerEntry();
+                    AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
+                    AbstractDungeon.combatRewardScreen.clear();
+                    AbstractDungeon.previousScreen = null;
+                    AbstractDungeon.closeCurrentScreen();
+                    return SpireReturn.Return(null);
+                }
+                RoRShrineHelper.shrineSpawnMiss++;
             }
-            RoRShrineHelper.shrineSpawnMiss++;
             return SpireReturn.Continue();
         }
     }

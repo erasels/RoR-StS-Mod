@@ -34,9 +34,9 @@ public class ReInsertShopRelicsPatch {
                         tmp = AbstractDungeon.shopRelicPool;
                 }
                 //Shuffle it into the last five relics (10 if not taken or seen for first time) of the end because otherwise it would always spawn after seeing it once.
-                int listBound = NumberUtils.min(tmp.size(), AbstractDungeon.player.hasRelic(tempRelic[0].relicId) ? 5 : 10);
+                int listBound = NumberUtils.min(tmp.size()-1, AbstractDungeon.player.hasRelic(tempRelic[0].relicId) ? 5 : 10);
                 if (listBound > 0) {
-                    int bound = tmp.size() - (AbstractDungeon.relicRng.random(listBound) + 1);
+                    int bound = (tmp.size()-1) - AbstractDungeon.relicRng.random(listBound);
                     String newEnd = tmp.get(bound);
                     tmp.set(bound, tempRelic[0].relicId);
                     tmp.add(newEnd);

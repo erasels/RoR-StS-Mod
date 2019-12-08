@@ -8,16 +8,17 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Ectoplasm;
-import com.megacrit.cardcrawl.vfx.GainPennyEffect;
+import org.apache.commons.lang3.math.NumberUtils;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.vfx.combat.LoseGoldEffect;
+import riskOfSpire.vfx.combat.QuietGainPennyEffect;
 
 import java.util.ArrayList;
 
 public class BrittleCrown extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("BrittleCrown");
-    private static final float CONVERT_PERC = 0.5f;
+    private static final float CONVERT_PERC = 0.3f;
     private static final float LOSE_PERC = 0.15f;
 
     private ArrayList<AbstractMonster> antiScumList = new ArrayList<>();
@@ -40,8 +41,8 @@ public class BrittleCrown extends StackableRelic {
             AbstractDungeon.player.gainGold(getConvert(m));
             AbstractPlayer p = AbstractDungeon.player;
             if (!AbstractDungeon.player.hasRelic(Ectoplasm.ID)) {
-                for (int i = 0; i < getConvert(m); i++) {
-                    AbstractDungeon.effectList.add(new GainPennyEffect(p, m.hb.cX, m.hb.cY, p.hb.cX, p.hb.cY, true));
+                for (int i = 0; i < NumberUtils.min(getConvert(m), 5000); i++) {
+                    AbstractDungeon.effectList.add(new QuietGainPennyEffect(p, m.hb.cX, m.hb.cY, p.hb.cX, p.hb.cY, true));
                 }
             }
             antiScumList.add(m);
@@ -52,9 +53,7 @@ public class BrittleCrown extends StackableRelic {
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (damageAmount > 0 && info.type == DamageInfo.DamageType.NORMAL) {
             flash();
-            for(int i = 0; i<10; i++) {
-                AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_FROST_EVOKE", MathUtils.random(0.75f, 1.5f)));
-            }
+            AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_FROST_EVOKE", MathUtils.random(0.75f, 1.5f)));
             AbstractDungeon.player.loseGold(getLoss());
             AbstractDungeon.effectsQueue.add(new LoseGoldEffect(getLoss()));
         }
@@ -75,7 +74,7 @@ public class BrittleCrown extends StackableRelic {
     }
 
     public float getConvertPerc() {
-        return (CONVERT_PERC / 2) + ((CONVERT_PERC / 2) * relicStack);
+        return (CONVERT_PERC / 2f) + ((CONVERT_PERC / 2f) * relicStack);
     }
 
     public int getConvert(AbstractMonster m) {

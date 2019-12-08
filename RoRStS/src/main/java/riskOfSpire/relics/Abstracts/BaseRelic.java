@@ -1,5 +1,6 @@
 package riskOfSpire.relics.Abstracts;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -36,5 +37,13 @@ public abstract class BaseRelic extends AbstractRelic {
         powerTips.forEach(s -> tips.add(new PowerTip(s[0], s[1])));
         tips.addAll(pTs);
         initializeTips();
+    }
+
+    public static void atb(AbstractGameAction a) {
+        AbstractDungeon.actionManager.addToBottom(a);
+    }
+
+    public static void att(AbstractGameAction a) {
+        AbstractDungeon.actionManager.addToTop(a);
     }
 }

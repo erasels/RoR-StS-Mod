@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.Loader;
@@ -33,9 +34,12 @@ import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.clapper.util.classutil.*;
+import riskOfSpire.actions.general.TargetAction;
+import riskOfSpire.cards.DebugCard;
 import riskOfSpire.cards.ImpCards.*;
 import riskOfSpire.patches.RewardItemTypeEnumPatch;
 import riskOfSpire.patches.StartingScreen.BgChanges;
+import riskOfSpire.patches.relics.TranscendencePatches;
 import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Abstracts.UsableRelic;
 import riskOfSpire.relics.Interfaces.OnBlockClearRelic;
@@ -73,8 +77,9 @@ public class RiskOfSpire implements
         PostInitializeSubscriber,
         PostDungeonInitializeSubscriber,
         PostUpdateSubscriber,
+        PostRenderSubscriber,
         PreStartGameSubscriber,
-        OnPlayerLoseBlockSubscriber{
+        OnPlayerLoseBlockSubscriber {
     public static final Logger logger = LogManager.getLogger(RiskOfSpire.class.getName());
     public static final String BADGE_IMAGE = "riskOfSpireResources/images/Badge.png";
     private static final String MODNAME = "Risk Of Spire";
@@ -103,6 +108,7 @@ public class RiskOfSpire implements
     public static LunarCoinDisplay lCD;
     public static boolean lCacheTrigger = false;
     public static boolean clearPowers = false;
+    public static TargetAction currentTargeting = null;
     private static String modID;
 
     public static final String DIFFICULTY_RELIC_COST_MOD_SETTING = "diffMoneyMod";
@@ -149,6 +155,8 @@ public class RiskOfSpire implements
         BaseMod.addCard(new ImpYggo());
         BaseMod.addCard(new ImpUgorn());
         BaseMod.addCard(new ImpChir());
+
+        BaseMod.addCard(new DebugCard());
     }
 
     @Override
@@ -363,6 +371,11 @@ public class RiskOfSpire implements
     @Override
     public void receivePostUpdate() {
         if (!CardCrawlGame.isInARun()) return;
+
+        if(currentTargeting != null) {
+            currentTargeting.receivePostUpdate();
+        }
+
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
             if (lCacheTrigger) {
                 lCacheTrigger = false;
@@ -371,9 +384,21 @@ public class RiskOfSpire implements
                 AbstractDungeon.combatRewardScreen.positionRewards();
             }
         }
-        if(clearPowers) {
+        if (clearPowers) {
             clearPowers = false;
+            //onRemove is never actually called at the end of combat, only when the power removes itself manually with the rmeoveSpecificPowerAction
+            //Powers are cleared in prebattleprep and resetPlayer only, so you still have powers at the end of combat.
+            //AbstractDungeon.player.powers.forEach(AbstractPower::onRemove);
             AbstractDungeon.player.powers.clear();
+        }
+    }
+
+    @Override
+    public void receivePostRender(SpriteBatch spriteBatch) {
+        if (!CardCrawlGame.isInARun()) return;
+
+        if(currentTargeting != null) {
+            currentTargeting.receiveRender(spriteBatch);
         }
     }
 
@@ -388,12 +413,12 @@ public class RiskOfSpire implements
         return tmp;
     }
 
-
     @Override
     public void receivePreStartGame() {
         DifficultyMeter.setDifficulty(0);
         RiskOfRainRelicHelper.dropUsable = false;
         RoRShrineHelper.shrineSpawnMiss = 0;
+        TranscendencePatches.TranscendenceField.hasTranscendence.set(AbstractDungeon.topPanel, false);
     }
 
     @Override
@@ -406,6 +431,15 @@ public class RiskOfSpire implements
             DifficultyMeter.hideHitbox();
         } else {
             DifficultyMeter.unhideHitbox();
+        }
+    }
+
+    @Override
+    public void receiveRelicGet(AbstractRelic rel) {
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof BaseRelic) {
+                ((BaseRelic) r).onRelicGet(rel);
+            }
         }
     }
 
@@ -525,15 +559,6 @@ public class RiskOfSpire implements
     @SuppressWarnings("unused")
     public static void initialize() {
         RiskOfSpire riskOfSpire = new RiskOfSpire();
-    }
-
-    @Override
-    public void receiveRelicGet(AbstractRelic rel) {
-        for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r instanceof BaseRelic) {
-                ((BaseRelic) r).onRelicGet(rel);
-            }
-        }
     }
 
     public static void clearData() {
