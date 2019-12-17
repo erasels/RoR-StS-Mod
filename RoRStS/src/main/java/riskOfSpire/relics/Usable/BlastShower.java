@@ -1,6 +1,5 @@
 package riskOfSpire.relics.Usable;
 
-import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.unique.RemoveDebuffsAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -14,7 +13,7 @@ public class BlastShower extends UsableRelic {
     private static final int COOLDOWN = 9;
 
     public BlastShower() {
-        super(ID, "DisposableMissileLauncher.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
+        super(ID, "BlastShower.png", RelicTier.UNCOMMON, LandingSound.HEAVY);
     }
 
     @Override
