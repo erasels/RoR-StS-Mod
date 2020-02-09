@@ -21,13 +21,13 @@ public class ModifyDamageRelicHook {
                     if(firstMatch) {
                         firstMatch = false;
                         m.replace("{" +
-                                "tmp = $proceed(tmp, $0);" +
-                                "$_ = " + ModifyDamageRelicHook.class.getName() + ".Do(r, tmp, $0, mo);" +
+                                "tmp = $proceed(tmp, this);" +
+                                "$_ = " + ModifyDamageRelicHook.class.getName() + ".Do($0, tmp, this, mo);" +
                                 "}");
                     } else {
                         m.replace("{" +
-                                "tmp[i] = $proceed(tmp[i], $0);" +
-                                "$_ = " + ModifyDamageRelicHook.class.getName() + ".Do(r, tmp, $0, mo);" +
+                                "tmp[i] = $proceed(tmp[i], this);" +
+                                "$_ = " + ModifyDamageRelicHook.class.getName() + ".Do($0, tmp[i], this, mo);" +
                                 "}");
                     }
                 }
