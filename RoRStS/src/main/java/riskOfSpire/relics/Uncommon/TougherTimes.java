@@ -1,6 +1,5 @@
 package riskOfSpire.relics.Uncommon;
 
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
@@ -21,12 +20,12 @@ public class TougherTimes extends StackableRelic
         return DESCRIPTIONS[0] + DAMAGE_REDUCTION * relicStack + DESCRIPTIONS[1];
     }
 
-    public float reduceDamage(float damage, DamageInfo.DamageType damageType)
-    {
+    @Override
+    public int onLoseHpLast(int damage) {
         if (damage > 0) {
             damage -= DAMAGE_REDUCTION * relicStack;
         }
-        return damage;
+        return Math.max(damage, 0);
     }
 
     public AbstractRelic makeCopy()

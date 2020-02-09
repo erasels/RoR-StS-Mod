@@ -181,8 +181,8 @@
     "NAME": "Tougher Times",
     "FLAVOR": "TODO",
     "DESCRIPTIONS": [
-      "Reduce ALL damage taken by #b",
-      "."
+      "Whenever you would lose HP, lose #b",
+      " less."
     ]
   },
   "riskOfSpire:AlienHead": {
