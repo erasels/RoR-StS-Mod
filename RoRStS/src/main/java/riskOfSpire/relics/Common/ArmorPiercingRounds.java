@@ -9,7 +9,7 @@ import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Interfaces.ModifyDamageRelic;
 
-public class ArmorPiercingRounds extends StackableRelic implements /*OnMonsterSpawn,*/ ModifyDamageRelic {
+public class ArmorPiercingRounds extends StackableRelic implements ModifyDamageRelic {
     public static final String ID = RiskOfSpire.makeID("ArmorPiercingRounds");
 
     public ArmorPiercingRounds() {
@@ -33,8 +33,8 @@ public class ArmorPiercingRounds extends StackableRelic implements /*OnMonsterSp
     }
 
     @Override
-    public int calculateCardDamageRelic(AbstractCard card, AbstractMonster m, int damage) {
-        if(card.damageTypeForTurn == DamageInfo.DamageType.NORMAL && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
+    public float calculateCardDamageRelic(float damage, AbstractCard c, AbstractMonster m) {
+        if(c.damageTypeForTurn == DamageInfo.DamageType.NORMAL && (m.type == AbstractMonster.EnemyType.BOSS || m.type == AbstractMonster.EnemyType.ELITE)) {
             damage += relicStack;
         }
         return damage;

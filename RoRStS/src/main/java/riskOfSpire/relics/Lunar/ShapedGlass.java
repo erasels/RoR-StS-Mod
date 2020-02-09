@@ -4,16 +4,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
-import riskOfSpire.relics.Interfaces.ModifyDamageRelic;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ShapedGlass extends StackableRelic implements ModifyDamageRelic {
+public class ShapedGlass extends StackableRelic {
     public static final String ID = RiskOfSpire.makeID("ShapedGlass");
     private ArrayList<Integer> mhpDecreases = new ArrayList<>();
 
@@ -32,16 +30,8 @@ public class ShapedGlass extends StackableRelic implements ModifyDamageRelic {
     }
 
     @Override
-    public int calculateCardDamageRelic(AbstractCard card, AbstractMonster target, int damage) {
-        if(card.damageTypeForTurn == DamageInfo.DamageType.NORMAL) {
-            damage *= (1+relicStack);
-        }
-        return damage;
-    }
-
-    @Override
-    public int applyPowersRelic(AbstractCard card, int damage) {
-        if(card.damageTypeForTurn == DamageInfo.DamageType.NORMAL) {
+    public float atDamageModify(float damage, AbstractCard c) {
+        if(c.damageTypeForTurn == DamageInfo.DamageType.NORMAL) {
             damage *= (1+relicStack);
         }
         return damage;

@@ -22,10 +22,10 @@ public class Crowbar extends StackableRelic implements ModifyDamageRelic {
     }
 
     @Override
-    public int calculateCardDamageRelic(AbstractCard card, AbstractMonster target, int damage) {
-        if(target.currentHealth == target.maxHealth && damage > 0) {
+    public float calculateCardDamageRelic(float damage, AbstractCard c, AbstractMonster m) {
+        if(m.currentHealth == m.maxHealth && damage > 0) {
             flash();
-            return MathUtils.round((float)damage*getVal());
+            return MathUtils.round(damage*getVal());
         }
         return damage;
     }
