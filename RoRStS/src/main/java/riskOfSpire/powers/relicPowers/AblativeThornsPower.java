@@ -13,9 +13,8 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.powers.abstracts.RoRStSPower;
-import riskOfSpire.powers.interfaces.PostOnLoseHpPower;
 
-public class AblativeThornsPower extends RoRStSPower implements CloneablePowerInterface, PostOnLoseHpPower {
+public class AblativeThornsPower extends RoRStSPower implements CloneablePowerInterface {
     public static final String POWER_ID = RiskOfSpire.makeID("AblativeThorns");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
@@ -51,7 +50,7 @@ public class AblativeThornsPower extends RoRStSPower implements CloneablePowerIn
     }
 
     @Override
-    public int postOnLoseHp(DamageInfo info, int damageAmount) {
+    public void wasHPLost(DamageInfo info, int damageAmount) {
         if (info.type == DamageInfo.DamageType.NORMAL && info.owner != null && info.owner != owner) {
             if (this.amount == 0) {
                 AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(this.owner, this.owner, this));
@@ -60,7 +59,6 @@ public class AblativeThornsPower extends RoRStSPower implements CloneablePowerIn
             }
             updateDescription();
         }
-        return damageAmount;
     }
 
     public void updateDescription() {
