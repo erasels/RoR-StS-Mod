@@ -156,7 +156,7 @@ public class ModifyDamageRelicHook
     {
         public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException
         {
-            Matcher finalMatcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "powers");
+            Matcher finalMatcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "stance");
             return LineFinder.findInOrder(ctMethodToPatch, new ArrayList<Matcher>(), finalMatcher);
         }
     }
@@ -165,7 +165,7 @@ public class ModifyDamageRelicHook
     {
         public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException
         {
-            Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "hasRelic");
+            Matcher finalMatcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "stance");
             return LineFinder.findInOrder(ctMethodToPatch, Collections.singletonList(finalMatcher), finalMatcher);
         }
     }
