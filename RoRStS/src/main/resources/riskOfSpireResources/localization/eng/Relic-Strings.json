@@ -110,6 +110,14 @@
       " times. NL "
     ]
   },
+  "riskOfSpire:VolcanicEgg": {
+    "NAME": "Volcanic Egg",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you are attacked this turn, deal #b",
+      " damage back. NL "
+    ]
+  },
   "riskOfSpire:BlastShower": {
     "NAME": "Blast Shower",
     "FLAVOR": "TODO",
@@ -406,6 +414,15 @@
       "Whenever an enemy dies, all enemies between it and you will receive #b",
       " [REMOVE_SPACE]% more and deal #b",
       " [REMOVE_SPACE]% less damage."
+    ]
+  },
+  "riskOfSpire:FocusedConvergence": {
+    "NAME": "Focused Convergence",
+    "FLAVOR": "Do not let it take you. Take it instead.",
+    "DESCRIPTIONS": [
+      "Bosses have #b",
+      " [REMOVE_SPACE]% less HP. Bosses deal #b",
+      " [REMOVE_SPACE]% more damage."
     ]
   },
   "riskOfSpire:BrittleCrown": {
