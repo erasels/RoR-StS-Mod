@@ -128,6 +128,8 @@ public abstract class UsableRelic extends BaseRelic {
         }
         if (cooldown < 1 && getBaseCooldown() > 0)
             return 1;
+        if (cooldown < 0) //No negative cd.
+            return 0;
         return MathUtils.floor(cooldown);
     }
 

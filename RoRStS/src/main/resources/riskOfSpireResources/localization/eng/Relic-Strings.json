@@ -36,14 +36,14 @@
   },
   "riskOfSpire:RadarScanner": {
     "NAME": "Radar Scanner",
-    "FLAVOR": "TODO",
+    "FLAVOR": "The last owner was a certified bookworm.",
     "DESCRIPTIONS": [
       "Put a card from your draw pile into your hand. NL "
     ]
   },
   "riskOfSpire:EccentricVase": {
     "NAME": "Eccentric Vase",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Even more eccentric in a place where time and space are more tangled than usual.",
     "DESCRIPTIONS": [
       "Teleport to a random room in this act. Cannot be used in combat. NL "
     ]
@@ -108,6 +108,14 @@
       "Deal #b",
       " damage to a random enemy #b",
       " times. NL "
+    ]
+  },
+  "riskOfSpire:VolcanicEgg": {
+    "NAME": "Volcanic Egg",
+    "FLAVOR": "TODO",
+    "DESCRIPTIONS": [
+      "Whenever you are attacked this turn, deal #b",
+      " damage back. NL "
     ]
   },
   "riskOfSpire:BlastShower": {
@@ -179,7 +187,7 @@
   },
   "riskOfSpire:TougherTimes": {
     "NAME": "Tougher Times",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Life isn't a teacher, but this teddybear managed to learn some tough lessons.",
     "DESCRIPTIONS": [
       "Whenever you would lose HP, lose #b",
       " less."
@@ -247,7 +255,7 @@
   },
   "riskOfSpire:GlowingMeteorite": {
     "NAME": "Glowing Meteorite",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"HAH! Stones don't fall from the sky, only Spireblight falls from - OUCH!\" - The Champ",
     "DESCRIPTIONS": [
       "At the end of every #b",
       " turn, deal #b",
@@ -274,7 +282,7 @@
   },
   "riskOfSpire:ImpOverlordsTentacle": {
     "NAME": "Imp Overlord's Tentacle",
-    "FLAVOR": "TODO",
+    "FLAVOR": "The bigger the tentacle, the more powerful you are in the social hierarchy.",
     "DESCRIPTIONS": [
       "At the start of your turn, draw #b1 card less, and add #b1 #yImp #yGuardian to your hand.",
       "At the start of your turn, draw #b",
@@ -286,7 +294,7 @@
   },
   "riskOfSpire:Medkit": {
     "NAME": "Medkit",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"Truly a blessing from the coiled heavens!\" - Mystic.",
     "DESCRIPTIONS": [
       "Whenever you take more than #b",
       " unblocked attack damage, gain #b",
@@ -320,7 +328,7 @@
   },
   "riskOfSpire:CautiousSlug": {
     "NAME": "Cautious Slug",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Earned its name when some found it living beyond the City.",
     "DESCRIPTIONS": [
       "At the end of combat, heal HP equal to your #yTemporary_HP to a maximum of #b",
       " [REMOVE_SPACE].",
@@ -330,7 +338,7 @@
   },
   "riskOfSpire:HopooFeather": {
     "NAME": "Hopoo Feather",
-    "FLAVOR": "TODO",
+    "FLAVOR": "A sacrilegious feather for the Cult, since it gives the sky to all.",
     "DESCRIPTIONS": [
       "At the start of each combat, take #b50 [REMOVE_SPACE]% less damage from attacks until you lose HP from attacks #b",
       " times."
@@ -348,7 +356,7 @@
   },
   "riskOfSpire:Gasoline": {
     "NAME": "Gasoline",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Very flammable, even the fumes.",
     "DESCRIPTIONS": [
       "The first time you play a card that targets ALL enemies each combat, ALL enemies lose #b",
       " HP and #yBlock at the start of the next #b",
@@ -375,7 +383,7 @@
   },
   "riskOfSpire:WillOWisp": {
     "NAME": "Will-o'-the-Wisp",
-    "FLAVOR": "TODO",
+    "FLAVOR": "A small child which regularly visits its new family in the Spire.",
     "DESCRIPTIONS": [
       "Whenever an enemy dies, deal damage equal to #b",
       " [REMOVE_SPACE]% of its Max HP to ALL enemies."
@@ -383,7 +391,7 @@
   },
   "riskOfSpire:ShatteringJustice": {
     "NAME": "Shattering Justice",
-    "FLAVOR": "TODO",
+    "FLAVOR": "Fortunately the floors were made to hold way more than the weight of such a weapon.",
     "DESCRIPTIONS": [
       "#yVulnerable now stacks additively on enemies for up to #b250 [REMOVE_SPACE]% increased damage. The first time an enemy takes damage from an attack each turn, apply #b",
       " #yVulnerable."
@@ -408,9 +416,18 @@
       " [REMOVE_SPACE]% less damage."
     ]
   },
+  "riskOfSpire:FocusedConvergence": {
+    "NAME": "Focused Convergence",
+    "FLAVOR": "Do not let it take you. Take it instead.",
+    "DESCRIPTIONS": [
+      "Bosses have #b",
+      " [REMOVE_SPACE]% less HP. Bosses deal #b",
+      " [REMOVE_SPACE]% more damage."
+    ]
+  },
   "riskOfSpire:BrittleCrown": {
     "NAME": "Brittle Crown",
-    "FLAVOR": "TODO",
+    "FLAVOR": "His name was Ozymandias. In the end, king of his own despair.",
     "DESCRIPTIONS": [
       "Whenever an enemy dies for the first time, gain #b",
       " [REMOVE_SPACE]% of its max HP as #yGold [REMOVE_SPACE]. Whenever you take unblocked attack damage, #rlose #b",
@@ -463,7 +480,7 @@
   },
   "riskOfSpire:FiftySevenLeafClover": {
     "NAME": "57 Leaf Clover",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"I'm not on Earth yet, great game around and I'm done with hunting. Lucky clover, huh...\" - The Huntress.",
     "DESCRIPTIONS": [
       "Increase the chance of getting a free stackable relic, and lunar caches from chests by #b",
       " [REMOVE_SPACE]%."
@@ -494,7 +511,7 @@
   },
   "riskOfSpire:Brainstalks": {
     "NAME": "Brainstalks",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"Imagine, the outside world where such plants grew everywhere! No, child, we are safe in the Spire.\" - Mystic.",
     "DESCRIPTIONS": [
       "Whenever a non-minion enemy dies, the next #b",
       " cards you spend Energy on have #yRefund #b1 [REMOVE_SPACE]."
@@ -511,7 +528,7 @@
   },
   "riskOfSpire:SpinelTonic": {
     "NAME": "Spinel Tonic",
-    "FLAVOR": "TODO",
+    "FLAVOR": "\"How unprofessional. MY potions don't kill those who drink them.\" - The Woman In Blue.",
     "DESCRIPTIONS": [
       "Once per combat, lose #r",
       " Max HP and gain #b",
