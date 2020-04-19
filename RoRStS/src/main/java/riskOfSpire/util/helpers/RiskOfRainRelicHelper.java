@@ -13,6 +13,7 @@ import riskOfSpire.relics.Abstracts.BaseRelic;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 import riskOfSpire.relics.Interfaces.BonusRorRelicChanceRelic;
 import riskOfSpire.relics.Interfaces.ModifyRarityRateRelic;
+import riskOfSpire.relics.Usable.DisposableMissileLauncher;
 import riskOfSpire.rewards.ExpensiveLinkedReward;
 import riskOfSpire.rewards.LinkedRewardItem;
 
@@ -184,6 +185,10 @@ public class RiskOfRainRelicHelper {
                 .map(RelicLibrary::getRelic)
                 .collect(Collectors.toCollection(ArrayList::new));
         if(tmp.isEmpty()) {
+            if(RiskOfSpire.rorUsableRelics.isEmpty()) {
+                RiskOfSpire.logger.warn("NO USeABLE RELICS IN POOL! Something went terribly wrong.");
+                return RelicLibrary.getRelic(DisposableMissileLauncher.ID);
+            }
             return getRandomUsableRelic();
         }
         return tmp.get(RiskOfRainRelicHelper.RiskOfRainRelicRng.random(tmp.size() - 1)).makeCopy();
