@@ -186,7 +186,7 @@ public class RiskOfRainRelicHelper {
                 .collect(Collectors.toCollection(ArrayList::new));
         if(tmp.isEmpty()) {
             if(RiskOfSpire.rorUsableRelics.isEmpty()) {
-                RiskOfSpire.logger.warn("NO USeABLE RELICS IN POOL! Something went terribly wrong.");
+                RiskOfSpire.logger.warn("NO USABLE RELICS IN POOL! Something went terribly wrong.");
                 return RelicLibrary.getRelic(DisposableMissileLauncher.ID);
             }
             return getRandomUsableRelic();
