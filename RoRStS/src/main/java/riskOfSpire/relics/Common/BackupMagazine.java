@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import riskOfSpire.RiskOfSpire;
 import riskOfSpire.relics.Abstracts.StackableRelic;
 
@@ -28,7 +27,7 @@ public class BackupMagazine extends StackableRelic {
 
     @Override
     public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
-        if (enabled && targetCard.type == AbstractCard.CardType.ATTACK)
+        if (enabled && targetCard.type == AbstractCard.CardType.ATTACK && targetCard.rarity != AbstractCard.CardRarity.RARE)
         {
             enabled = false;
             stopPulse();
